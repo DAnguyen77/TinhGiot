@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.gnc;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-block">
+    <div class="news_heght_t" id="news">
+        <h4 style="color:red">@ViewBag.Message</h4>
+        @foreach (var l in ViewBag.list)
+        {
+            <div class="col-lg-3 news_heght">
+                <div class="news-item">
+                    <div class="news-thumb">
+                        <a href="/@ViewBag.Language/Browse/@l.Title_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID">
+                            <img style="border-radius:5px;max-height:300px" src="https://tinhgiot.com/UploadedImage/@l.Image" />
+                            <div class="middle">
+                                <img src="~/images/btn_view_detail.png" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="news-description">
+                        <a href="/@ViewBag.Language/Browse/@l.Title_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID" class="news-title">
+                            <p class="text-title-max" style="font-size:16px">@l.Title_Lang</p>
+                        </a>
+                        <p class="fixword text-content-max" style="font-size:14px">
+                            @Html.Raw(l.PostContent_Lang.Substring(0, 200)) <span>...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

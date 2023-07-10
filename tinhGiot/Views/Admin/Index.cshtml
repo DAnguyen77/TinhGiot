@@ -1,0 +1,474 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" id="User_List" style="display:block;">
+            <div class="box-header">
+                <h3 class="box-title">Bảng thông tin tài khoản quản trị viên</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <button type="button" class="btn btn-primary btn-sm" onclick="AddUser()" style="margin-left:1em;"><i class="fa fa-plus"></i>Thêm tài khoản quản trị</button>
+            </div>
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Điện thoại</th>
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.admins)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.AdminName</td>
+                                <td>
+                                    <a onclick="showDetail(@item.ID)" class="idUser" style="cursor:pointer; color:#333333" data-toggle="modal" data-target="#ProductDetail">@item.Name</a>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete(@item.ID)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="User_Detail" style="display:none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Thông tin tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <div id="imgReview" class="thumbnail">
+                                        <img class="img-responsive" id="targetImg" />
+                                        <div class="caption">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputImage" class="col-sm-3 control-label">Hình đại diện</label>
+
+                                <div class="col-sm-9">
+                                    <div class="btn btn-primary" style="width: 100%;">
+                                        <input type="file" id="imageBrowse" style="width: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none">
+                                <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputID" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputAdminName" disabled="disabled" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="inputEmail" disabled="disabled" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-3 control-label">Tên</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="inputName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-3 control-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="inputAddress" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPhone" class="col-sm-3 control-label">Số điện thoại</label>
+
+                                <div class="col-sm-9">
+                                    <input type="tel" class="form-control" id="inputPhoneNumber" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword" class="col-sm-3 control-label">Mật khẩu</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="inputPassword" disabled="disabled" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Lưu</button>
+                            <button type="button" class="btn btn-info pull-right" style="margin-right:20px;" onclick="Close();">Trở về</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<div class="modal fade" id="ProductDetail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Admin Profile</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <img class="profile-user-img img-responsive img-circle" id="img-profile" alt="User profile picture" style="height:100px">
+
+                                <h3 class="profile-username text-center" id="userName"></h3>
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Password</b> <a class="pull-right" id="Password"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Email</b> <a class="pull-right" id="Email"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Name</b> <a class="pull-right" id="Name"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Address</b> <a class="pull-right" id="Address"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>PhoneNumber</b> <a class="pull-right" id="PhoneNumber"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Chỉnh sửa thông tin</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div id="imgReview" class="thumbnail">
+                                    <img class="img-responsive" id="targetImg" />
+                                    <div class="caption">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImage" class="col-sm-3 control-label">Hình đại diện</label>
+
+                            <div class="col-sm-9">
+                                <div class="btn btn-primary" style="width: 100%;">
+                                    <input type="file" id="imageBrowse" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputID" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputAdminName" disabled="disabled" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputEmail" disabled="disabled" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Tên</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Địa chỉ</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputAddress" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone" class="col-sm-3 control-label">Số điện thoại</label>
+
+                            <div class="col-sm-9">
+                                <input type="tel" class="form-control" id="inputPhoneNumber" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-3 control-label">Mật khẩu</label>
+
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="inputPassword" disabled="disabled" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Xác nhận xoá tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Bạn có chắc là sẽ xoá tài khoản vừa chọn ?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#imageBrowse").change(function () {
+
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+    });
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $('#targetImg').attr('src', _file.target.result);
+                $('#imgReview').show();
+            }
+        }
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowse").val('');
+        $('#description').text('');
+        $('#imgReview').hide();
+    }
+   function Close() {
+        document.getElementById("User_List").style.display = "block";
+        document.getElementById("User_Detail").style.display = "none";
+    }
+    function AddUser() {
+        document.getElementById("User_List").style.display = "none";
+        document.getElementById("User_Detail").style.display = "block";
+        $(':text').val('');
+        $('#inputEmail').val('');
+        $(':password').val('');
+        $('#inputPhoneNumber').val('');
+        $('#inputAddress').val('');
+        $('#inputName').val('');
+        $("#imageBrowse").val('');
+        $('#description').text('');
+        $('#imgReview').hide();
+        $('#inputAdminName').removeAttr("disabled", "disabled");
+        $('#inputEmail').removeAttr("disabled", "disabled");
+        $('#inputPassword').removeAttr("disabled", "disabled");
+
+    }
+
+    function Edit(id) {
+        var url = '/vi/Admin/Admindetail?id=' + id;
+        document.getElementById("User_List").style.display = "none";
+        document.getElementById("User_Detail").style.display = "block";
+        $('#inputPassword').attr("disabled", "disabled");
+        $('#imgReview').show();
+        //$('#inputPassword').removeAttr("disabled", "disabled");
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#targetImg').attr('src', '/UploadedImage/' + obj.Image);
+                $('#inputID').val(obj.ID);
+                if (obj.AdminName == "Admin" || obj.ID == '@Session["userid"]') {
+                    $('#inputPassword').removeAttr("disabled", "disabled");
+                    $('#inputAdminName').removeAttr("disabled", "disabled");
+                    $('#inputEmail').removeAttr("disabled", "disabled");
+                } 
+                $('#inputAdminName').val(obj.AdminName);
+                $('#inputEmail').val(obj.Email);
+                $('#inputPhoneNumber').val(obj.PhoneNumber);
+                $('#inputPassword').val(obj.Password);
+                $('#inputName').val(obj.Name);
+                $('#inputAddress').val(obj.Address);
+            }
+        })
+    }
+
+    function Delete(id) {
+        $('#inputID').val(id);
+        var url = '/vi/Admin/Admindetail?id=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#DeleteConfirmation').modal('show');
+            }
+        });
+    }
+
+    function ConfirmDelete() {
+        var id = $('#inputID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteAdminRecord?id=" + id,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    $("#SaveUserRecord").click(function () {
+
+        if ($("#inputAdminName").val() === '' ||
+            $("#inputEmail").val() === '' ||
+            $("#inputPhoneNumber").val() === '' ||
+            $("#inputName").val() === '' ||
+            $("#inputAddress").val() === '' ||
+            $("#inputPassword").val() === '') {
+            alert("You have not entered enough information!");
+            return false;
+        }
+
+        var data = new FormData();
+        var file = $("#imageBrowse").get(0).files;
+
+        data.append("ID", $('#inputID').val());
+        data.append("AdminName", $('#inputAdminName').val());
+        data.append("Email", $('#inputEmail').val());
+        data.append("PhoneNumber", $('#inputPhoneNumber').val());
+        data.append("Password", $('#inputPassword').val());
+        data.append("Address", $('#inputAddress').val());
+        data.append("Name", $('#inputName').val());
+        data.append("Status", $('#selectStatus').val());
+        data.append("ImageFile", file[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateAdminAccount',
+            data: data,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+    function showDetail(id) {
+        var url = '/vi/Admin/Admindetail?id=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#img-profile').attr('src', '/UploadedImage/' + obj.Image);
+                $('#userName').text(obj.UserName);
+                $('#Password').text(obj.Password);
+                $('#Name').text(obj.Name);
+                $('#Address').text(obj.Address);
+                $('#Email').text(obj.Email);
+                $('#PhoneNumber').text(obj.PhoneNumber);
+            }
+        })
+    }
+
+</script>
+

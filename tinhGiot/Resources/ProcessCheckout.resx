@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account_Email_message" xml:space="preserve">
+    <value>Email đăng ký chưa có.</value>
+  </data>
+  <data name="Account_Fullname" xml:space="preserve">
+    <value>Họ và Tên</value>
+  </data>
+  <data name="Account_Fullname_message" xml:space="preserve">
+    <value>Họ và Tên đăng ký chưa có.</value>
+  </data>
+  <data name="Account_Phonenumber" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="Account_Phonenumber_message" xml:space="preserve">
+    <value>Số điện đăng ký chưa có.</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="ChangeDeliveryAddress" xml:space="preserve">
+    <value>Đổi địa chỉ giao hàng</value>
+  </data>
+  <data name="ChangeDeliveryCost" xml:space="preserve">
+    <value>Phí giao hàng thay đổi theo thay đổi quốc gia nơi đến</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Hoàn tất</value>
+  </data>
+  <data name="CompleteOrder" xml:space="preserve">
+    <value>Đặt Hàng</value>
+  </data>
+  <data name="DateTimeOrder" xml:space="preserve">
+    <value>Thời gian đặt hàng:</value>
+  </data>
+  <data name="DeliveryCost" xml:space="preserve">
+    <value>Phí giao hàng :</value>
+  </data>
+  <data name="Delivery_Address" xml:space="preserve">
+    <value>Địa chỉ nhà</value>
+  </data>
+  <data name="Delivery_AddressList" xml:space="preserve">
+    <value>D/S ĐỊA CHỈ GIAO NHẬN</value>
+  </data>
+  <data name="Delivery_Address_message" xml:space="preserve">
+    <value>Địa chỉ nhà để giao nhận chưa có.</value>
+  </data>
+  <data name="Delivery_AsGift" xml:space="preserve">
+    <value>Gởi theo quà tặng</value>
+  </data>
+  <data name="Delivery_City" xml:space="preserve">
+    <value>Thành phố/Tỉnh</value>
+  </data>
+  <data name="Delivery_City_message" xml:space="preserve">
+    <value>Thành phố để giao nhận chưa có.</value>
+  </data>
+  <data name="Delivery_Cost" xml:space="preserve">
+    <value>Chi phí vận chuyển</value>
+  </data>
+  <data name="Delivery_Country" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="Delivery_Detail" xml:space="preserve">
+    <value>Thông tin giao nhận</value>
+  </data>
+  <data name="Delivery_District" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="Delivery_District_message" xml:space="preserve">
+    <value>Quận để giao nhận chưa có.</value>
+  </data>
+  <data name="Delivery_Fullname" xml:space="preserve">
+    <value>Họ và Tên người nhận</value>
+  </data>
+  <data name="Delivery_Fullname_message" xml:space="preserve">
+    <value>Họ và Tên để giao nhận chưa có.</value>
+  </data>
+  <data name="Delivery_GiftMessage" xml:space="preserve">
+    <value>Lời nhắn quà tặng</value>
+  </data>
+  <data name="Delivery_GiftMessage_message" xml:space="preserve">
+    <value>Lời chúc quà tặng mà chưa có.</value>
+  </data>
+  <data name="Delivery_Note" xml:space="preserve">
+    <value>Ghi chú giao hàng</value>
+  </data>
+  <data name="Delivery_Phonenumber" xml:space="preserve">
+    <value>Số điện thoại người nhận</value>
+  </data>
+  <data name="Delivery_Phonenumber_message" xml:space="preserve">
+    <value>Số điện thoại để giao nhận chưa có.</value>
+  </data>
+  <data name="Delivery_Postcode" xml:space="preserve">
+    <value>Mã bưu điện</value>
+  </data>
+  <data name="Delivery_Ward" xml:space="preserve">
+    <value>Phường/Xã</value>
+  </data>
+  <data name="Delivery_Ward_message" xml:space="preserve">
+    <value>Phường để giao nhận chưa có.</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Giảm giá:</value>
+  </data>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>Thông báo đặt hàng Tinh Giọt</value>
+  </data>
+  <data name="Exist_Email_Phonenumber" xml:space="preserve">
+    <value>Email hoặc số điện đã sử dụng</value>
+  </data>
+  <data name="FreeShip" xml:space="preserve">
+    <value>Miễn phí giao hàng</value>
+  </data>
+  <data name="Fullname" xml:space="preserve">
+    <value>Họ và Tên: </value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Xin chào</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Các ghi chú</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Khách hàng mới</value>
+  </data>
+  <data name="Order_Success" xml:space="preserve">
+    <value>Thành công đặt hàng</value>
+  </data>
+  <data name="Order_Success_Pending_Payment" xml:space="preserve">
+    <value>Thành công đặt hàng và tiếp tục xác nhận phần thanh toán.</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value> - Đã thanh toán</value>
+  </data>
+  <data name="Payment Method" xml:space="preserve">
+    <value>Hình thức thanh toán</value>
+  </data>
+  <data name="Phonenumber" xml:space="preserve">
+    <value>Số điện thoại:  </value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Slg:</value>
+  </data>
+  <data name="ShoppingBag" xml:space="preserve">
+    <value>Tóm lược giỏ hàng</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>T/tiền:</value>
+  </data>
+  <data name="TotalPayment" xml:space="preserve">
+    <value>Còn lại:</value>
+  </data>
+  <data name="Unpaid" xml:space="preserve">
+    <value>- Chưa thanh toán</value>
+  </data>
+</root>

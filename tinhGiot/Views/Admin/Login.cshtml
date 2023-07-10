@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLoginRegister.cshtml";
+}
+
+@{
+    if (Session["userid"] != null)
+    {
+        Response.Redirect("/vi/Admin/Index");
+    }
+}
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <b>Admin Tinh Giot</b>
+            </div>
+
+            <div class="login-box-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                @Html.Raw(ViewBag.error)
+                <form action="/vi/Admin/Login" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" name="adminuser" class="form-control" placeholder="User Name" required autofocus>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+
+                        </div>
+
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div>
+
+                    </div>
+                </form>
+
+                @*<a href="/Admin/ForgotPassword">I forgot my password</a><br>*@
+            </div>
+
+        </div>
+        <div class="loading">Loading&#8230;</div>
+
+        <script src="~/Content/Admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+        <script src="~/Content/Admin/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="~/Content/Admin/plugins/iCheck/icheck.min.js"></script>
+
+        <script>
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%'
+                });
+            });
+        </script>
+    </body>

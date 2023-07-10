@@ -1,0 +1,101 @@
+﻿.search_wrapper {
+    margin-top: 6px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #293D12;
+}
+
+.mobile_search_wrapper {
+    display: inline-block;
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 120px;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 72px;
+    background-color: whitesmoke;
+    overflow-y: hidden; /* Disable vertical scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    align-items: center;
+    cursor: pointer;
+    color: #293D12;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 3px 0 rgba(183, 124, 23, 0.3), 0 2px 8px 0 rgba(183, 124, 23, 0.3);
+}
+.closebtn {
+    position: relative;
+    float: right;
+    right: 10px;
+    font-size: 27px;
+    color: #293D12;
+}
+
+.mobile_search_btn {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(183,124,23,0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top:18px;
+    margin-left:20px;
+}
+
+.search_box {
+    background-color: rgba(183,124,23,0.1);
+    position: relative;
+    padding: 10px;
+    border-radius: 56px;
+    display: flex;
+    width:100%;
+    max-width:360px;
+}
+
+.search_box .search_btn {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(183,124,23,0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search_btn:hover {
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.search_box .input_search {
+    outline: none;
+    background: rgba(183,124,23,0.0);
+    border: 0;
+    padding: 5px 10px;
+    width: 90%;
+    max-width: 330px;
+    min-width: 40px;
+    height: 36px;
+}
+
+::placeholder {
+    color: #293D12;
+}
+
+::-webkit-input-placeholder {
+    color: #293D12;
+}
+
+:-ms-input-placeholder {
+    color: #293D12;
+}

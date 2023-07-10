@@ -1,0 +1,269 @@
+﻿@model List<BaseClasses.DeliveryAddress>
+@{
+    if (Session["userid"] == null)
+    {
+        Response.Redirect("/Home/Login");
+    }
+}
+<link href="~/css/DeliveryAddress.css" rel="stylesheet" />
+
+<div id="DeliveryAddressPanel" style="height:100%;">
+    @if (Model != null)
+    {
+        <div><a onclick="Add(false)" style="margin-left: auto;margin-right:auto;">Thêm địa chỉ mới</a></div>
+        <table id="tbDA" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th><b>Thông tin giao nhận</b></th>
+                <th>Cập nhật</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {  <tr>
+                        @if (item.IsDefault)
+                        {
+                            <td style="background-color:rgba(183, 124,23,0.3);">
+                                <div style="height:36px;line-height:36px;">@item.Fullname</div>
+                                <div  style="height:36px;line-height:36px;">@item.Address</div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div  style="height:36px;line-height:36px;">@item.Fullname</div>
+                                <div  style="height:36px;line-height:36px;">@item.Address</div>
+                            </td>
+                        }
+
+                   <td>
+                       <div style="height:36px;margin-top:24px;">
+                           <a class="Edit_icon Active_icon" onclick="Update('@item.ID')" style="margin-right:10px;margin-top:auto;margin-bottom:auto;"></a>
+                           @if (!item.IsDefault)
+                           {
+                               <a class="Delete_icon Active_icon" onclick="ConfirmDeleteAddress('@item.ID')" style="margin-top:auto;margin-bottom:auto;"></a>
+                           }
+                       </div>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+        else
+        {
+            <div>@tinhGiot.Resources.DeliveryAddressList.NoAddressRecord  <a onclick="Add(true)">@tinhGiot.Resources.DeliveryAddressList.AddNew</a>  </div>
+        }
+</div>
+<div id="UpdateAddressPanel" style="display:none;background-color:rgba(183, 124, 23,0.1);">
+    <div>
+        <div style="width:100%;height:36px;font-size:18px;line-height:36px;padding-left:20px;">@tinhGiot.Resources.DeliveryAddressList.DeliveryAddress_Info</div>
+        <div style="margin:10px 10px 10px 10px;margin:0 auto;max-width:380px;">
+            <input type="text" class="inptxtstyle" id="Fullname_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.Fullname" value="" />
+            <input type="text" class="inptxtstyle" id="Phone_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.Phonenumber" value="" />
+            <input type="text" class="inptxtstyle" id="Address_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.StreetAddress" value="" />
+            <input type="text" class="inptxtstyle" id="Ward_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.StreetAddress2" value="" />
+            <input type="text" class="inptxtstyle" id="District_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.Suburb" value="" />
+            <input type="text" class="inptxtstyle" name="city" id="City_del" placeholder="@tinhGiot.Resources.DeliveryAddressList.State" value="" />
+            <input type="text" class="inptxtstyle" id="Postcode_del" name="postcode" placeholder="@tinhGiot.Resources.DeliveryAddressList.Postcode" required="" value="" />
+            @if (ViewBag.Countries != null)
+            {
+                <select id="SelectCountry" class="form-control">
+                    @foreach (var item in ViewBag.Countries)
+                    {
+                        if (item == ViewBag.CurrentCountry)
+                        {
+                            <option value="@item" selected>@item</option>
+
+                        }
+                        else
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                </select>
+
+            }
+            <input type="checkbox" class="th-customCheckbox" name="IsDefault" id="IsDefault_del" />
+            <span style="line-height:36px;">Chọn mặc định</span>
+        </div>
+    </div>
+    <div style="float:right;margin-top:30px;">
+        <a href="#" class="button2" style="margin-right:10px; " onclick="Cancel();">@tinhGiot.Resources.DeliveryAddressList.Close</a>
+        <a href="#" class="button2" style="margin-right:10px; " onclick="Save();">@tinhGiot.Resources.DeliveryAddressList.Update</a>
+    </div>
+</div>
+<div class="modal fade danger" id="ModalConfirmAddress" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="max-width:360px;">
+            <div class="modal-header danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title">
+                    <img src="~/images/warning_icon.png" width="20" />
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top:20px;margin-bottom:20px;text-align:center;font-size:18px;line-height:27px;">@tinhGiot.Resources.DeliveryAddressList.DeleteConfirm</div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="#" class="button2  btn-secondary" data-dismiss="modal">@tinhGiot.Resources.DeliveryAddressList.Close</a>
+                <a href="#" class="button2  btn-danger" id="ConfirmedDeleteAddress" onclick=" ConfirmedDeleteAddress();" data-dismiss="modal" data-id="">@tinhGiot.Resources.DeliveryAddressList.Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="SelectedID" data-id="0"></div>
+
+<script type="text/javascript">
+    function Update(ID) {
+        document.getElementById("UpdateAddressPanel").style.display = 'block';
+        document.getElementById("DeliveryAddressPanel").style.display = 'none';
+        $("#SelectedID").attr('data-id', ID);
+        $.ajax({
+            url: '/Home/getDeliveryAddress',
+            data: {
+                ID: ID,
+            },
+            type: 'get',
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                document.getElementById("IsDefault_del").checked = result.IsDefault;
+                document.getElementById("Fullname_del").value = result.Fullname;
+                document.getElementById("Phone_del").value = result.PhoneNumber;
+                document.getElementById("Address_del").value = result.Address;
+                document.getElementById("Ward_del").value = result.Ward;
+                document.getElementById("District_del").value = result.District;
+                document.getElementById("City_del").value = result.City;
+                document.getElementById("SelectCountry").value = result.Country;
+                document.getElementById("Postcode_del").value = result.Postcode;
+            }
+        });
+    }
+    function DeleteAddress(ID) {
+        $.ajax({
+            url: '/Home/deleteDeliveryAddress',
+            data: {
+                ID: ID,
+            },
+            type: 'get',
+            dataType: 'html',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (value) {
+                document.getElementById("DeliveryAddress").innerHTML = value;
+                OpenNotification("@tinhGiot.Resources.DeliveryAddressList.SuccessDeleted");
+            }
+        });
+
+    }
+
+    function Add(isdefault) {
+        document.getElementById("UpdateAddressPanel").style.display = 'block';
+        document.getElementById("DeliveryAddressPanel").style.display = 'none';
+        document.getElementById("IsDefault_del").checked = isdefault;
+        document.getElementById("Fullname_del").value = "";
+        document.getElementById("Phone_del").value = "";
+        document.getElementById("Address_del").value = "";
+        document.getElementById("Ward_del").value = "";
+        document.getElementById("District_del").value = "";
+        document.getElementById("City_del").value = "";
+        document.getElementById("Postcode_del").value = "";
+        document.getElementById("SelectCountry").value = "@ViewBag.CurrentCountry"; 
+        $("#SelectedID").attr('data-id', "0");
+    }
+
+    function Save() {
+        var fullname = document.getElementById("Fullname_del").value;
+        var phonenumber = document.getElementById("Phone_del").value;
+        var address = document.getElementById("Address_del").value;
+        var ward = document.getElementById("Ward_del").value;
+        var district = document.getElementById("District_del").value;
+        var city = document.getElementById("City_del").value;
+        var country = document.getElementById("SelectCountry").value;
+        var postcode = document.getElementById("Postcode_del").value;
+        var isdefault = document.getElementById("IsDefault_del").checked;
+        var ID = $("#SelectedID").attr('data-id');
+        if (fullname == "") {
+            OpenNotification("@tinhGiot.Resources.DeliveryAddressList.Fullname_message");
+            document.getElementById("Fullname_del").focus();
+            return;
+        }
+        if (phonenumber == "") {
+            OpenWarningNotification("@tinhGiot.Resources.DeliveryAddressList.Phonenumber_message");
+            document.getElementById("Phone_del").focus();
+            return;
+        }
+        if (address == "") {
+            OpenWarningNotification("@tinhGiot.Resources.DeliveryAddressList.StreetAddress_message");
+            document.getElementById("Address_del").focus();
+            return;
+        }
+        if (ward == "") {
+            OpenWarningNotification("@tinhGiot.Resources.DeliveryAddressList.StreetAddress2_message");
+            document.getElementById("Ward_del").focus();
+            return;
+        }
+        if (district == "") {
+            OpenWarningNotification("@tinhGiot.Resources.DeliveryAddressList.Suburb_message");
+            document.getElementById("District_del").focus();
+            return;
+        }
+        if (city == "") {
+            OpenWarningNotification("@tinhGiot.Resources.DeliveryAddressList.State_message");
+            document.getElementById("City_del").focus();
+            return;
+        }
+        document.getElementById("UpdateAddressPanel").style.display = 'none';
+        document.getElementById("DeliveryAddressPanel").style.display = 'block';
+
+        $.ajax({
+            url: '/Home/AddDeliveryAddress',
+            data: {
+                ID: ID,
+                Fullname: fullname,
+                PhoneNumber: phonenumber,
+                Address: address,
+                Ward: ward,
+                District: district,
+                City: city,
+                Country: country,
+                Postcode: postcode,
+                IsDefault: isdefault
+            },
+            type: 'get',
+            dataType: 'html',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (value) {
+                document.getElementById("DeliveryAddress").innerHTML = value;
+                if (ID == 0)
+                    OpenNotification("@tinhGiot.Resources.DeliveryAddressList.SuccessAdded");
+                else
+                    OpenNotification("@tinhGiot.Resources.DeliveryAddressList.SuccessUpdated");
+
+            }
+        });
+    }
+
+    function Cancel() {
+        document.getElementById("UpdateAddressPanel").style.display = 'none';
+        document.getElementById("DeliveryAddressPanel").style.display = 'block';
+    }
+
+    function ConfirmDeleteAddress(ID) {
+        $('#ModalConfirmAddress').modal('show')
+        $('#ConfirmedDeleteAddress').attr("data-id", ID);
+    }
+
+    function ConfirmedDeleteAddress() {
+        DeleteAddress($('#ConfirmedDeleteAddress').attr("data-id"));
+    }
+
+</script>

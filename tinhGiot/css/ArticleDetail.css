@@ -1,0 +1,24 @@
+﻿.ArticleContent {
+    padding-left: 60px;
+    padding-right: 60px;
+    line-height: 24px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
+}
+
+.ArticleTitle {
+    color: #293D12;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.ArticleDetail{
+
+}
+
+    .ArticleDetail a {
+        color: #B77C17;
+    }

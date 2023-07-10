@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddToBag" xml:space="preserve">
+    <value>Chọn vào giỏ</value>
+  </data>
+  <data name="Banner1_Action" xml:space="preserve">
+    <value>Khám Phá</value>
+  </data>
+  <data name="Banner1_Text" xml:space="preserve">
+    <value>Tinh dầu từ các loại thảo mộc quen thuộc </value>
+  </data>
+  <data name="Banner1_Title" xml:space="preserve">
+    <value>Tinh Túy Từ Thảo Mộc</value>
+  </data>
+  <data name="Banner2_Action" xml:space="preserve">
+    <value>Tìm Hiểu Thêm</value>
+  </data>
+  <data name="Banner2_Text" xml:space="preserve">
+    <value>Đặc trưng tinh dầu nhũ hương của Tinh Giọt</value>
+  </data>
+  <data name="Banner2_Title" xml:space="preserve">
+    <value>Nhũ Hương</value>
+  </data>
+  <data name="Banner3_Action" xml:space="preserve">
+    <value>Đọc Thêm</value>
+  </data>
+  <data name="Banner3_Text" xml:space="preserve">
+    <value>Kết hợp đặc tính các loại tinh dầu tạo mùi hương theo sở thích riêng</value>
+  </data>
+  <data name="Banner3_Title" xml:space="preserve">
+    <value>Tinh Dầu Tạo Mùi Hương</value>
+  </data>
+  <data name="Banner4_Action" xml:space="preserve">
+    <value>Tìm Hiểu Thêm</value>
+  </data>
+  <data name="Banner4_Text" xml:space="preserve">
+    <value>Tinh dầu gắn liền với cuộc sống vừa giúp thư giãn vừa duy trì sức khỏe.</value>
+  </data>
+  <data name="Banner4_Title" xml:space="preserve">
+    <value>Tinh Dầu Mang Lại Lợi Ích Gì?</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Bài Viết</value>
+  </data>
+  <data name="EssentialOil" xml:space="preserve">
+    <value>Tinh dầu</value>
+  </data>
+  <data name="EssentialOilBurner" xml:space="preserve">
+    <value>Xông tinh dầu</value>
+  </data>
+  <data name="EssentialOilBurner_url" xml:space="preserve">
+    <value>Xông-tinh-dầu</value>
+  </data>
+  <data name="EssentialOil_url" xml:space="preserve">
+    <value>Tinh-dầu</value>
+  </data>
+  <data name="ExploringProduct" xml:space="preserve">
+    <value>Khám Phá</value>
+  </data>
+  <data name="FrankincenseMyrrha" xml:space="preserve">
+    <value>Nhũ hương và Mộc dược</value>
+  </data>
+  <data name="FrankincenseMyrrha_Description" xml:space="preserve">
+    <value>Nhũ hương và mộc dược là hai dược liệu dùng trong đông y trong việc điều trị đau nhức và hoạt huyết.  Quan trọng trong đời sống tâm linh được dùng để xông trong các nghi lễ được từ sử dụng từ xưa...</value>
+  </data>
+  <data name="Ginger" xml:space="preserve">
+    <value>Gừng</value>
+  </data>
+  <data name="Ginger_Description" xml:space="preserve">
+    <value>Gừng có tính ấm và vị cay nhẹ,  rất tốt cho hỗ trợ tiêu hóa.  Gừng tươi vài lát ủ như trà và dùng uống, với tinh dầu thì chỉ cần một giọt cho vài ly nóng có thể thưởng thức hương gừng xông trước khi uống ...</value>
+  </data>
+  <data name="Header_Description" xml:space="preserve">
+    <value>Tinh Giot mong muốn chia sẽ niềm đam mê về tinh dầu đến với mọi người.  Để cảm nhận sự tinh túy và gần gũi từ thiên nhiên,  Tinh giọt chọn chất lượng sản phẩm hoàn toàn chiết từ nguồn gốc các phần của thảo mộc dược.</value>
+  </data>
+  <data name="Header_Keywords" xml:space="preserve">
+    <value>tinh dầu, sả, gừng,trái chúc, chanh thái, lá chúc, lá chanh thái, nhũ hương, mộc dược, trầm ý, trầm châu phi, trầm hương,carterii, sacra, papyreifera,neglecta</value>
+  </data>
+  <data name="Header_Title" xml:space="preserve">
+    <value>Tinh dầu thảo mộc dược nguồn nguyên liệu sẵn có trong thiên nhiên chiết xuất theo lôi cuốn hơi nước.  Các loại thảo mộc dươc chúng ta rất gần gũi trong cuộc sống qua ẩm thực và dùng trong các phương thuốc dân gian.</value>
+  </data>
+  <data name="HotItem" xml:space="preserve">
+    <value>Sản Phẩm Thông Dụng </value>
+  </data>
+  <data name="Hydrosol" xml:space="preserve">
+    <value>Nước cất tinh dầu</value>
+  </data>
+  <data name="Hydrosol_url" xml:space="preserve">
+    <value>Nước-cất-tinh-dầu</value>
+  </data>
+  <data name="Incense" xml:space="preserve">
+    <value>Hương xông và đốt</value>
+  </data>
+  <data name="IncenseBurner" xml:space="preserve">
+    <value>Xông hương</value>
+  </data>
+  <data name="IncenseBurner_url" xml:space="preserve">
+    <value>Xông-hương</value>
+  </data>
+  <data name="IncenseStick" xml:space="preserve">
+    <value>Nhang</value>
+  </data>
+  <data name="IncenseStick_url" xml:space="preserve">
+    <value>Nhang</value>
+  </data>
+  <data name="Incense_url" xml:space="preserve">
+    <value>Hương-xông-đốt</value>
+  </data>
+  <data name="Lemongrass" xml:space="preserve">
+    <value>Sả</value>
+  </data>
+  <data name="Lemongrass_Description" xml:space="preserve">
+    <value>Chúng ta rất quen thuộc với cây sả không thể thiếu trong các món ăn truyền thống.  Bên cạnh đó, sả cũng dùng cho xông hơi và nhiều mục đích khác...</value>
+  </data>
+  <data name="LookingFor" xml:space="preserve">
+    <value>Bạn Cần Tìm ...!?</value>
+  </data>
+  <data name="MakrutLeaf" xml:space="preserve">
+    <value>Lá Chúc</value>
+  </data>
+  <data name="MakrutLeaf_Description" xml:space="preserve">
+    <value>Lá chúc hay còn gọi lá chanh Thái, gần đây được sử dụng rộng rãi trong các món ăn đặc biệt kết hợp trong món ăn với gà.  Lá chúc có mùi đặc trưng khác hẳn so với lá chanh thông thường...</value>
+  </data>
+  <data name="MakrutLime" xml:space="preserve">
+    <value>Trái Chúc</value>
+  </data>
+  <data name="MakrutLime_Description" xml:space="preserve">
+    <value>Trái Chúc có mùi thơm nồng hơn chanh, vỏ sần sùi và dầy, ở Việt Nam được trồng rộng rãi ở vùng Tịnh Biên, Tri Tôn Ba Chúc.  Trái Chúc là tên gọi theo địa phương, tên gọi khác có thể là chanh Thái...</value>
+  </data>
+  <data name="PersonalSkinCare" xml:space="preserve">
+    <value>Chăm sóc và làm đẹp</value>
+  </data>
+  <data name="PersonalSkineCare_url" xml:space="preserve">
+    <value>Chăm-sóc-làm-đẹp</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Xem Thêm</value>
+  </data>
+  <data name="Tealight" xml:space="preserve">
+    <value>Nến</value>
+  </data>
+  <data name="Tealight_url" xml:space="preserve">
+    <value>Nến</value>
+  </data>
+</root>

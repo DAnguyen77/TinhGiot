@@ -1,0 +1,740 @@
+﻿<!DOCTYPE html >
+<html >
+<head>
+    <meta name="language" content="vn" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:image" content="~/images/logoTG.png" />
+    <link rel="icon" href="~/images/logoTG.ico" />
+    <link rel="image_src" href="~/images/logoTG.png" />
+    <title>Tinh Giot - @ViewBag.Title</title>
+    <meta name="keywords" content="@tinhGiot.Resources.Index.Header_Keywords" />
+    <meta name="description" content="@tinhGiot.Resources.Index.Header_Description" />
+    <meta name="distribution" content="Global" />
+    <!-- Bootstrap -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/SearchBox.css" rel="stylesheet" />
+    <link href="~/css/slick-theme.css" rel="stylesheet" />
+    <script src="~/js/jquery-1.11.12.min.js"></script>
+    <script src="~/js/clamp.js"></script>
+    <script src="~/js/clamp.min.js"></script>
+    <link href="~/css/styleHome.css" rel="stylesheet" />
+    <link href="~/css/styleProfiles.css" rel="stylesheet" />
+    <link href="~/css/styleCart.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="~/js/OverLay.js"></script>
+    <link href="~/css/OverLay.css" rel="stylesheet" />
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+            float: right;
+            right: 0;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDEVSWB765"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-PDEVSWB765');
+    </script>
+</head>
+<body>
+    <header>
+        <img src="~/images/logoTG.png" alt="" width="18" style="display:none;" />
+        <div class="modal fade" id="ModalLogin" role="dialog">
+            <div class="modal-dialog" style="max-width:360px;">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color:#000;line-height:28px;font-weight:200;">@tinhGiot.Resources.Layout.LoginAccount</h4>
+                    </div>
+                    <div class="modal-body" style="color:#000">
+                        @Html.Partial("PopupLogin")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- The overlay -->
+        <div id="myNav" class="overlay">
+
+            <!-- Button to close the overlay navigation -->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+            <!-- Overlay content -->
+            <div class="overlay-content" style="margin-bottom:20px;">
+                @if (ViewBag.CategoryList != null)
+                {
+                    foreach (var item in ViewBag.CategoryList)
+                    {
+                        <a class="col-lg-3 col-md-3 col-xs-12 CategoryTab" href="/@ViewBag.Language/ProductList/@item.CategoryName_Lang.Replace(' ', '-')/@item.ID">@item.CategoryName_Lang</a>
+                    }
+                }
+                @if (ViewBag.CatNewsList != null)
+                {
+                    foreach (var item in ViewBag.CatNewsList)
+                    {
+                        <a class="col-lg-3 col-md-3 col-xs-6 CategoryTab" href="/@ViewBag.Language/Articles/@item.CategoryNews_Lang.Replace(' ', '-')/@item.ID">@item.CategoryNews_Lang</a>
+                    }
+                }
+            </div>
+
+        </div>
+        <div class="logo-wrapper">
+            <div class="TopHeader">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                    @if (ViewBag.Language == "EN")
+                    {
+                        <div class="LanguageSelection_Selected" id="EN_lang" onclick="ChangeLang('EN');">
+                            <label style="width:18px;color:#293D12;">En</label><img src="~/images/EN.png" height="12" class="LangImg" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="LanguageSelection" id="EN_lang" onclick="ChangeLang('EN');">
+                            <label style="width:18px;color:#293D12;">En</label><img src="~/images/EN.png" height="12" class="LangImg" />
+                        </div>
+                    }
+                    @if (ViewBag.Language == "JA")
+                    {
+                        <div class="LanguageSelection_Selected" id="JA_lang" onclick="ChangeLang('JA');" style="display:none;">
+                            <label style="width:18px;color:#293D12;">Ja</label><img src="~/images/JP.png" height="12" class="LangImg" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="LanguageSelection" id="JA_lang" onclick="ChangeLang('JA');" style="display:none;">
+                            <label style="width:18px;color:#293D12;">Ja</label><img src="~/images/JP.png" height="12" class="LangImg" />
+                        </div>
+                    }
+                    @if (ViewBag.Language == "VI")
+                    {
+                        <div class="LanguageSelection_Selected" id="VI_lang" onclick="ChangeLang('VI');">
+                            <label style="width:18px;color:#293D12;">Vi</label><img src="~/images/VI.png" height="12" class="LangImg" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="LanguageSelection" id="VI_lang" onclick="ChangeLang('VI');">
+                            <label style="width:18px;color:#293D12;">Vi</label><img src="~/images/VI.png" height="12" class="LangImg" />
+                        </div>
+
+                    }
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs">
+                    <div class="search_wrapper">
+                        <div class="search_box">
+                            <input type="text" id="SearchText" class="input_search" placeholder="@tinhGiot.Resources.Layout.Searchkeywords">
+                            <div onclick="SearchNow();" class="search_btn"><img src="~/images/ic_search.png" alt="" width="18" /></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-lg hidden-md hidden-sm col-xs-3">
+                    <a class="mobile_search_btn" onclick="OpenSearch();"><img src="~/images/ic_search.png" alt="" width="18" /></a>
+                    <div class="mobile_search_wrapper" style="display:none;" id="MobileSearch">
+                        <div style="position:relative;width:100%;height:20px;float:left;"><a href="javascript:void(0)" class="closebtn" onclick="CloseSearch()">&times;</a></div>
+                        <div class="search_box" style="margin-top:20px;float:left;position:relative;margin-left:auto;margin-right:auto;">
+                            <input type="text" id="Mobile_SearchText" class="input_search" placeholder="@tinhGiot.Resources.Layout.Searchkeywords">
+                            <div class="search_btn" onclick="SearchNow();"><img src="~/images/ic_search.png" alt="" width="18" /></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="topMainMenu" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <div style="width:40px;margin:0 auto">
+                        <h1 class="logo"><a href="/@ViewBag.Language"><img style="width:40px;" src="~/images/logoTG.png" alt="" /></a></h1>
+                    </div>
+                </div>
+
+                @* <a href="#main-menu" class="toggle-menu"><span></span></a>  *@
+                <div class=" col-lg-5 col-md-5 col-sm-5 col-xs-5" style="min-width:120px;height:73px;">
+
+
+                    @if (Session["name"] != null)
+                    {
+                        <div class="Active_icon" style="float:right;margin-top:22px;">
+                            <a href="/@ViewBag.Language/Home/Logout" style="color:#000;margin-left:10px;">
+                                <img src="~/images/logout.png" />
+                            </a>
+                        </div>
+                    }
+                    <div style="float:right;margin-top:20px;" id="BagItems">
+
+                        @{ Html.RenderAction("HeaderCart", "CartItem");}
+
+                    </div>
+                    <div class="Active_icon" style="float:right;margin-right:10px;margin-top:22px;">
+                        @if (Session["name"] != null)
+                        {
+                            <a href="/@ViewBag.Language/home/userinfo">
+                                <img src="~/images/ic_account_login.png" alt="Avatar" />
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a href="#" onclick="OpenLogin()">
+                                <img src="~/images/ic_account.png" alt="Avatar" />
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.gnc != null)
+            {
+                <div class="BreadLink">
+                    <a class="BreadLink_Item" style="float:left;cursor:pointer;margin-left:10px;" onclick="openNav()"> @tinhGiot.Resources.Layout.Shop </a>
+                    <label style="float:left;margin-left:10px;color:#818181;">>></label>
+                    <a class="BreadLink_Item" style="float:left;margin-left:10px;" href="/@ViewBag.Language/ProductList/@ViewBag.gnc.Replace(' ', '-')/@ViewBag.catID"> @ViewBag.gnc </a>
+                    <!-- Use any element to open/show the overlay navigation menu -->
+                </div>
+            }
+
+            @if (ViewBag.CatNews != null)
+            {
+                <div class="BreadLink">
+                    <a class="BreadLink_Item" style="float:left;cursor:pointer;margin-left:10px;" onclick="openNav()"> @tinhGiot.Resources.Layout.Blog </a>
+                    <label style="float:left;margin-left:10px;color:#818181;">>></label>
+                    <a class="BreadLink_Item" style="float:left;margin-left:10px;" href="/@ViewBag.Language/Articles/@ViewBag.CatNews.Replace(' ', '-')/@ViewBag.CatNewsID"> @ViewBag.CatNews </a>
+                    <!-- Use any element to open/show the overlay navigation menu -->
+                </div>
+            }
+        </div>
+
+    </header>
+
+    <div style="padding-bottom:100px;width:100%; margin: 0 auto;">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="footer-background">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-menu">
+                <div class="bottom-menu_item"><a href="/@ViewBag.Language/ProductList/@tinhGiot.Resources.Index.EssentialOil_url/1" style="color: #fff;">@tinhGiot.Resources.Layout.Products</a></div>
+                <div class="bottom-menu_item"><a href="/@ViewBag.Language/Home/About_us" style="color: #fff;">@tinhGiot.Resources.Layout.OurJourney</a></div>
+                <div class="bottom-menu_item"><a href="/@ViewBag.Language/Articles/@tinhGiot.Resources.Index.EssentialOil_url/1" style="color: #fff;">@tinhGiot.Resources.Layout.Blog</a></div>
+                <div class="bottom-menu_item"><a href="/@ViewBag.Language/Home/Contact" style="color: #fff;">@tinhGiot.Resources.Layout.Contact</a></div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="reserved-text">© @DateTime.Now.Year.ToString() Tinh Giọt</div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="loading">Loading&#8230;</div>
+    <div class="modal fade" id="ModalPreviewCart" role="document">
+        <div class="modal-dialog ">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:#000;line-height:28px;font-weight:200;">@tinhGiot.Resources.Layout.ShoppingBag</h4>
+                </div>
+                <div class="modal-body" style="color:#000;" id="PopupPreviewBag">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalAddedItem" role="document">
+        <div class="modal-dialog" style="max-width:360px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">
+                        <img src="/images/ic_compelete.png" width="20" />@tinhGiot.Resources.Layout.Success_AddedItem
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div style="font-weight:200;text-align:center;margin:0 auto;width:180px;padding:20px 20px 20px 20px;">
+                        <img id="imgproduct" width="140" src="" />
+                        <p class="productname" style="margin-top:20px;"><label></label><p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalNotification" role="document">
+        <div class="modal-dialog" style="max-width:360px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">
+                        <img src="/images/ic_compelete.png" width="20" /> @tinhGiot.Resources.Layout.Complete
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="NotificationMsg" style="min-height:72px; margin-top:20px;margin-bottom:20px;padding-left:20px;padding-right:20px; text-align:center;font-size:18px;line-height:27px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalWarningNotification" role="document">
+        <div class="modal-dialog" style="max-width:360px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">
+                        <img src="~/images/warning_icon.png" width="20" /> @tinhGiot.Resources.Layout.WarningNotification
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="WarningNotificationMsg" style="min-height:72px; margin-top:20px;margin-bottom:20px;padding-left:20px;padding-right:20px; text-align:center;font-size:18px;line-height:27px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade danger" id="ModalConfirm" role="dialog">
+        <div class="modal-dialog" style="max-width:360px;">
+            <div class="modal-content">
+                <div class="modal-header danger">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">
+                        <img src="/images/ic_compelete.png" width="20" />
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div style="margin-top:10px; text-align:center;font-size:18px;line-height:27px;">@tinhGiot.Resources.Layout.ConfirmDelete</div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a href="#" class="button2  btn-secondary" data-dismiss="modal">@tinhGiot.Resources.Layout.Cancel</a>
+                    <a href="#" class="button2  btn-danger" id="ConfirmedDelete" onclick="ConfirmedDelete();" data-dismiss="modal" data-id="" data-parent="">@tinhGiot.Resources.Layout.Accept</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function NavCategory(catName, id) {
+            window.location = "/@ViewBag.Language/ProductList/" + catName + "/" + id;
+        }
+    </script>
+    <script type="text/javascript">
+        var _ID = "";
+        var _function = "";
+        /*invisible loading as ajax complete*/
+        $(document).ajaxComplete(function () {
+            $('.loading').hide();
+             if ('@Session["NewMember"]' ) {
+                OpenNotification("Thành công tạo tài khoản!");
+            }
+                document.getElementById("myNav").style.width = "0%";
+
+        });
+
+        /* add an item into a bag */
+        $('.Btn_Buy').on('click', function () {
+            var id = $(this).attr('data-id');
+            var productname = $(this).attr('productname');
+            var img = $(this).attr('data-img');
+            $('#imgproduct').attr('src', '/UploadedImage/' + img);
+            $('p.productname label').html(productname);
+            $.ajax({
+                url: "/@ViewBag.Language/CartItem/AddItem",
+                type: "post",
+                dateType: "json",
+                data: {
+                    id: id,
+                    quantity: 1
+                },
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (list) {
+              //      $('.loading').hide();
+                    $("#ModalAddedItem").modal("show");
+                    document.getElementById("BagItems").innerHTML = list;
+                    setTimeout(function () {
+                        $("#ModalAddedItem").modal("hide");
+                    }, 900);
+                }
+            });
+        });
+
+        $('.btn-buy-detail').click(function () {
+        var id = $(this).attr('data-id');
+        var productname = $(this).attr('productname');
+        var img = $(this).attr('data-img');
+        var qty_pro = $('.numbercart').val();
+
+        $('#imgproduct').attr('src', '/UploadedImage/' + img);
+         $('p.productname label').html(productname);
+        $.ajax({
+            url: "/@ViewBag.Language/CartItem/AddItem",
+            type: "post",
+            dateType: "json",
+            data: {
+                id: id,
+                quantity: qty_pro
+            },
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (list) {
+                $("#ModalAddedItem").modal("show");
+                document.getElementById("BagItems").innerHTML = list;
+                setTimeout(function () {
+                    $("#ModalAddedItem").modal("hide");
+                }, 900);
+            }
+        });
+        });
+
+        // change displaying language
+        function ChangeLang(lang) {
+            var s = window.location.href
+            $.ajax({
+                url: "/@ViewBag.Language/Home/SetLanguage",
+                type: "post",
+                datatype: "json",
+                data: {
+                    lang: lang,
+                    url: window.location.pathname
+                },
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (data) {
+                    window.location.href = data;
+                    $('.loading').show();
+                }
+            });
+
+        }
+
+        // adding updating deleting items in the Bag
+        function OpenPreviewCart() {
+            $.ajax({
+                url: "/@ViewBag.Language/CartItem/PreviewBag",
+                type: "get",
+                dateType: "html",
+                data: {},
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (data) {
+                    $('#PopupPreviewBag').html(data);
+                    $('#ModalPreviewCart').modal({
+                        backdrop: 'static', keyboard: false
+                    });
+                }
+            });
+        }
+
+        function UpdateItemQty(id, oldQty) {
+            var id_input = "#QtyItem_" + id;
+            var val = $(id_input).val();
+            if (val <= 0) {
+                OpenNotification('@tinhGiot.Resources.Layout.Invalid_Qty');
+                $(id_input).val(oldQty);
+                return;
+            }
+            $.ajax({
+                url: '/@ViewBag.Language/CartItem/Update',
+                data: {
+                    id: id,
+                    Qty: val
+                },
+                type: 'get',
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (res) {
+                    document.getElementById("PopupPreviewBag").innerHTML = res;
+                    $('#BagItems').load('/CartItem/HeaderCart');
+                    OpenNotification('@tinhGiot.Resources.Layout.Success_UpdatedQty');
+
+                }
+            });
+        }
+       /**
+        * delete item via update with quantity is 0
+        */
+        function DeleteItem(ID) {
+            $.ajax({
+                url: '/@ViewBag.Language/CartItem/DeleteItemBag',
+                data: {
+                    id: ID ,
+                },
+                type: 'get',
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (res) {
+                    document.getElementById("PopupPreviewBag").innerHTML = res;
+                    $('#BagItems').load('/CartItem/HeaderCart');
+                    OpenNotification('@tinhGiot.Resources.Layout.Success_Deleted');
+                }
+            });
+        }
+
+        function ConfirmDelete(ID) {
+            $('#ModalConfirm').modal('show')
+            $('#ConfirmedDelete').attr("data-id", ID);
+        }
+
+        function OpenSearch() {
+            if (document.getElementById("MobileSearch").style.display == "block")
+                document.getElementById("MobileSearch").style.display = "none"
+            else
+                document.getElementById("MobileSearch").style.display = "block";
+        }
+
+        function CloseSearch() {
+            document.getElementById("MobileSearch").style.display = "none";
+        }
+        document.getElementById("SearchText").addEventListener("change", UpdateText);
+        document.getElementById("Mobile_SearchText").addEventListener("change", MobileUpdateText);
+        function UpdateText() {
+           $("#Mobile_SearchText").val($("#SearchText").val());
+        }
+
+        function MobileUpdateText() {
+            $("#SearchText").val($("#Mobile_SearchText").val());
+        }
+
+        function SearchNow() {
+            if ($("#SearchText").val() == "") {
+                OpenNotification("@tinhGiot.Resources.Layout.SearchEmpty");
+                $("#SearchText").focus();
+                $("#Mobile_SearchText").focus();
+                return;
+            }
+            window.location.href = "/@ViewBag.Language/SearchResults/" + $("#SearchText").val();
+        }
+
+        $("#ConfirmedDelete").on('click', DeleteItem);
+        function ConfirmedDelete() {
+            DeleteItem($('#ConfirmedDelete').attr('data-id'));
+        }
+
+        function ScrollTop() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+                // open login
+        function OpenLogin() {
+            $('#ModalLogin').modal({
+                backdrop: 'static', keyboard: false
+            });
+        }
+        // show notification
+        function OpenNotification(msg) {
+            $('#NotificationMsg').html("<p>" + msg + "</p>");
+            $('#ModalNotification').modal("show");
+            setTimeout(function () {
+                $("#ModalNotification").modal("hide");
+            }, 1800);
+        }
+                // show notification
+        function OpenWarningNotification(msg) {
+            $('#WarningNotificationMsg').html("<p>" + msg + "</p>");
+            $('#ModalWarningNotification').modal("show");
+            setTimeout(function () {
+                $("#ModalWarningNotification").modal("hide");
+            }, 1800);
+        }
+
+    </script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/jquery.sticky.js"></script>
+    <script src="~/js/scripts.js"></script>
+
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5afd2f19227d3d7edc2565ce/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+
+      $.getJSON("/api/category_news/GetAllCategory_News",
+            function (data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += "<li class='cate_news' id='" + data[i].ID + "'><a href='/Home/News/" + data[i].ID + "'>" + data[i].CategoryNews + "</a></li>";
+                }
+                $("#category_news").html(html);  
+            });        
+    </script>
+    <script type="text/javascript">
+        //Google Login
+      /*  function googleAuth() {
+            gapi.auth.signIn({
+                callback: gPSignInCallback,
+                clientid: '586611567675-0417hu0kph54q43panjpamoh2vpatogq.apps.googleusercontent.com',
+                cookiepolicy: "single_host_origin",
+                scope: "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email"
+            })
+        };
+
+        function gPSignInCallback(e) {
+            alert("hello");
+            var googleID = "";
+            var googleName = "";
+            var googleEmail = "";
+            if (e["status"]["signed_in"]) {
+                gapi.client.load("plus", "v1", function () {
+                    gapi.client.load('oauth2', 'v2', function () {
+                        if (e["access_token"]) {
+                            getProfile(e.googleEmail);
+                        } else if (e["error"]) {
+                            alert(e["error"]);
+                            console.log("There was an error: " + e["error"])
+                        }
+                    })
+                });
+                //---------------------------------------------------
+                gapi.client.load('oauth2', 'v2', function () {
+                    gapi.client.oauth2.userinfo.get()
+                        .execute(function (e) {
+                            // Shows user email
+                            googleEmail = e.email;
+                            getProfile(googleEmail);
+                        });
+                });
+
+                //console.log(googleEmail);
+            } else {
+                console.log("Sign-in state: " + e["error"])
+            }
+
+        };
+
+        function getProfile(googleEmail) {
+            var e = gapi.client.plus.people.get({
+                userId: "me"
+            });
+
+            e.execute(function (e) {
+                googleID = e.id;
+                var familyName = e.name.familyName;
+                var givenName = e.name.givenName;
+                googleName = familyName + " " + givenName;
+
+                $.ajax({
+                    url: "/Home/LoginGoogle",
+                    type: "post",
+                    dateType: "json",
+                    data: {
+                        googleID: googleID,
+                        fullname: googleName,
+                        email: googleEmail,
+                    },
+                    success: function () {
+                        window.location.href = "/Home/UserInfo";
+                    }
+                });
+            })
+
+        };
+
+        (function () {
+            var e = document.createElement("script");
+            e.type = "text/javascript";
+            e.async = true;
+            e.src = "https://apis.google.com/js/client:platform.js?onload=gPOnLoad";
+            var t = document.getElementsByTagName("script")[0];
+            t.parentNode.insertBefore(e, t)
+        })()    
+
+        //facebook
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1667703683309468',
+                xfbml: true,
+                version: 'v2.12'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));   */
+
+        $('.text-content-max').each(function () {
+            var post = $(this).get(0);
+            if (post != null) {
+                $(function () {
+                    $clamp(post, { clamp: 3 });
+                });
+            }
+        })
+
+        $('.text-title-max').each(function () {
+            var post = $(this).get(0);
+            if (post != null) {
+                $(function () {
+                    $clamp(post, { clamp: 2 });
+                });
+            }
+        })
+
+        var ns = $('.nameuser').get(0);
+        if (ns != null) {
+            $(function () {
+                $clamp(ns, { clamp: 1 });
+            });
+        }
+
+        function ValidateEmail(email) {
+            var emailValidator = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if (!email.match(emailValidator))
+                return false;
+            return true;
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            var elements = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].oninvalid = function (e) {
+                    e.target.setCustomValidity("");
+                    if (!e.target.validity.valid) {
+                        e.target.setCustomValidity("Xin vui lòng kiểm tra lại");
+                    }
+                };
+                elements[i].oninput = function (e) {
+                    e.target.setCustomValidity("");
+                };
+            }
+        })
+
+
+
+    </script>
+    @RenderSection("jsFooter", required: false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

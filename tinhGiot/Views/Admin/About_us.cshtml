@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "About_us";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Data Table About</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nội dung</th>
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.about)
+                        {
+                            <tr>
+                                <td>@item.AboutContent</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                <td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                    <div class="box-body">
+                        <div class="form-group" style="display:none">
+                            <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputID" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea type="text" class="form-control" id="inputAbout"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea type="text" class="form-control" id="inputAbout_EN"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.replace('inputAbout');
+           CKEDITOR.replace('inputAbout_EN');
+ });
+
+    $(function () {
+        $("#tblUsers").DataTable();
+    });
+
+    function Edit(id) {
+        var url = '/vi/Admin/About_us_detail?id=' + id;
+        $('#myModalLabel').html('Chỉnh sửa nội dung giới thiệu');
+        $('#myModal').modal();
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#inputID').val(obj.ID);
+                CKEDITOR.instances['inputAbout'].setData(obj.AboutContent);
+                CKEDITOR.instances['inputAbout_EN'].setData(obj.AboutContent_EN);
+   }
+        })
+    }
+
+
+    $("#SaveUserRecord").click(function () {
+
+        if (CKEDITOR.instances['inputAbout'].getData() === '') {
+            alert(" Vui lòng nhập nội dung tiếng việt!");
+            return false;
+        }
+                if (CKEDITOR.instances['inputAbout_EN'].getData() === '') {
+            alert(" Vui lòng nhập nội dung tiếng anh!");
+            return false;
+        }
+
+        var data = new FormData();
+        data.append("ID", $('#inputID').val());
+        data.append("AboutContent", CKEDITOR.instances['inputAbout'].getData());
+        data.append("AboutContent_EN", CKEDITOR.instances['inputAbout_EN'].getData());
+      $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateAbout',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+</script>
+
+
+

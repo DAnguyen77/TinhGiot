@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/SearchResult.css" rel="stylesheet" />
+
+<div class="content-block">
+    <div class="TopBar">
+        <div id="SearchProduct" class="TopBar_Item_Active" onclick="TabSearch('Product');">@tinhGiot.Resources.SearchResult.Product (@ViewBag.FoundNews.Count)</div>
+        <div id="SearchBlog" class="TopBar_Item" onclick="TabSearch('Blog');">@tinhGiot.Resources.SearchResult.Blog (@ViewBag.FoundNews.Count)</div>
+    </div>
+    <div class="FoundText">
+     @Html.Raw(string.Format(tinhGiot.Resources.SearchResult.FoundResult, ViewBag.Keywords))   
+    </div>
+    <div id="PanelProduct" class="PanelProduct">
+        @foreach (var l in ViewBag.FoundProducts)
+        {
+            <div class="col-lg-3">
+                <div class="prd-item">
+                    <div class="prd-thumb">
+                        <a href="/@ViewBag.Language/ProductDetail/@l.ProductName_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID">
+                            @*<img src="/UploadedImage/@l.Image" />*@
+                            @foreach (var img in (l.Image).Split(','))
+                            {
+                                <img src="@Url.Content("/UploadedImage/" + img)" />
+                                break;
+                            }
+                        </a>
+                    </div>
+                    <div class="prd-info">
+                        <a href="/@ViewBag.Language/ProductDetail/@l.ProductName_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID" class="prd-title">
+                            <p class="text-title-max">@l.ProductName_Lang</p>
+                        </a>
+                        <p class="prd-price" id="prd-price"><span class="prd-price-span" id="prd-price-span">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(l.Price))).Replace(",", ".")</span></p>
+                        @*<a href="javascript:;" class="btn btn-buy-now" id="myBtn_@l.ID" data-id="@l.ID" productname="@l.ProductName" data-img="@l.Image" ><i class="icon-cart-plus"></i></a>*@
+                        @foreach (var img in (l.Image).Split(','))
+                        {
+                            <label class="Btn_Buy" id="myBtn_@l.ID" data-id="@l.ID" productname="@l.ProductName_Lang" data-img="@Url.Content(img)">@tinhGiot.Resources.Index.AddToBag</label>
+                            break;
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div id="PanelBlog" class="PanelBlog" style="display:none;">
+        @foreach (var l in ViewBag.FoundNews)
+        {
+            <div class="col-lg-3 news_heght">
+                <div class="news-item">
+                    <div class="news-thumb">
+                        <a href="/@ViewBag.Language/Browse/@l.Title.Replace(' ', '-')/@l.ID-@l.CategoryID">
+                            <img style="border-radius:5px;max-height:300px" src="https://tinhgiot.com/UploadedImage/@l.Image" />
+                            <div class="middle">
+                                <img src="~/images/btn_view_detail.png" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="news-description">
+                        <a href="/@ViewBag.Language/Browse/@l.Title.Replace(' ', '-')/@l.ID-@l.CategoryID" class="news-title">
+                            <p class="text-title-max" style="font-size:16px">@l.Title</p>
+                        </a>
+                        <p class="fixword text-content-max" style="font-size:14px">
+                            @Html.Raw(l.PostContent.Substring(0, 200)) <span>...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function TabSearch(tab) {
+        document.getElementById("SearchProduct").className = "TopBar_Item";
+        document.getElementById("SearchBlog").className = "TopBar_Item";
+        document.getElementById("PanelProduct").style.display = "none";
+         document.getElementById("PanelBlog").style.display = "none";
+        switch (tab) {
+            case "Product":
+                document.getElementById("SearchProduct").className = "TopBar_Item_Active";
+                document.getElementById("PanelProduct").style.display = "block";
+                break;
+            case "Blog":
+                document.getElementById("SearchBlog").className = "TopBar_Item_Active";
+                document.getElementById("PanelBlog").style.display = "block";
+                break;
+        }
+    }
+</script>

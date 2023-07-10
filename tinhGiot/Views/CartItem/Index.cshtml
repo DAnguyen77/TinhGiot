@@ -1,0 +1,443 @@
+﻿@model List<BaseClasses.CartItems>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/js/cartController.js"></script>
+}
+
+<div class="container">
+    <div class="block-title">
+        <h2>thanh toán</h2>
+    </div>
+    <div class="">
+
+            <p class="block-content">
+                <input class="contact-form" style="border:none;border-radius:5px;background:#cdd39f;width:100%;color:#293e12;text-align:left;font-size:20px;font-weight:600;margin-bottom:-20px" value="--thông tin đơn hàng" />
+            </p>
+            @ViewBag.Error
+            <div class="clear"></div>
+            <div class="col-lg-6" style="padding-left:0px">
+                <div class="w3l_main_grid1_w3ls_grid">
+                    <h3 style="margin-bottom:0px;color:#293e12;font-weight:600;font-size:16px !important">--địa chỉ nhận hàng</h3>
+                    <div class="w3_agile_main_left_grid_w3_agileits contact-form" style="border:1px solid;border-color:#ebecda">
+                        <form action="#" id="inforForm" method="post">
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="name formpaystyle" name="name" placeholder="họ và tên*" required="" value="@Session["name"]">
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="phone formpaystyle" name="phone" placeholder="số điện thoại*" required="" value="@Session["phonenumber"]">
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="email formpaystyle" name="email" placeholder="email*" required="" value="@Session["email"]">
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <select class="city1 formlistcity" name="city1">
+                                    <option value="" selected>--chọn tỉnh/thành phố 1--</option>
+                                    <option value="An Giang">An Giang</option>
+                                    <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+                                    <option value="Bạc Liêu">Bạc Liêu</option>
+                                    <option value="Bắc Kạn">Bắc Kạn</option>
+                                    <option value="Bắc Giang">Bắc Giang</option>
+                                    <option value="Bắc Ninh">Bắc Ninh</option>
+                                    <option value="Bến Tre">Bến Tre</option>
+                                    <option value="Bình Dương">Bình Dương</option>
+                                    <option value="Bình Định">Bình Định</option>
+                                    <option value="Bình Phước">Bình Phước</option>
+                                    <option value="Bình Thuận">Bình Thuận</option>
+                                    <option value="Cà Mau">Cà Mau</option>
+                                    <option value="Cao Bằng">Cao Bằng</option>
+                                    <option value="Cần Thơ (TP)">Cần Thơ (TP)</option>
+                                    <option value="Đà Nẵng (TP)">Đà Nẵng (TP)</option>
+                                    <option value="Đắk Lắk">Đắk Lắk</option>
+                                    <option value="Đắk Nông">Đắk Nông</option>
+                                    <option value="Điện Biên">Điện Biên</option>
+                                    <option value="Đồng Nai">Đồng Nai</option>
+                                    <option value="Đồng Tháp">Đồng Tháp</option>
+                                    <option value="Gia Lai">Gia Lai</option>
+                                    <option value="Hà Giang">Hà Giang</option>
+                                    <option value="Hà Nam">Hà Nam</option>
+                                    <option value="Hà Nội (TP)">Hà Nội (TP)</option>
+                                    <option value="Hà Tĩnh">Hà Tĩnh</option>
+                                    <option value="Hải Dương">Hải Dương</option>
+                                    <option value="Hải Phòng (TP)">Hải Phòng (TP)</option>
+                                    <option value="Hòa Bình">Hòa Bình</option>
+                                    <option value="Hồ Chí Minh (TP)">Hồ Chí Minh (TP)</option>
+                                    <option value="Hậu Giang">Hậu Giang</option>
+                                    <option value="Hưng Yên">Hưng Yên</option>
+                                    <option value="Khánh Hòa">Khánh Hòa</option>
+                                    <option value="Kiên Giang">Kiên Giang</option>
+                                    <option value="Kon Tum">Kon Tum</option>
+                                    <option value="Lai Châu">Lai Châu</option>
+                                    <option value="Lào Cai">Lào Cai</option>
+                                    <option value="Lạng Sơn">Lạng Sơn</option>
+                                    <option value="Lâm Đồng">Lâm Đồng</option>
+                                    <option value="Long An">Long An</option>
+                                    <option value="Nam Định">Nam Định</option>
+                                    <option value="Nghệ An">Nghệ An</option>
+                                    <option value="Ninh Bình">Ninh Bình</option>
+                                    <option value="Ninh Thuận">Ninh Thuận</option>
+                                    <option value="Phú Thọ">Phú Thọ</option>
+                                    <option value="Phú Yên">Phú Yên</option>
+                                    <option value="Quảng Bình">Quảng Bình</option>
+                                    <option value="Quảng Nam">Quảng Nam</option>
+                                    <option value="Quảng Ngãi">Quảng Ngãi</option>
+                                    <option value="Quảng Ninh">Quảng Ninh</option>
+                                    <option value="Quảng Trị">Quảng Trị</option>
+                                    <option value="Sóc Trăng">Sóc Trăng</option>
+                                    <option value="Sơn La">Sơn La</option>
+                                    <option value="Tây Ninh">Tây Ninh</option>
+                                    <option value="Thái Bình">Thái Bình</option>
+                                    <option value="Thái Nguyên">Thái Nguyên</option>
+                                    <option value="Thanh Hóa">Thanh Hóa</option>
+                                    <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                    <option value="Tiền Giang">Tiền Giang</option>
+                                    <option value="Trà Vinh">Trà Vinh</option>
+                                    <option value="Tuyên Quang">Tuyên Quang</option>
+                                    <option value="Vĩnh Long">Vĩnh Long</option>
+                                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                    <option value="Yên Bái">Yên Bái</option>
+                                </select>
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="address1 formpaystyle" name="address1" placeholder="địa chỉ 1*" required="" value="@Session["address"]">
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <select class="city2 formlistcity" name="city2">
+                                    <option value="" selected>--chọn tỉnh/thành phố 2--</option>
+                                    <option value="An Giang">An Giang</option>
+                                    <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+                                    <option value="Bạc Liêu">Bạc Liêu</option>
+                                    <option value="Bắc Kạn">Bắc Kạn</option>
+                                    <option value="Bắc Giang">Bắc Giang</option>
+                                    <option value="Bắc Ninh">Bắc Ninh</option>
+                                    <option value="Bến Tre">Bến Tre</option>
+                                    <option value="Bình Dương">Bình Dương</option>
+                                    <option value="Bình Định">Bình Định</option>
+                                    <option value="Bình Phước">Bình Phước</option>
+                                    <option value="Bình Thuận">Bình Thuận</option>
+                                    <option value="Cà Mau">Cà Mau</option>
+                                    <option value="Cao Bằng">Cao Bằng</option>
+                                    <option value="Cần Thơ (TP)">Cần Thơ (TP)</option>
+                                    <option value="Đà Nẵng (TP)">Đà Nẵng (TP)</option>
+                                    <option value="Đắk Lắk">Đắk Lắk</option>
+                                    <option value="Đắk Nông">Đắk Nông</option>
+                                    <option value="Điện Biên">Điện Biên</option>
+                                    <option value="Đồng Nai">Đồng Nai</option>
+                                    <option value="Đồng Tháp">Đồng Tháp</option>
+                                    <option value="Gia Lai">Gia Lai</option>
+                                    <option value="Hà Giang">Hà Giang</option>
+                                    <option value="Hà Nam">Hà Nam</option>
+                                    <option value="Hà Nội (TP)">Hà Nội (TP)</option>
+                                    <option value="Hà Tĩnh">Hà Tĩnh</option>
+                                    <option value="Hải Dương">Hải Dương</option>
+                                    <option value="Hải Phòng (TP)">Hải Phòng (TP)</option>
+                                    <option value="Hòa Bình">Hòa Bình</option>
+                                    <option value="Hồ Chí Minh (TP)">Hồ Chí Minh (TP)</option>
+                                    <option value="Hậu Giang">Hậu Giang</option>
+                                    <option value="Hưng Yên">Hưng Yên</option>
+                                    <option value="Khánh Hòa">Khánh Hòa</option>
+                                    <option value="Kiên Giang">Kiên Giang</option>
+                                    <option value="Kon Tum">Kon Tum</option>
+                                    <option value="Lai Châu">Lai Châu</option>
+                                    <option value="Lào Cai">Lào Cai</option>
+                                    <option value="Lạng Sơn">Lạng Sơn</option>
+                                    <option value="Lâm Đồng">Lâm Đồng</option>
+                                    <option value="Long An">Long An</option>
+                                    <option value="Nam Định">Nam Định</option>
+                                    <option value="Nghệ An">Nghệ An</option>
+                                    <option value="Ninh Bình">Ninh Bình</option>
+                                    <option value="Ninh Thuận">Ninh Thuận</option>
+                                    <option value="Phú Thọ">Phú Thọ</option>
+                                    <option value="Phú Yên">Phú Yên</option>
+                                    <option value="Quảng Bình">Quảng Bình</option>
+                                    <option value="Quảng Nam">Quảng Nam</option>
+                                    <option value="Quảng Ngãi">Quảng Ngãi</option>
+                                    <option value="Quảng Ninh">Quảng Ninh</option>
+                                    <option value="Quảng Trị">Quảng Trị</option>
+                                    <option value="Sóc Trăng">Sóc Trăng</option>
+                                    <option value="Sơn La">Sơn La</option>
+                                    <option value="Tây Ninh">Tây Ninh</option>
+                                    <option value="Thái Bình">Thái Bình</option>
+                                    <option value="Thái Nguyên">Thái Nguyên</option>
+                                    <option value="Thanh Hóa">Thanh Hóa</option>
+                                    <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                    <option value="Tiền Giang">Tiền Giang</option>
+                                    <option value="Trà Vinh">Trà Vinh</option>
+                                    <option value="Tuyên Quang">Tuyên Quang</option>
+                                    <option value="Vĩnh Long">Vĩnh Long</option>
+                                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                    <option value="Yên Bái">Yên Bái</option>
+                                </select>
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="address2 formpaystyle" name="address2" placeholder="địa chỉ 2*" required="">
+                            </div>
+                            <div class="agileits_w3layouts_user">
+                                <input type="text" class="note formpayndstyle" name="note" placeholder="nội dung*" required="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" style="padding-right:0px">
+                <div class="w3l_main_grid1_w3ls_grid">
+                    <h3 class="title3" style="font-size:16px !important">--đơn hàng (@(Model.Sum(x => x.Quantity)) sản phẩm)</h3>
+                    <div class="w3_agile_main_left_grid_w3_agileits box3">
+                        <form action="#" method="post">
+                            @if (Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 imagecart">
+                                            @*<img class="image3" src="/UploadedImage/@item.Products.Image" />*@
+                                            @foreach (var img in (item.Image).Split(','))
+                                            {
+                                                <img class="image3" src="@Url.Content("/UploadedImage/" + img)" />
+                                                break;
+                                            }
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 nameproduct" style="font-size:13px;line-height:1.5;">@item.ProductName</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 payyy" style="">
+                                            <div style="margin-left:auto;margin-right:auto;text-align:center">
+                                                  <div class="fixcart" style="float:left;">
+                                                      <b class="priceproduct">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(item.Price))).Replace(",", ".")</b>
+
+                                                      <div class="clear"></div>
+                                                      <b>x</b> <input type="number" min="1" max="99" class="quantity_product"  data-id="@item.ProductID" name="" placeholder="" value="@item.Quantity">
+                                                      <div style="float:right">
+                                                          <a href="#" data-id="@item.ProductID" class="btn-delete">
+                                                              <img class="ic_del" src="~/images/ic_delete.png" />
+                                                          </a>
+                                                      </div>  
+                                                      <div style="margin-top:5px;float:right">
+                                                          <img class="ic_add" src="~/images/ic_add.png" />
+                                                          <div class="clear"></div>
+                                                          <img class="ic_subtract" src="~/images/ic_subtract.png" />
+                                                      </div>
+                                                       
+                                                      <div class="clear"></div>
+                                                      <span class="sum_money"><b>= @Convert.ToString(String.Format("{0:0,0 đ}", (Convert.ToInt32(item.Price) * item.Quantity))).Replace(",", ".")</b></span>
+                                                    
+                                                  </div>
+                                                                                                
+                                                <div class="clear"></div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="clear" style="border-bottom:1px solid #d1d1d1"></div>
+                                }
+                                <br />
+                                <p>
+                                    <b>tổng tiền<span style="color:#29a019;float:right;margin-top:0px">@Convert.ToString(String.Format("{0:0,0 đ}", (Model.Sum(x => Convert.ToInt32(x.Price) * x.Quantity)))).Replace(",", ".") </span></b>
+                                </p>
+                                <p>
+                                    <b>chi phí vận chuyển<span style="color:#2a9f1a;float:right;margin-top:0px">...</span></b>
+                                </p>
+                                <div class="clear" style="border-bottom:1px solid #d1d1d1"></div>
+                                <br />
+                                <p>
+                                    <b>tổng số tiền thanh toán<span style="float:right;margin-top:0px;color:#ff6101">@Convert.ToString(String.Format("{0:0,0 đ}", (Model.Sum(x => Convert.ToInt32(x.Price) * x.Quantity)))).Replace(",", ".")</span></b>
+                                </p>
+                            }
+                            else
+                            {
+                                if(Model.Count == 0)
+                                {
+                                    Session["CartSession"] = null;
+                                }
+                                <span>Chưa có sản phẩm nào trong giỏ hàng</span>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <p class="block-content">
+                <input class="contact-form" style="border:none;border-radius:5px;background:#cdd39f;width:100%;margin-top:20px;color:#293e12;text-align:left;font-size:20px;font-weight:600" value="--hình thức thanh toán" />
+            </p>
+            <div class="check-box" style="min-height:200px">
+                <form action="">
+                    <div class="col-lg-6">
+                        <input style="float:left;margin-top:15px" class="cash" type="radio" stype="color:#4caf50" checked="checked" value="cash" name="pay">
+                        <div style="float:left;margin-left:5px">
+                            <h4>Thanh toán khi nhận hàng</h4>
+                            <img src="~/images/ic_delivery_biker.png" />
+                            <p>Quý khách sẽ thanh toán bằng tiền mặt khi chúng tôi giao hàng cho quý khánh</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <input style="float:left;margin-top:15px" type="radio" value="paypal" class="paypal" name="pay">
+                        <div style="float:left;margin-left:5px">
+                            <h4>Thanh toán qua Paypal</h4>
+                            <img src="~/images/paypal.png" />
+                            <p>Lorem ipsum dolor sit amet ipsum dolor sit amet dolor sit amet </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @if(Model.Count < 1)
+            {
+                @*<div class="col-lg-4">
+                    <input type="button" class="button2" id="btnUpdateCart" style="background:#29a019;color:#fff;max-height:45px;width:100%" disabled="disabled" value="cập nhật" />
+                </div>*@
+                <div class="col-lg-6" style="text-align:center">
+                    <a href="/CartItem/Order">
+                        <input type="submit" class="button2" style="background:#ff6101;color:#fff;max-height:45px;width:100%;max-width:300px" disabled="disabled" value="thanh toán" />
+                    </a>
+                </div>
+            }else
+            {
+                @*<div class="col-lg-4">
+                    <input type="button" class="button2" id="btnUpdateCart" style="background:#29a019;color:#fff;max-height:45px;width:100%" value="cập nhật" />
+                </div>*@
+                <div class="col-lg-6" style="text-align:center">
+                    <a class="btn_payment" href="/CartItem/Order">
+                        <input type="submit" class="button2" id="btnCheckout" style="background:#ff6101;color:#fff;max-height:45px;width:100%;max-width:300px" value="thanh toán" />
+                    </a>
+                </div>
+            }
+            <div class="col-lg-6" style="text-align:center">
+                <input type="button" class="button2" id="btnContinue" style="background:#cdd39f;color:#293e12;max-height:45px;width:100%;border:1px solid #b3b985;max-width:300px" value="mua tiếp" />
+            </div>
+    </div>
+</div>
+<script>
+
+    function update() {
+        var listProduct = $('.quantity_product');
+        var cartList = [];
+        $.each(listProduct, function (i, item) {
+            cartList.push({
+                Quantity: $(this).val(),
+                Products: {
+                    ID : $(item).data('id')
+                }
+            });
+        });
+
+        $.ajax({
+            url: '/CartItem/Update',
+            data: { cartModel: JSON.stringify(cartList) },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/CartItem";
+                }
+            }
+        })
+    };
+        
+    $(document).ready(function () {
+        $("input.quantity_product").blur(function () {
+            var quantify = $(this).val();
+            if (quantify < 1) {
+                $(this).val(1);
+            }
+            update();
+        });
+
+        $('.paypal').change(function () {
+            if ($(this).is(":checked")) {
+                $('a.btn_payment').attr('href','/CartItem/PaymentWithPaypal');
+                //$('a.btn_payment input#btnCheckout').addClass('paypalcheckout');
+            }
+        });
+
+        $('.cash').change(function () {
+            if ($(this).is(":checked")) {
+                $('a.btn_payment').attr('href', '/CartItem/Order');
+            }
+        });
+    });
+
+    $('.ic_add').on('click', function (e) {
+        var value_input = $(this).closest('.payyy').find(".quantity_product").val();
+        var val = parseInt(value_input);
+        $(this).closest('.payyy').find(".quantity_product").val(val + 1);
+        update();
+    });
+
+    $('.ic_subtract').on('click', function (e) {
+        var value_input = $(this).closest('.payyy').find(".quantity_product").val();
+        var val = parseInt(value_input);
+        if (val > 0) {
+            $(this).closest('.payyy').find(".quantity_product").val(val - 1);
+        }
+        if ($(this).closest('.payyy').find(".quantity_product").val() == 0) {
+            $(this).closest('.payyy').find(".quantity_product").val(1);
+        }
+        update();
+    });
+        //Kiểm tra lại href
+    $("#btnCheckout").click(function () {
+        if ($('a.btn_payment').attr('href') == "/CartItem/Order") {
+            var name = $('input.name').val();
+            var phone = $('input.phone').val();
+            var email = $('input.email').val();
+            var city1 = $('select.city1').val();
+            var address1 = $('input.address1').val();
+            var city2 = $('select.city2').val();
+            var address2 = $('input.address2').val();
+            var note = $('input.note').val();
+            if (name == '') {
+                alert('Xin nhập họ tên');
+                return false;
+            }
+            if (phone == '') {
+                alert('Xin nhập số điện thoại');
+                return false;
+            }
+            if (phone == '') {
+                alert('Xin nhập số điện thoại');
+                return false;
+            }
+            if (email == '') {
+                alert('Xin nhập email');
+                return false;
+            }
+            if (city1 == '') {
+                alert('Xin nhập thành phố');
+                return false;
+            }
+            if (address1 == '') {
+                alert('Please input address');
+                return false;
+            }
+            $.ajax({
+                url: "/CartItem/Order",
+                type: "post",
+                dateType: "json",
+                data: {
+                    Name: name,
+                    Phone: phone,
+                    Email: email,
+                    City1: city1,
+                    Address1: address1,
+                    City2: city2,
+                    Address2: address2,
+                    Note: note,
+                },
+                success: function (list) {
+                    var obj = JSON.parse(list)
+                    if (obj == null) {
+                        alert("Đặt hàng không thành công");
+                    }
+                    else {
+                        window.location.href = "/CartItem/OrderCompelete";
+                    }
+                }
+            });
+        } else {
+            window.location.href = "/CartItem/PaymentWithPaypal";
+        } 
+    });
+
+</script>

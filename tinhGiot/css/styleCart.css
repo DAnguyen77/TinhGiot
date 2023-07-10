@@ -1,0 +1,85 @@
+﻿.title3{
+    margin-bottom:0px;
+    color:#293e12;
+    font-weight:600;
+}
+
+.box3{
+    min-height:270px;
+    max-height:480px;
+    overflow-y:scroll;
+}
+
+.image3 {
+    margin: 0 auto;
+    height: 70px;
+    padding: 5px 5px 5px 5px;
+}
+
+.pricequantity {
+    margin: 0 auto;
+    padding: 3px 3px 3px 3px;
+}
+.imagecart{
+    text-align:center;
+}
+.nameproduct{
+    line-height:24px;
+    text-align:center;
+}
+.priceproduct{
+    margin: 0 auto;
+}
+.sum_money{
+    color:#29a019;
+    margin-bottom:3px;
+}
+
+
+.quantity_product {
+    width: 45px;
+    height: 27px;
+    border: 1px solid #B77C17;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.ic_x{
+    /*float:right;*/
+    margin-top:15px;
+    margin-right:5px;
+}
+
+
+
+.formpaystyle{
+    border:1px solid #d1d1d1;
+    color:#979797;
+}
+
+.formpayndstyle{
+    min-height:80px;
+    border:1px solid #d1d1d1;
+    color:#979797;
+}
+
+.formlistcity{
+    height:44.38px;
+    width:100%;
+    border:1px solid #979797;
+    color:#000;
+}
+
+.fixcart{
+        margin-left:0px;
+}
+@media (max-width: 768px) and (min-width:481px) {
+.fixcart{
+        margin-left:45%;
+}
+}
+@media screen and (max-width: 480px) {
+.fixcart{
+        margin-left:25%;
+}
+}

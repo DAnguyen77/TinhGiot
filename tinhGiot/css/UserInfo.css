@@ -1,0 +1,47 @@
+﻿body {
+}
+
+.TabPanel {
+    margin-top: 10px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    font-weight: 300;
+    border-collapse:collapse;
+    display:inline-block;
+    width:100%;
+}
+.TabInfo {
+    float: left;
+    background-color: whitesmoke;
+    color: darkgrey;
+    height: 45px;
+    line-height: 45px;
+    max-width: 160px;
+    min-width: 120px;
+    text-align: center;
+}
+
+    .TabInfo:hover {
+        border-top: 2px solid #B77C17;
+        color: #B77C17;
+        cursor: pointer;
+        background-color: rgba(183, 124,23,0.1);
+    }
+
+.TabInfo_Active {
+    float: left;
+    border-top: 2px solid #B77C17;
+    color: #B77C17;
+    height: 45px;
+    line-height: 45px;
+    font-weight:500;
+    max-width: 160px;
+    min-width: 120px;
+    text-align: center;
+    background-color: rgba(183, 124,23,0.1);
+}
+
+    .TabInfo_Active:hover {
+        color: #B77C17;
+    }

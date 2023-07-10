@@ -1,0 +1,652 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row" id="ProductList">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Data Table Product</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="width:80px;">Danh mục</div>
+                <div class="col-sm-3">
+                    <select id="selectCategory" class="form-control" onchange="SelectedCatItem();">
+                        @if (ViewBag.listcp != null)
+                        {
+                            foreach (var item in ViewBag.listcp)
+                            {
+                                if (ViewBag.Init_SelectedCat == item.ID.ToString())
+                                {
+                                    <option value="@item.ID" selected>@item.CategoryName_Lang</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@item.CategoryName_Lang</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="AddProduct()" style="margin-left:1em;"><i class="fa fa-plus"></i> Tạo mới sản phẩm</button>
+            </div>
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th class="productname">Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Hình ảnh</th>
+                            @*<th>Capacity</th>
+                                <th>Status</th>
+                                <th>Quantity</th>
+                                <th>SKU</th>
+                                <th>UnitPrice</th>
+                                <th>MoreInfo</th>*@
+
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.listpd)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>
+                                    <a onclick="showDetail(@item.ID)" class="idUser" style="cursor:pointer; color:#333333" data-toggle="modal" data-target="#ProductDetail">@item.ProductName</a>
+                                </td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @{
+                                        foreach (var img in (item.Image).Split(','))
+                                        {
+                                            <img src="@Url.Content("~/UploadedImage/" + img)" class="img-rounded" width="100" height="100" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete(@item.ID)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="EditProduct" style="display:none;">
+    <h4 class="modal-title text-center">Product Detail</h4>
+    <form class="form-horizontal" id="form" enctype="multipart/form-data">
+        <div class="box-body">
+            <div style="font-size:18px;font-weight:300;"><label onclick="Tab('DETAIL');" style="cursor:pointer;margin-right:10px;">Product Properties</label><label onclick="Tab('VI');" style="cursor:pointer;margin-right:10px;">VI</label><label onclick="Tab('EN');" style="cursor:pointer;margin-right:10px;">EN</label><label onclick="Tab('JP');" style="cursor:pointer;margin-right:10px;">JP</label></div>
+            <div id="Product_Properties" style="display:block;">
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div id="imgReview" class="thumbnail">
+                            <img class="img-responsive" id="targetImg" />
+                            <div class="caption" id="imageProductEdit">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputImage" class="col-sm-3 control-label">Hình ảnh</label>
+
+                    <div class="col-sm-9">
+                        <div class="btn btn-primary" style="width: 100%;">
+                            <input type="file" id="imageBrowse" style="width: 100%;" multiple="multiple"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="display:none">
+                    <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputID" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrice" class="col-sm-3 control-label">Giá</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="inputPrice" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCapacity" class="col-sm-3 control-label">Dung tích</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="inputCapacity" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <select id="selectMeasureUnit" class="form-control">
+                            <option value="ml">ml</option>
+                            <option value="gram">gram</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectStatus" class="col-sm-3 control-label">Trạng thái</label>
+                    <div class="col-sm-9">
+                        <select id="selectStatus" class="form-control">
+                            <option value="1">Còn hàng</option>
+                            <option value="0">Hết hàng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputQuantity" class="col-sm-3 control-label">Số lượng</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputQuantity" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputSKU" class="col-sm-3 control-label">Mã sản phẩm</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputSKU" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUnitPrice" class="col-sm-3 control-label">Unit Price</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputUnitPrice" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMoreInfo" class="col-sm-3 control-label">Thông tin thêm</label>
+
+                    <div class="col-sm-9">
+                        <select id="selectMoreInfo" class="form-control">
+                            <option value="1">Hot</option>
+                            <option value="0">New</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="Product_Detail_VI" style="display:none;">
+                <div class="form-group">
+                    <label for="inputProductName" class="col-sm-3 control-label">Tên sản phẩm</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputProductName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputKeywords" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputShortDescription" class="col-sm-3 control-label">Mô tả sơ lược</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputShortDescription" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="col-sm-3 control-label">Mô tả chi tiết</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputDescription" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUses" class="col-sm-3 control-label">Cách dùng</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputUses" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="Product_Detail_EN" style="display:none;">
+                <div class="form-group">
+                    <label for="inputProductName" class="col-sm-3 control-label">Tên sản phẩm</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputProductName_EN" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputKeywords_EN" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputShortDescription" class="col-sm-3 control-label">Mô tả sơ lược</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputShortDescription_EN" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="col-sm-3 control-label">Mô tả chi tiết</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputDescription_EN" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUses" class="col-sm-3 control-label">Cách dùng</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputUses_EN" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="Product_Detail_JP" style="display:none;">
+                <div class="form-group">
+                    <label for="inputProductName" class="col-sm-3 control-label">Tên sản phẩm</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputProductName_JP" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputKeywords_JP" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputShortDescription" class="col-sm-3 control-label">Mô tả sơ lược</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputShortDescription_JP" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="col-sm-3 control-label">Mô tả chi tiết</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputDescription_JP" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputUses" class="col-sm-3 control-label">Cách dùng</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="inputUses_JP" placeholder="Nhập vào ..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Lưu</button>
+            <button type="button" class="btn btn-info pull-right" style="margin-right:20px;" onclick="Close();">Trở về</button>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Delete Product Record</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Record?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading">Loading&#8230;</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.replace('inputDescription');
+        CKEDITOR.replace('inputShortDescription');
+        CKEDITOR.replace('inputUses');
+        CKEDITOR.replace('inputDescription_EN');
+        CKEDITOR.replace('inputShortDescription_EN');
+        CKEDITOR.replace('inputUses_EN');
+        CKEDITOR.replace('inputDescription_JP');
+        CKEDITOR.replace('inputShortDescription_JP');
+        CKEDITOR.replace('inputUses_JP');
+    });
+    $(document).ready(function () {
+        $("#imageBrowse").change(function () {
+
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+
+        /*   $.getJSON("/api/Category/GetAllCategories",
+             function (data) {
+                 var html = "";
+                 for (var i = 0; i < data.length; i++) {
+                     html += "<option value='"+ data[i].ID +"'>"+data[i].CategoryName+"</option>";
+                 }
+                 $("#selectCategory").html(html);
+             });  */
+    });
+
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+          //      $('#targetImg').attr('src', _file.target.result);
+          //      $('#imgReview').show();
+            }
+        }
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowse").val('');
+        $('#description').text('');
+        $('#imgReview').hide();
+    }
+
+
+    function Tab(tab) {
+        document.getElementById("Product_Properties").style.display = "none";
+        document.getElementById("Product_Detail_VI").style.display = "none";
+        document.getElementById("Product_Detail_EN").style.display = "none";
+        document.getElementById("Product_Detail_JP").style.display = "none";
+
+        switch (tab) {
+            case "DETAIL":
+                document.getElementById("Product_Properties").style.display = "block";
+                break;
+            case "EN":
+                document.getElementById("Product_Detail_EN").style.display = "block";
+                break;
+            case "VI":
+                document.getElementById("Product_Detail_VI").style.display = "block";
+                break;
+            case "JP":
+                document.getElementById("Product_Detail_JP").style.display = "block";
+                break;
+        }
+    }
+
+    function AddProduct() {
+        document.getElementById("ProductList").style.display = "none";
+        document.getElementById("EditProduct").style.display = "block";
+        $(':text').val('');
+        $("#imageBrowse").val('');
+        $('#inputDescription').val('');
+        $('#imgReview').hide();
+        $('#inputPrice').val('');
+        $('#inputDescription_EN').val('');
+        $('#inputDescription_JP').val('');
+        $('#inputShortDescription').val('');
+        $('#inputShortDescription_EN').val('');
+        $('#inputShortDescription_JP').val('');
+         $('#inputKeywords').val('');
+        $('#inputKeywords_EN').val('');
+        $('#inputKeywordsn_JP').val('');
+
+    }
+
+    function GetImageName() {
+        alert($('#img-product').attr("data-id"));
+    }
+
+    function Edit(ProductID) {
+        var url = '/vi/Admin/Product_detail?ProductID=' + ProductID;
+        document.getElementById("ProductList").style.display = "none";
+        document.getElementById("EditProduct").style.display = "block";
+        $('#imgReview').show();
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                //$('#targetImg').attr('src', '/UploadedImage/' + obj.Image);
+                var ima = obj.Image.split(",");
+                var html1 = "";
+                var html2 = "";
+                for (var i = 0; i < ima.length; i++) {
+                    html1 = '<img src="/UploadedImage/' + ima[i] + '" class="img-rounded-edit" style="margin:5px 0px 0px 5px" data-id="' + ima[i] + '" onclick="GetImageName()" id="img-product" width="50" height="50" />';
+                    html2 = html2 + html1;
+                    $("#imageProductEdit").html(html2);
+                }
+                $('#inputID').val(obj.ID);
+                $('#inputProductName').val(obj.ProductName);
+                $('#inputProductName_EN').val(obj.ProductName_EN);
+                $('#inputProductName_JP').val(obj.ProductName_JP);
+                $('#inputPrice').val(obj.Price);
+                $('#inputCapacity').val(obj.Capacity);
+                $('#selectCategory').val(obj.CategoryID);
+                $('#selectStatus').val(obj.Status);
+                $('#selectMeasureUnit').val(obj.MeasureUnit);
+                $('#inputQuantity').val(obj.Quantity);
+                $('#inputSKU').val(obj.SKU);
+                $('#inputUnitPrice').val(obj.UnitPrice);
+                $('#selectMoreInfo').val(obj.MoreInfo);
+                $('#inputKeywords').val(obj.Keywords);
+                 $('#inputKeywords_EN').val(obj.Keywords_EN);
+                 $('#inputKeywords_JP').val(obj.Keywords_JP);
+               CKEDITOR.instances['inputDescription'].setData(obj.Description);
+                CKEDITOR.instances['inputDescription_EN'].setData(obj.Description_EN);
+                CKEDITOR.instances['inputDescription_JP'].setData(obj.Description_JP);
+                CKEDITOR.instances['inputUses'].setData(obj.Uses);
+                CKEDITOR.instances['inputUses_EN'].setData(obj.Uses_EN);
+                CKEDITOR.instances['inputUses_JP'].setData(obj.Uses_JP);
+                CKEDITOR.instances['inputShortDescription'].setData(obj.ShortDescription);
+                CKEDITOR.instances['inputShortDescription_EN'].setData(obj.ShortDescription_EN);
+                CKEDITOR.instances['inputShortDescription_JP'].setData(obj.ShortDescription_JP);
+
+            }
+        })
+    }
+
+    function Delete(IdUser) {
+        $('#inputID').val(IdUser);
+        $('#DeleteConfirmation').modal('show');
+    }
+
+    function ConfirmDelete() {
+        var ProductID = $('#inputID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteProductRecord?ProductID=" + ProductID,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    function Close() {
+        document.getElementById("ProductList").style.display = "block";
+        document.getElementById("EditProduct").style.display = "none";
+        ScrollTop();
+    }
+
+    function SelectedCatItem() {
+        SelectedCatID = $('#selectCategory').val();
+        window.location.replace("/vi/Products/Products/" + SelectedCatID);
+    }
+
+    $("#SaveUserRecord").click(function () {
+        if ($('#inputProductName').val() == "") {
+            alert("Vui lòng nhập tên sản phẩm");
+            return;
+
+        }
+        if ($('#inputPrice').val() == "") {
+            alert("Vui lòng nhập giá sản phẩm");
+            return;
+        }
+        if ($('#inputCapacity').val() == "") {
+            alert("Vui lòng nhập dung tích");
+            return;
+        }
+        if ($('#inputQuantity').val() == "") {
+            alert("Vui lòng nhập số lượng");
+            return;
+        }
+        if ($('#inputSKU').val() == "") {
+            alert("Vui lòng nhập SKU");
+            return;
+        }
+        if ($('#inputUnitPrice').val() == "") {
+            alert("Vui lòng nhập giá tiền (USD)");
+            return;
+        }
+        if (CKEDITOR.instances['inputDescription'].getData() == "") {
+            alert("Vui lòng nhập mô tả");
+            return
+        }
+        if (CKEDITOR.instances['inputUses'].getData() == "") {
+            alert("Vui lòng nhập công dụng");
+            return;
+        }
+
+        var formData = new FormData();
+        var totalFiles = document.getElementById("imageBrowse").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("imageBrowse").files[i];
+            formData.append(file.name, file);
+        }
+        formData.append('ID', $('#inputID').val());
+        formData.append('ProductName', $('#inputProductName').val());
+        formData.append('ProductName_EN', $('#inputProductName_EN').val());
+        formData.append('ProductName_JP', $('#inputProductName_JP').val());
+        formData.append('Price', $('#inputPrice').val());
+        formData.append('Capacity', $('#inputCapacity').val());
+        formData.append('CategoryID', $('#selectCategory').val());
+        formData.append('Status', $('#selectStatus').val());
+        formData.append('MeasureUnit', $('#selectMeasureUnit').val());
+        formData.append('Quantity', $('#inputQuantity').val());
+        formData.append('SKU', $('#inputSKU').val());
+        formData.append('UnitPrice', $('#inputUnitPrice').val());
+        //formData.append('Description', $('#inputDescription').val());
+        formData.append('MoreInfo', $('#selectMoreInfo').val());
+        //formData.append('Uses', $('#inputUses').val());
+        formData.append('Keywords', $('#inputKeywords').val());
+        formData.append('Keywords_EN', $('#inputKeywords_EN').val());
+        formData.append('Keywords_JP', $('#inputKeywords_JP').val());
+       formData.append("Description", CKEDITOR.instances['inputDescription'].getData());
+        formData.append("Description_EN", CKEDITOR.instances['inputDescription_EN'].getData());
+        formData.append("Description_JP", CKEDITOR.instances['inputDescription_JP'].getData());
+        formData.append("Uses", CKEDITOR.instances['inputUses'].getData());
+        formData.append("Uses_EN", CKEDITOR.instances['inputUses_EN'].getData());
+        formData.append("Uses_JP", CKEDITOR.instances['inputUses_JP'].getData());
+        formData.append("ShortDescription", CKEDITOR.instances['inputShortDescription'].getData());
+        formData.append("ShortDescription_EN", CKEDITOR.instances['inputShortDescription_EN'].getData());
+        formData.append("ShortDescription_JP", CKEDITOR.instances['inputShortDescription_JP'].getData());
+
+        $.ajax({
+            type: "POST",
+            url: '/vi/Admin/InsertAndUpdateProduct',
+            data: formData,
+            contentType: false, // Not to set any content header
+            processData: false, // Not to process data
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            },
+        });
+    });
+
+    function showDetail(id) {
+        var url = '/Admin/Product_detail?ProductID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                //$('#img-product').attr('src', '/UploadedImage/' + obj.Image);
+                var ima = obj.Image.split(",");
+                var html1 = "";
+                var html2 = "";
+                for (var i = 0; i < ima.length; i++) {
+                    html1 = '<img src="/UploadedImage/' + ima[i] + '" class="img-rounded" style="margin:5px 0px 0px 5px" id="img-product" width="50" height="50" />';
+                    html2 = html2 + html1;
+                    $("#imageProductDetail").html(html2);
+                }
+                $('#inputID').text(obj.ID);
+                $('#ProductName').text(obj.ProductName);
+                $('#Price').text(obj.Price);
+                $('#Capacity').text(obj.Capacity);
+                $('#CategoryID').text(obj.CategoryID);
+
+                //$('#Status').text(obj.Status);
+                if (obj.Status == "1") {
+                    $('#Status').text("Còn hàng");
+                } else {
+                    $('#Status').text("Hết hàng");
+                }
+                $('#Quantity').text(obj.Quantity);
+                $('#SKU').text(obj.SKU);
+                $('#UnitPrice').text(obj.UnitPrice);
+                $('#Description').text(obj.Description);
+                //$('#MoreInfo').text(obj.MoreInfo);
+                if (obj.MoreInfo == "1") {
+                    $('#MoreInfo').text("Hot");
+                } else {
+                    $('#MoreInfo').text("New");
+                }
+                $('#Uses').text(obj.Uses);
+            }
+
+        })
+    }
+
+    $(function () {
+        $("#tblUsers").DataTable({
+            "ordering": true,
+            columnDefs: [{
+                orderable: false,
+                targets: "no-sort"
+            },
+            { "width": "100px", "targets": "productname" },
+            { "width": "70px", "targets": "category-id" },
+            { "width": "70px", "targets": "sorttable_nosort" },
+            ]
+        });
+    });
+</script>
+

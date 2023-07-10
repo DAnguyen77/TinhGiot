@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "UserOrderHistory";
+}
+@{
+    if (Session["userid"] == null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+<div style="min-height:630px">
+    <table id="tbOH" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><b>MÃ ĐƠN HÀNG</b></th>
+                <th><b>NGÀY ĐẶT HÀNG</b></th>
+                <th><b>T.TIỀN</b></th>
+                <th><b>GIAO HÀNG</b></th>
+                <th><b>THANH TOÁN</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listorder)
+            {
+                <tr>
+                           
+                        <td>
+                            <a onclick="showDetail(@item.OrderID)" class="OrderID" style="cursor:pointer; color:#333333" data-toggle="modal" data-target="#ProductDetail">@item.OrderID</a>
+                        </td>
+                        <td>@String.Format("{0:dd/MM/yyyy HH:mm}", item.TimeOrder)</td>
+                        <td style="color:#ff6101">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(item.TotalPrice))).Replace(",", ".")</td>
+                        @if (item.DeliveryStatus == "0")
+                        {
+                            <td>Đang chờ</td>
+                        }
+                        else
+                        {
+                            <td>Đã giao</td>
+                        }
+                        @if (!item.StatusPayment)
+                        {
+                            <td>COD</td>
+                        }
+                        else
+                        {
+                            <td>Đã thanh toán</td>
+                        }
+
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>
+<div class="modal fade" id="ProductDetail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%;margin-left:0px;margin-right:0px;max-width:100% !important">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Thông tin chi tiết đơn hàng</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-1" style="width:100%;margin-left:0px">
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Mã đơn hàng</b> <span class="pull-right" id="OrderID"></span>
+                                        <input type="text" class="form-control" id="OrderID" style="display:none">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Tên</b> <span class="pull-right" id="Name"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Số điện thoại</b> <span class="pull-right" id="PhoneNumber"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Email</b> <span class="pull-right" id="Email"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>UserID</b> <span class="pull-right" id="UserID"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Ngày đặt</b> <span class="pull-right" id="TimeOrder"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Trạng thái thanh toán</b> <span class="pull-right" id="StatusPayment"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Phương thức thanh toán</b> <span class="pull-right" id="Payment"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Trạng thái giao hàng</b> <span class="pull-right" id="DeliveryStatus"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Thành phố 1</b> <span class="pull-right" id="City1"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Địa chỉ 1</b> <span class="pull-right" id="Address1"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Thành phố 2</b> <span class="pull-right" id="City2"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Địa chỉ 2</b> <span class="pull-right" id="Address2"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Quốc gia</b> <span class="pull-right" id="Country"></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Ghi chú</b> <span class="pull-right" id="Note"></span>
+                                    </li>
+                                    <li class="list-group-item" id="product-order">
+                                        <b>Sản phẩm x Số lượng</b><br/><span class="pull-right" id="ProductName"></span>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item" id="price-order">
+                                        <b>Giá</b> <span class="pull-right" style="color:#ff6101" id="TotalPrice"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#tbOH").DataTable();
+    });
+    function showDetail(id) {
+        var url = '/Admin/Order_detail?OrderID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#OrderID').text(obj.OrderID);
+                $('#Name').text(obj.Name);
+                $('#PhoneNumber').text(obj.PhoneNumber);
+                $('#Email').text(obj.Email);
+                $('#UserID').text(obj.UserID);
+                $('#TimeOrder').text(obj.TimeOrder.slice(0,10));
+                if (obj.StatusPayment == "0") {
+                    $('#StatusPayment').text("Chưa thanh toán");
+                } else {
+                    $('#StatusPayment').text("Đã thanh toán");
+                }
+                if (obj.Payment == "1") {
+                    $('#Payment').text("Thanh toán khi nhận hàng");
+                } else {
+                    $('#Payment').text("Paypal");
+                }
+
+                $('#City1').text(obj.City1);
+                $('#Address1').text(obj.Address1);
+                $('#City2').text(obj.City2);
+                $('#Address2').text(obj.Address2);
+                $('#Country').text(obj.Country);
+                $('#Note').text(obj.Note);
+                if (obj.DeliveryStatus == "1") {
+                    $('#DeliveryStatus').text("Đã giao");
+                } else {
+                    $('#DeliveryStatus').text("Đang chờ");
+                }
+                if (obj.TotalPrice.length == 6) {
+                    $('#TotalPrice').text(obj.TotalPrice.slice(0, 3) + "." + obj.TotalPrice.slice(3, 6) + ' ' + 'đ');
+                } else {
+                    if (obj.TotalPrice.length == 9) {
+                        $('#TotalPrice').text(obj.TotalPrice.slice(0, 3) + "." + obj.TotalPrice.slice(3, 6) + "." + obj.TotalPrice.slice(6, 9) + ' ' + 'đ');
+                    } else {
+                        if (obj.TotalPrice.length == 8) {
+                            $('#TotalPrice').text(obj.TotalPrice.slice(0, 2) + "." + obj.TotalPrice.slice(2, 5) + "." + obj.TotalPrice.slice(5, 8) + ' ' + 'đ');
+                        } else {
+                            if (obj.TotalPrice.length == 7) {
+                                $('#TotalPrice').text(obj.TotalPrice.slice(0, 1) + "." + obj.TotalPrice.slice(1, 4) + "." + obj.TotalPrice.slice(4, 7) + ' ' + 'đ');
+                            } else {
+                                $('#TotalPrice').text(obj.TotalPrice.slice(0, 2) + "." + obj.TotalPrice.slice(2, 5) + ' ' + 'đ');
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        var ulr = '/Admin/OrderProduct_detail?OrderID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: ulr,
+            dataType: 'json',
+            success: function (data) {
+                var objw = JSON.parse(data);
+                var html = "";
+                var httt = "";
+                for (var i = 0; i < objw.length; i++) {
+                    if (objw[i].ProductName.length > 50) {
+                        html = "<span class='pull-right' id='" + objw[i].ProductName + "'>" + objw[i].ProductName.slice(0,50) + "...  x " + objw[i].Quantity + "</span>";
+                    } else {
+                        html = "<span class='pull-right' id='" + objw[i].ProductName + "'>" + objw[i].ProductName + " x " + objw[i].Quantity + "</span>";
+                    }  
+                    httt += html + "<br/>";
+                }
+                $("li#product-order span").html(httt);
+            }
+        })
+    }
+</script>

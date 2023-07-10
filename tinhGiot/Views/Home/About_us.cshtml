@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "About_us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/aboutus.css" rel="stylesheet" />
+
+<div class="AboutContainer">
+    <div class="Banner_Img">
+        <div class="BannerTitle">
+            <div class="about-title" style="position:relative;">
+                <h2>Hành Trình từ Đam Mê</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="AboutContainer content-block">
+    
+    <div class="col-lg-12">
+        <div style="padding:25px 25px 25px 25px;word-spacing:1px;line-height:36px;text-align:justify;max-width:1080px;margin:0 auto;font-size:18px;">
+            @foreach (var item in ViewBag.about)
+            {
+                @Html.Raw(item.AboutContent_Lang)
+                break;
+            }
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TinhGiot" Class="dbTinhGiotDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=204.93.178.157;Initial Catalog=itendering_tinhgiot;Integrated Security=False;User ID=itendering_tinhgiot" SettingsObjectName="BaseClasses.Properties.Settings" SettingsPropertyName="TinhGiotConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.About" Member="Abouts">
+    <Type Name="About">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AboutContent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AboutContent_EN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserOrder" Member="UserOrders">
+    <Type Name="UserOrder">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="StatusPayment" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="Payment" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Ward" Storage="_City1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Storage="_Address1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="City" Storage="_City2" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="District" Storage="_Address2" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TimeOrder" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OrderID" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DeliveryStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="IsGifted" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="GiftMessage" Type="System.String" DbType="nvarchar(500)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" />
+      <Column Name="TrackingID" Type="System.String" DbType="nvarchar(50)" CanBeNull="true" />
+      <Column Name="TrackingLink" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="PaymentID" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="DeliveryCost" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" />
+      <Column Name="PromotionCode" Type="System.String" DbType="nchar(10)" CanBeNull="true" />
+      <Column Name="DiscountValue" Type="System.Int32" DbType="int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdminName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CategoryNews" Member="CategoryNews">
+    <Type Name="CategoryNew">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryNews" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryNews_EN" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CategoryNews_JP" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CategoryProducts" Member="CategoryProducts">
+    <Type Name="CategoryProduct">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CategoryName_JP" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CategoryName_EN" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ContactTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="New">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="PostTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PostContent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MoreInfo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title_EN" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Title_JP" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="PostContent_EN" Type="System.String" DbType="nvarchar(max)" CanBeNull="true" />
+      <Column Name="PostContent_JP" Type="System.String" DbType="nvarchar(max)" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Keywords_EN" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Keywords_JP" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductOrder" Member="ProductOrders">
+    <Type Name="ProductOrder">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_EN" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_JP" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TimeOrder" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="NVARCHAR(50)" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_EN" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_JP" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Capacity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description_EN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description_JP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CategoryID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MoreInfo" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Uses" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Uses_EN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Uses_JP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="nvarchar(300)" CanBeNull="true" />
+      <Column Name="ShortDescription_EN" Type="System.String" DbType="nvarchar(300)" CanBeNull="true" />
+      <Column Name="ShortDescription_JP" Type="System.String" DbType="nvarchar(300)" CanBeNull="true" />
+      <Column Name="MeasureUnit" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Keywords_EN" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Keywords_JP" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="FacebookID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="GoogleID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ResetPasswordCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CartItem" Member="CartItem">
+    <Type Name="CartItem">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BuyerID" Type="System.String" DbType="NVarChar(50)" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_EN" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductName_JP" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="int" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="datetime" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="NVARCHAR(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="DeliveryAddresses">
+    <Type Name="DeliveryAddress">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="UserID" Type="System.String" DbType="nvarchar(50)" CanBeNull="true" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="nvarchar(200)" CanBeNull="true" />
+      <Column Name="Ward" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="District" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="nvarchar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="Fullname" Type="System.String" DbType="nvarchar(100)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="nvarchar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

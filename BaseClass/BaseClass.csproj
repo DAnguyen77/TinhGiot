@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="dbTinhGiot.dbml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="dbTinhGiot.dbml">
+      <SubType>Designer</SubType>
+      <LastGenOutput>dbTinhGiot.designer.cs</LastGenOutput>
+      <Generator>MSLinqToSQLGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="dbTinhGiot.designer.cs">
+      <DependentUpon>dbTinhGiot.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dbTinhGiot.dbml.layout">
+      <DependentUpon>dbTinhGiot.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+
+</Project>

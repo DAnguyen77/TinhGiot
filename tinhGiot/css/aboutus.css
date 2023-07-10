@@ -1,0 +1,94 @@
+﻿.AboutContainer {
+    width: 100%;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+    line-height: 28px;
+    font-size: 16px;
+}
+
+@font-face {
+    font-family:vnf-semilla;
+    src: url(fonts/VNF-SEMILLA.TTF) format('truetype');
+}
+.Banner_Img {
+    background-image: url('/images/about.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 480px;
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.BannerTitle {
+    font-family:vnf-semilla;
+    width: 80%;
+    height: 120px;
+    margin: 10px;
+    padding: 5px;
+}
+
+.about-title {
+    position: relative;
+    height: 36px;
+    color: #B77C17;
+}
+
+    .about-title h2 {
+        text-align: center;
+        font-size: 36px;
+        line-height: 48px;
+    }
+
+.about-title h2:before {
+    content: "";
+    width: 320px;
+    height: 2px;
+    border-bottom: 1px solid #d1d1d1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 50px;
+    max-width: 90%;
+}
+
+.about-title h2:after {
+    content: "";
+    width: 8px;
+    height: 12px;
+    background: url(../images/drop_black.png) center no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 45px;
+}
+
+.about-us h2:after {
+    content: "";
+    width: 8px;
+    height: 12px;
+    background: url(../images/drop_moss_light.png) center no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 60px;
+}
+
+@media screen and (max-width: 450px) {
+    .Banner_Img {
+        height: 180px;
+    }
+    .about-title h2 {
+        text-align: center;
+        font-size: 27px;
+        line-height: 36px;
+    }
+}

@@ -1,0 +1,19 @@
+﻿.Edit_icon {
+    background: no-repeat url('/images/update.png') center;
+ background-size: 18px 18px;
+    position: relative;
+    width:18px;
+    height:18px;
+    float:left;
+    cursor:pointer;
+}
+
+.Delete_icon {
+    float: left;
+    position: relative;
+    background: no-repeat url('/images/delete.png') center;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    cursor:pointer;
+}

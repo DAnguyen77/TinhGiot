@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = @ViewBag.gnc;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<meta name="description" content="@ViewBag.gnc" />
+
+<div class="content-block">
+    <h4 style="color:red">@ViewBag.Message</h4>
+    @foreach (var l in ViewBag.list)
+    {
+        <div class="col-lg-3">
+            <div class="prd-item">
+                <div class="prd-thumb">
+                    <a href="/@ViewBag.Language/ProductDetail/@l.ProductName_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID">
+                        @*<img src="/UploadedImage/@l.Image" />*@
+                        @foreach (var img in (l.Image).Split(','))
+                        {
+                            <img src="@Url.Content("/UploadedImage/" + img)" />
+                            break;
+                        }
+                    </a>
+                </div>
+                <div class="prd-info">
+                    <a href="/@ViewBag.Language/ProductDetail/@l.ProductName_Lang.Replace(' ', '-')/@l.ID-@l.CategoryID" class="prd-title">
+                        <p class="text-title-max">@l.ProductName_Lang</p>
+                    </a>
+                    <p class="prd-price" id="prd-price"><span class="prd-price-span" id="prd-price-span">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(l.Price))).Replace(",", ".")</span></p>
+                    @*<a href="javascript:;" class="btn btn-buy-now" id="myBtn_@l.ID" data-id="@l.ID" productname="@l.ProductName" data-img="@l.Image" ><i class="icon-cart-plus"></i></a>*@
+                    @foreach (var img in (l.Image).Split(','))
+                    {
+                        <label class="Btn_Buy" id="myBtn_@l.ID" data-id="@l.ID" productname="@l.ProductName_Lang" data-img="@Url.Content(img)">@tinhGiot.Resources.Index.AddToBag</label>
+                        break;
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="loading">Loading&#8230;</div>
+

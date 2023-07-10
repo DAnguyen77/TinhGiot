@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 10.375" name="dbTinhGiot">
+  <DataContextMoniker Name="/dbTinhGiotDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bc160005-8d77-4223-b6db-6fbcf71ac943" absoluteBounds="0.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/About" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4e1c3277-d591-455a-82d9-b567e8a71d4c" absoluteBounds="0.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b71316ae-a482-48ca-ae29-e3a993363dd3" absoluteBounds="0.75, 2.75, 2, 4.0785139973958326">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/UserOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0af927ac-90b3-445a-9115-9bbb9741281d" absoluteBounds="0.765, 3.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b2588c5-63e9-473c-b1cf-11c53e202255" absoluteBounds="3.75, 0.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/Admin" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a4c0f4e2-0672-4486-981d-0b030ab14e21" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2b947911-a6e8-4029-baac-340ae500df31" absoluteBounds="3.75, 4.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/CategoryNew" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f6fca528-be94-480d-bc45-f0a3b218831f" absoluteBounds="3.765, 5.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b081114a-8ff6-4eac-845d-ec64db443598" absoluteBounds="6.75, 0.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/CategoryProduct" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d716ef1a-2a61-4cc0-b2a6-59410aad15c4" absoluteBounds="6.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cd6c5d19-121c-47c2-a3b1-da6f821bae12" absoluteBounds="6.75, 3.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/Contact" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7c7204f-a164-49a7-9a46-565caf7a26a1" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cfb7e48f-33df-44f7-8f94-8041342bed5a" absoluteBounds="6.75, 6.75, 2, 2.5401025390624996">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/New" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1457d50b-57b7-4414-bc04-44203302429d" absoluteBounds="6.765, 7.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="65f6b80a-7b5a-4345-97c1-c7fccf67b718" absoluteBounds="0.75, 7.75, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/ProductOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d617af42-6201-4c4e-9952-1842c8a96f70" absoluteBounds="0.765, 8.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="32bc9287-6678-4d61-b7a9-a5c39ddf1c2e" absoluteBounds="9.75, 0.75, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f07afdb2-d5b4-4302-935c-7905ea2b253e" absoluteBounds="9.765, 1.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="38db5efc-b739-4b28-84e5-f969ce3af5cb" absoluteBounds="9.75, 5.75, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/dbTinhGiotDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a9637929-fa40-454c-a1a3-c8342628bb05" absoluteBounds="9.765, 6.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

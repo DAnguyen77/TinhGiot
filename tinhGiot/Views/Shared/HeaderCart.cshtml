@@ -1,0 +1,13 @@
+﻿@model List<BaseClasses.CartItems>
+@section jsFooter{
+    <script src="~/js/cartController.js"></script>
+}
+        <a onclick="OpenPreviewCart();" class="cart shoppingbag" href="#" style="float:right">
+            <label id="QtyBagItems" style="position:relative;text-align:center;margin-top:12px;font-size:12px;line-height:18px;cursor:pointer;">@(Model.Sum(x => x.Quantity))</label>
+        </a>
+
+
+
+
+
+

@@ -1,0 +1,282 @@
+﻿
+@*@{
+    ViewBag.Title = "Pay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="block-title">
+        <h2>thanh toán</h2>
+    </div>
+    <div class="">
+        <p class="block-content">
+            <input class="contact-form" style="border:none;border-radius:5px;background:#cdd39f;width:100%;color:#293e12;text-align:left;font-size:20px;font-weight:600" value="--thông tin đơn hàng" />
+        </p>
+        <div class="clear"></div>
+        <div class="col-lg-6" style="padding-left:0px">
+            <div class="w3l_main_grid1_w3ls_grid">
+                <h3 style="margin-bottom:0px;color:#293e12;font-weight:600">--địa chỉ nhận hàng</h3>
+                <div class="w3_agile_main_left_grid_w3_agileits contact-form" style="border:1px solid;border-color:#ebecda">
+                    <form action="#" method="post">
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="border:1px solid #d1d1d1;color:#979797" name="" placeholder="họ và tên*" required="">
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="border:1px solid #d1d1d1;color:#979797" name="" placeholder="số điện thoại*" required="">
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="border:1px solid #d1d1d1;color:#979797" name="" placeholder="email*" required="">
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <select style="height:44.38px;width:100%;border:1px solid #d1d1d1;color:#979797">
+                                <option value="" selected>--chọn tỉnh/thành phố 1--</option>
+                                <option value="An Giang">An Giang</option>
+                                <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+                                <option value="Bạc Liêu">Bạc Liêu</option>
+                                <option value="Bắc Kạn">Bắc Kạn</option>
+                                <option value="Bắc Giang">Bắc Giang</option>
+                                <option value="Bắc Ninh">Bắc Ninh</option>
+                                <option value="Bến Tre">Bến Tre</option>
+                                <option value="Bình Dương">Bình Dương</option>
+                                <option value="Bình Định">Bình Định</option>
+                                <option value="Bình Phước">Bình Phước</option>
+                                <option value="Bình Thuận">Bình Thuận</option>
+                                <option value="Cà Mau">Cà Mau</option>
+                                <option value="Cao Bằng">Cao Bằng</option>
+                                <option value="Cần Thơ (TP)">Cần Thơ (TP)</option>
+                                <option value="Đà Nẵng (TP)">Đà Nẵng (TP)</option>
+                                <option value="Đắk Lắk">Đắk Lắk</option>
+                                <option value="Đắk Nông">Đắk Nông</option>
+                                <option value="Điện Biên">Điện Biên</option>
+                                <option value="Đồng Nai">Đồng Nai</option>
+                                <option value="Đồng Tháp">Đồng Tháp</option>
+                                <option value="Gia Lai">Gia Lai</option>
+                                <option value="Hà Giang">Hà Giang</option>
+                                <option value="Hà Nam">Hà Nam</option>
+                                <option value="Hà Nội (TP)">Hà Nội (TP)</option>
+                                <option value="Hà Tĩnh">Hà Tĩnh</option>
+                                <option value="Hải Dương">Hải Dương</option>
+                                <option value="Hải Phòng (TP)">Hải Phòng (TP)</option>
+                                <option value="Hòa Bình">Hòa Bình</option>
+                                <option value="Hồ Chí Minh (TP)">Hồ Chí Minh (TP)</option>
+                                <option value="Hậu Giang">Hậu Giang</option>
+                                <option value="Hưng Yên">Hưng Yên</option>
+                                <option value="Khánh Hòa">Khánh Hòa</option>
+                                <option value="Kiên Giang">Kiên Giang</option>
+                                <option value="Kon Tum">Kon Tum</option>
+                                <option value="Lai Châu">Lai Châu</option>
+                                <option value="Lào Cai">Lào Cai</option>
+                                <option value="Lạng Sơn">Lạng Sơn</option>
+                                <option value="Lâm Đồng">Lâm Đồng</option>
+                                <option value="Long An">Long An</option>
+                                <option value="Nam Định">Nam Định</option>
+                                <option value="Nghệ An">Nghệ An</option>
+                                <option value="Ninh Bình">Ninh Bình</option>
+                                <option value="Ninh Thuận">Ninh Thuận</option>
+                                <option value="Phú Thọ">Phú Thọ</option>
+                                <option value="Phú Yên">Phú Yên</option>
+                                <option value="Quảng Bình">Quảng Bình</option>
+                                <option value="Quảng Nam">Quảng Nam</option>
+                                <option value="Quảng Ngãi">Quảng Ngãi</option>
+                                <option value="Quảng Ninh">Quảng Ninh</option>
+                                <option value="Quảng Trị">Quảng Trị</option>
+                                <option value="Sóc Trăng">Sóc Trăng</option>
+                                <option value="Sơn La">Sơn La</option>
+                                <option value="Tây Ninh">Tây Ninh</option>
+                                <option value="Thái Bình">Thái Bình</option>
+                                <option value="Thái Nguyên">Thái Nguyên</option>
+                                <option value="Thanh Hóa">Thanh Hóa</option>
+                                <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                <option value="Tiền Giang">Tiền Giang</option>
+                                <option value="Trà Vinh">Trà Vinh</option>
+                                <option value="Tuyên Quang">Tuyên Quang</option>
+                                <option value="Vĩnh Long">Vĩnh Long</option>
+                                <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                <option value="Yên Bái">Yên Bái</option>
+                            </select>
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="border:1px solid #d1d1d1;color:#979797" name="" placeholder="địa chỉ 1*" required="">
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <select style="height:44.38px;width:100%;border:1px solid #d1d1d1;color:#979797">
+                                <option value="" selected>--chọn tỉnh/thành phố 2--</option>
+                                <option value="An Giang">An Giang</option>
+                                <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+                                <option value="Bạc Liêu">Bạc Liêu</option>
+                                <option value="Bắc Kạn">Bắc Kạn</option>
+                                <option value="Bắc Giang">Bắc Giang</option>
+                                <option value="Bắc Ninh">Bắc Ninh</option>
+                                <option value="Bến Tre">Bến Tre</option>
+                                <option value="Bình Dương">Bình Dương</option>
+                                <option value="Bình Định">Bình Định</option>
+                                <option value="Bình Phước">Bình Phước</option>
+                                <option value="Bình Thuận">Bình Thuận</option>
+                                <option value="Cà Mau">Cà Mau</option>
+                                <option value="Cao Bằng">Cao Bằng</option>
+                                <option value="Cần Thơ (TP)">Cần Thơ (TP)</option>
+                                <option value="Đà Nẵng (TP)">Đà Nẵng (TP)</option>
+                                <option value="Đắk Lắk">Đắk Lắk</option>
+                                <option value="Đắk Nông">Đắk Nông</option>
+                                <option value="Điện Biên">Điện Biên</option>
+                                <option value="Đồng Nai">Đồng Nai</option>
+                                <option value="Đồng Tháp">Đồng Tháp</option>
+                                <option value="Gia Lai">Gia Lai</option>
+                                <option value="Hà Giang">Hà Giang</option>
+                                <option value="Hà Nam">Hà Nam</option>
+                                <option value="Hà Nội (TP)">Hà Nội (TP)</option>
+                                <option value="Hà Tĩnh">Hà Tĩnh</option>
+                                <option value="Hải Dương">Hải Dương</option>
+                                <option value="Hải Phòng (TP)">Hải Phòng (TP)</option>
+                                <option value="Hòa Bình">Hòa Bình</option>
+                                <option value="Hồ Chí Minh (TP)">Hồ Chí Minh (TP)</option>
+                                <option value="Hậu Giang">Hậu Giang</option>
+                                <option value="Hưng Yên">Hưng Yên</option>
+                                <option value="Khánh Hòa">Khánh Hòa</option>
+                                <option value="Kiên Giang">Kiên Giang</option>
+                                <option value="Kon Tum">Kon Tum</option>
+                                <option value="Lai Châu">Lai Châu</option>
+                                <option value="Lào Cai">Lào Cai</option>
+                                <option value="Lạng Sơn">Lạng Sơn</option>
+                                <option value="Lâm Đồng">Lâm Đồng</option>
+                                <option value="Long An">Long An</option>
+                                <option value="Nam Định">Nam Định</option>
+                                <option value="Nghệ An">Nghệ An</option>
+                                <option value="Ninh Bình">Ninh Bình</option>
+                                <option value="Ninh Thuận">Ninh Thuận</option>
+                                <option value="Phú Thọ">Phú Thọ</option>
+                                <option value="Phú Yên">Phú Yên</option>
+                                <option value="Quảng Bình">Quảng Bình</option>
+                                <option value="Quảng Nam">Quảng Nam</option>
+                                <option value="Quảng Ngãi">Quảng Ngãi</option>
+                                <option value="Quảng Ninh">Quảng Ninh</option>
+                                <option value="Quảng Trị">Quảng Trị</option>
+                                <option value="Sóc Trăng">Sóc Trăng</option>
+                                <option value="Sơn La">Sơn La</option>
+                                <option value="Tây Ninh">Tây Ninh</option>
+                                <option value="Thái Bình">Thái Bình</option>
+                                <option value="Thái Nguyên">Thái Nguyên</option>
+                                <option value="Thanh Hóa">Thanh Hóa</option>
+                                <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                <option value="Tiền Giang">Tiền Giang</option>
+                                <option value="Trà Vinh">Trà Vinh</option>
+                                <option value="Tuyên Quang">Tuyên Quang</option>
+                                <option value="Vĩnh Long">Vĩnh Long</option>
+                                <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                <option value="Yên Bái">Yên Bái</option>
+                            </select>
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="border:1px solid #d1d1d1;color:#979797" name="" placeholder="địa chỉ 2*" required="">
+                        </div>
+                        <div class="agileits_w3layouts_user">
+                            <input type="text" style="min-height:80px;border:1px solid #d1d1d1;color:#979797" name="" placeholder="nội dung*" required="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" style="padding-right:0px">
+            <div class="w3l_main_grid1_w3ls_grid">
+                <h3 style="margin-bottom:0px;color:#293e12;font-weight:600">--đơn hàng</h3>
+                <div class="w3_agile_main_left_grid_w3_agileits" style="min-height:412px;border:1px solid;border-color:#ebecda">
+                    <form action="#" method="post">
+                        <div>
+                            <div class="col-lg-4 col-md-2">
+                                <img style="max-width:100%;padding:10px" src="~/images/img_1.jpg" />
+                            </div>
+                            <div class="col-lg-4 col-md-2" style="line-height:80px;text-align:center">tinh dầu bưởi</div>
+                            <div class="col-lg-4 col-md-2" style="max-width:225px">
+                                <b style="float:right;margin-right:55px">100.000 đ</b>
+                                <div class="clear"></div>
+                                <img style="float:right;margin-top:10px;margin-left:7px" src="~/images/ic_delete.png" />
+                                <div style="float:right;margin-top:5px">
+                                    <img style="border:1px solid;border-radius:5px" src="~/images/ic_add.png" />
+                                    <div class="clear"></div>
+                                    <img style="border:1px solid;border-radius:5px;margin-top:5px" src="~/images/ic_subtract.png" />
+                                </div>
+                                <input type="text" style="margin-top:5px;max-width:60px;min-height:45px;float:right;margin-right:10px;border-radius:5px;text-align:center" name="" placeholder="">
+                                <b style="float:right;margin-top:15px;margin-right:5px">x</b>
+                                <div class="clear"></div>
+                                <span style="color:#29a019;float:right;margin-right:50px"><b>= 100.000 đ</b></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear" style="border-bottom:1px solid #d1d1d1"></div>
+                        <div>
+                            <div class="col-lg-4 col-md-2">
+                                <img style="max-width:100%;padding:10px" src="~/images/img_2.jpg" />
+                            </div>
+                            <div class="col-lg-4 col-md-2" style="line-height:80px;text-align:center">tinh dầu sả</div>
+                            <div class="col-lg-4 col-md-2" style="max-width:225px">
+                                <b style="float:right;margin-right:55px">100.000 đ</b>
+                                <div class="clear"></div>
+                                <img style="float:right;margin-top:10px;margin-left:7px" src="~/images/ic_delete.png" />
+                                <div style="float:right;margin-top:5px">
+                                    <img style="border:1px solid;border-radius:5px" src="~/images/ic_add.png" />
+                                    <div class="clear"></div>
+                                    <img style="border:1px solid;border-radius:5px;margin-top:5px" src="~/images/ic_subtract.png" />
+                                </div>
+                                <input type="text" style="margin-top:5px;max-width:60px;min-height:45px;float:right;margin-right:10px;border-radius:5px;text-align:center" name="" placeholder="">
+                                <b style="float:right;margin-top:15px;margin-right:5px">x</b>
+                                <div class="clear"></div>
+                                <span style="color:#29a019;float:right;margin-right:50px"><b>= 200.000 đ</b></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear" style="border-bottom:1px solid #d1d1d1"></div>
+                        <br />
+                        <p>
+                            <b>tổng tiền<span style="color:#29a019;float:right;margin-top:-10px">300.000 đ</span></b>
+                        </p>
+                        <p>
+                            <b>chi phí vận chuyển<span style="color:#2a9f1a;float:right;margin-top:-10px">...</span></b>
+                        </p>
+                        <div class="clear" style="border-bottom:1px solid #d1d1d1"></div>
+                        <br />
+                        <p>
+                            <b>tổng số tiền thanh toán<span style="float:right;margin-top:-10px;color:#ff6101">300.000 đ</span> </b>
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <p class="block-content">
+            <input class="contact-form" style="border:none;border-radius:5px;background:#cdd39f;width:100%;margin-top:20px;color:#293e12;text-align:left;font-size:20px;font-weight:600" value="--hình thức thanh toán" />
+        </p>
+        <div class="check-box" style="min-height:200px">
+            <form action="">
+                <div class="col-lg-6">
+                    <input style="float:left;margin-top:15px" type="radio" stype="color:#4caf50" checked="checked" value="cash" name="pay">
+                    <div style="float:left;margin-left:5px">
+                        <h4>Thanh toán khi nhận hàng</h4>
+                        <img src="~/images/ic_delivery_biker.png" />
+                        <p>Quý khách sẽ thanh toán bằng tiền mặt khi chúng tôi giao hàng cho quý khánh</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="col-lg-6">
+                    <input style="float:left;margin-top:15px" type="radio" value="paypal" name="pay">
+                    <div style="float:left;margin-left:5px">
+                        <h4>Thanh toán qua Paypal</h4>
+                        <img src="~/images/paypal.png" />
+                        <p>Lorem ipsum dolor sit amet ipsum dolor sit amet dolor sit amet </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <input type="button" class="button2" style="background:#29a019;color:#fff;max-height:45px;width:100%" value="cập nhật" />
+        </div>
+        <div class="col-lg-4">
+            <input type="button" class="button2" style="background:#ff6101;color:#fff;max-height:45px;width:100%" value="thanh toán" />
+        </div>
+        <div class="col-lg-4">
+            <input type="button" class="button2" style="background:#cdd39f;color:#293e12;max-height:45px;width:100%;border:1px solid #b3b985" value="mua tiếp" />
+        </div>
+    </div>
+</div>*@

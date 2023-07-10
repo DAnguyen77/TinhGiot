@@ -1,0 +1,339 @@
+﻿
+@{
+    ViewBag.Title = "ManageOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" id="Order_List" style="display:block">
+            <div class="box-header">
+                <h3 class="box-title">Data Table Acounts</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>OrderID</th>
+                            <th>UserID</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Sản phẩm x Số lượng</th>
+                            <th>Ngày đặt</th>
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.order)
+                        {
+                            <tr>
+                                <td>
+                                   @item.OrderID
+                                </td>
+                                <td>@item.UserID</td>
+                                <td>@item.Email</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>
+                                    @foreach (var ytem in ViewBag.orderproduct)
+                                    {
+
+                                        if (item.OrderID == ytem.OrderID)
+                                        {
+
+                                            @ytem.ProductName <span>x</span> @ytem.Quantity <br />
+
+                                        }
+                                    }
+                                </td>
+                                <th>@String.Format("{0:yyyy/MM/dd HH:mm}", item.TimeOrder)</th>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick="Edit('@item.OrderID')">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete('@item.OrderID')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Order_Detail" style="display:none;">
+            <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                <div class="box-body">
+                    <div class="form-group" style="display:none">
+                        <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputID" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputID" class="col-sm-3 control-label">Order ID</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputOrderID" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProductName" class="col-sm-3 control-label">Tên người đặt</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputName" disabled="disabled">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPrice" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputEmail" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCapacity" class="col-sm-3 control-label">Số điện thoại</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputPhoneNumber" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectStatus" class="col-sm-3 control-label">Trạng thái</label>
+                        <div class="col-sm-9">
+                            <select id="selectStatusPayment" class="form-control">
+                                <option value="true">Đã thanh toán</option>
+                                <option value="false">Chưa thanh toán</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputMoreInfo" class="col-sm-3 control-label">Phương thức thanh toán</label>
+
+                        <div class="col-sm-9">
+                            <select id="selectPayment" class="form-control">
+                                <option value="COD">Nhận tiền khi giao hàng</option>
+                                <option value="PAYPAL">Paypal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputMoreInfo" class="col-sm-3 control-label">Trạng thái giao hàng</label>
+
+                        <div class="col-sm-9">
+                            <select id="selectDeliveryStatus" class="form-control">
+                                <option value="1">Đã giao</option>
+                                <option value="0">Đang chờ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputQuantity" class="col-sm-3 control-label">Thời gian đặt</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputTimeOrder" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSKU" class="col-sm-3 control-label">ID người dùng</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputUserID" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSKU" class="col-sm-3 control-label">Tổng giá</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputTotalPrice" disabled="disabled">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Lưu</button>
+                    <button type="button" class="btn btn-info pull-right" style="margin-right:20px;" onclick="Close();">Trở về</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Delete Order Record</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Record?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Product</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<input type="text" id="OrderID"  style="display:none;"/>
+<script type="text/javascript">
+    function Close() {
+        document.getElementById("Order_List").style.display = "block";
+        document.getElementById("Order_Detail").style.display = "none";
+        ScrollTop();
+    }
+
+    $(function () {
+        $("#tblUsers").DataTable();
+    });
+
+    function Edit(id) {
+        var url = '/vi/Admin/Order_detail?OrderID=' + id;
+        document.getElementById("Order_List").style.display = "none";
+        document.getElementById("Order_Detail").style.display = "block";
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#inputID').val(obj.ID);
+                $('#inputOrderID').val(obj.OrderID);
+                $('#inputName').val(obj.Name);
+                $('#inputPhoneNumber').val(obj.PhoneNumber);
+                $('#inputEmail').val(obj.Email);
+                $('#inputUserID').val(obj.UserID);
+                $('#inputTimeOrder').val(obj.TimeOrder);
+                $('#selectStatusPayment').val(obj.StatusPayment.toString());
+                $('#selectPayment').val(obj.Payment);
+                $('#selectDeliveryStatus').val(obj.DeliveryStatus);
+                $('#inputTotalPrice').val(obj.TotalPrice);
+
+            }
+        })
+    }
+
+    function Delete(OrderID) {
+        $('#OrderID').val(OrderID);
+        $('#DeleteConfirmation').modal('show');
+    }
+
+    function ConfirmDelete() {
+        var OrderID = $('#OrderID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteOrderRecord?OrderID=" + OrderID,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    $("#SaveUserRecord").click(function () {
+        var data = new FormData();
+        data.append("ID", $('#inputID').val());
+        data.append("StatusPayment", $('#selectStatusPayment').val());
+        data.append("Payment", $('#selectPayment').val());
+        data.append("DeliveryStatus", $('#selectDeliveryStatus').val());
+        $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateOrder',
+            data: data,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+    function showDetail(id) {
+        var url = '/Admin/Order_detail?OrderID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#OrderID').text(obj.OrderID);
+                $('#Name').text(obj.Name);
+                $('#PhoneNumber').text(obj.PhoneNumber);
+                $('#Email').text(obj.Email);
+                $('#UserID').text(obj.UserID);
+                $('#TimeOrder').text(obj.TimeOrder);
+                if (obj.StatusPayment == "0") {
+                    $('#StatusPayment').text("Chưa thanh toán");
+                } else {
+                    $('#StatusPayment').text("Đã thanh toán");
+                }
+                if (obj.Payment == "1") {
+                    $('#Payment').text("Thanh toán khi nhận hàng");
+                } else {
+                    $('#Payment').text("Paypal");
+                }
+
+                $('#City1').text(obj.City1);
+                $('#Address1').text(obj.Address1);
+                $('#City2').text(obj.City2);
+                $('#Address2').text(obj.Address2);
+                $('#Country').text(obj.Country);
+                $('#Note').text(obj.Note);
+                if (obj.DeliveryStatus == "1") {
+                    $('#DeliveryStatus').text("Đã giao");
+                } else {
+                    $('#DeliveryStatus').text("Đang chờ");
+                }
+                $('#TotalPrice').text(obj.TotalPrice);
+            }
+        })
+        var ulr = '/Admin/OrderProduct_detail?OrderID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: ulr,
+            dataType: 'json',
+            success: function (data) {
+                var objw = JSON.parse(data);
+                var html = "";
+                var httt = "";
+                var allprice = 0;
+                for (var i = 0; i < objw.length; i++) {
+                    html = "<a class='pull-right' id='" + objw[i].ProductName + "'>" + objw[i].ProductName + " x " + objw[i].Quantity + "</a>";
+                    httt += html + "<br/>";
+                    var htth = (objw[i].Quantity * objw[i].Price);
+                    allprice = allprice + htth;
+                }
+                $("li#product-order a").html(httt);
+                $("#Price").text(allprice);
+            }
+        })
+
+    }
+
+</script>

@@ -1,0 +1,234 @@
+﻿.Banner {
+    font-family: 'Roboto', sans-serif;
+    height: 360px;
+    line-height: 28px;
+    font-size: 16px;
+}
+.IndexContainer{
+    width:100%;
+    margin:0 auto;
+}
+.Banner_Img {
+   height: 360px;
+    max-width: 1920px;
+    object-fit:cover;
+}
+
+.Banner_button {
+    color: whitesmoke;
+    background-color: #B77C17;
+    padding: 8px 18px 8px 18px;
+    text-align: center;
+    height: 45px;
+    border-radius: 27px;
+    border: 2px solid #B77C17;
+    width: 200px;
+    margin: auto;
+}
+
+    .Banner_button:hover {
+        border: 2px solid #B77C17;
+        color: #B77C17;
+        background-color: whitesmoke;
+        cursor: pointer;
+        box-shadow: 0 2px 4px 0 rgba(183, 124, 23, 0.5), 0 3px 10px 0 rgba(183, 124, 23, 0.4);
+    }
+
+.TextBlock_Banner {
+    position: absolute;
+    top: 36px;
+    width: 100%;
+    max-width: 830px;
+    min-height: 180px;
+    color: antiquewhite;
+    padding-left:3%;
+    padding-right:3%;
+}
+
+.Title_Banner {
+    font-size:54px;
+    line-height:64px;
+    font-weight:700;
+}
+
+.TextContent_Banner {
+    margin-top: 30px;
+    position: relative;
+    min-height: 72px;
+    font-size: 27px;
+    line-height: 36px;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.Banner_Link {
+    margin-top:30px;
+    width:100%;
+}
+
+.Section_TextBlock {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.Section_TextBlock_Title {
+    color: #B77C17;
+    margin-top: 30px;
+    font-size: 27px;
+    line-height: 36px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.Section_TextBlock_Content{
+    text-align:justify;
+    margin:0 auto;
+    max-width:360px;
+}
+
+.SmokeWhite_Background {
+    background-color:rgba(183, 124, 23, 0.05);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-repeat: repeat;
+}
+
+.Section_Img{
+    margin:0 auto;
+}
+
+.Img_Center {
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    max-width: 480px;
+    min-width: 100px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(183, 124, 23, 0.5), 0 6px 20px 0 rgba(183, 124, 23, 0.4);
+    border-radius:20px;
+}
+
+.Section_TextBlock_Link {
+    top:30px;
+    height:76px;
+    width:100%;
+    padding:20px 10px 20px 10px;
+}
+
+.Index_button2 {
+    color: #B77C17;
+    background-color: whitesmoke;
+    padding: 8px 18px 8px 18px;
+    text-align: center;
+    height: 45px;
+    border-radius: 27px;
+    border: 2px solid #B77C17;
+    min-width: 80px;
+    max-width: 180px;
+    margin: auto;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+    .Index_button2:hover {
+        box-shadow: 0 4px 8px 0 rgba(183, 124, 23, 0.5), 0 6px 20px 0 rgba(183, 124, 23, 0.4);
+        cursor: pointer;
+    }
+
+.RightAlign{
+    float:right;
+}
+
+.May_Find {
+    display: block;
+    margin: auto;
+    border-radius: 18px;
+    width: 160px;
+    height: 160px;
+    box-shadow: 0 4px 8px 0 rgba(183, 124, 23, 0.5), 0 6px 20px 0 rgba(183, 124, 23, 0.4);
+    object-fit:cover;
+}
+
+.May_Find:hover {
+    box-shadow: none;
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    cursor:pointer;
+}
+
+    .May_Find_Text {
+        font-family: 'Roboto', sans-serif;
+        margin-top: 20px;
+        text-align: center;
+        color: #B77C17;
+        font-size: 18px;
+    }
+
+.May_Find_Text:hover{
+    font-weight:500;
+    cursor:pointer;
+}
+
+@media screen and (max-width: 900px) {
+
+    .RightAlign {
+        float: left;
+    }
+}
+@media screen and (max-width: 450px) {
+    .Banner {
+        height: 480px;
+    }
+
+    .Banner_Img {
+        height: 180px;
+    }
+
+    .TextBlock_Banner {
+        top: 200px;
+        margin: 0 auto;
+        width: 100%;
+        color: #B77C17;
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+
+    .Title_Banner {
+        font-size: 36px;
+        line-height: 45px;
+        margin: 0 auto;
+        left: auto;
+    }
+
+    .TextContent_Banner {
+        font-size: 18px;
+        margin-top:20px;
+    }
+
+    #banner-slider .slick-dots {
+        bottom: 310px;
+    }
+
+    .RightAlign {
+        float: left;
+        
+    }
+
+    .Section_TextBlock_Link {
+        margin-left: 0 auto;
+        margin-right:0 auto;
+        margin-top: 30px;
+    }
+
+    .Section_Img{
+        margin-top:30px;
+    }
+    .Banner_Link {
+        margin-top: 10px;
+    }
+}

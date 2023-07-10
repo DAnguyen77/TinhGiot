@@ -1,0 +1,531 @@
+﻿@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/css/ArticleList.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" id="News_List" style="display:block;">
+            <div class="box-header">
+                <h3 class="box-title">Data Table News</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="width:80px;">Danh mục</div>
+                <div class="col-sm-3">
+                    <select id="selectCategory" class="form-control" onchange="SelectedCatItem();">
+                        @if (ViewBag.listcn != null)
+                        {
+                            foreach (var item in ViewBag.listcn)
+                            {
+                                if (ViewBag.Init_SelectedCat == item.ID.ToString())
+                                {
+                                    <option value="@item.ID" selected>@item.CategoryNews_Lang</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@item.CategoryNews_Lang</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="AddNews()" style="margin-left:1em;"><i class="fa fa-plus"></i>Thêm tin tức</button>
+            </div>
+
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tiêu đề</th>
+                            <th class="posttime">Ngày đăng</th>
+                            <th class="author">Tác giả</th>
+                            <th class="cate-id">Danh mục</th>
+                            <th>Hình ảnh</th>
+                            @*<th>PostContent</th>
+                                <th>Lang</th>
+                                <th>MoreInfo</th>*@
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.listnews)
+                        {
+                            <tr>
+                                <th>@item.ID</th>
+                                <td>
+                                    @item.Title
+                                </td>
+                                @*<th>@item.Title</th>*@
+                                <th>@String.Format("{0:yyyy/MM/dd HH:mm}", item.PostTime)</th>
+                                <th>@item.Author</th>
+                                <th>@item.CategoryID</th>
+                                <th>
+
+                                    <img src="@Url.Content("~/UploadedImage/" + item.Image)" class="img-rounded" width="150" height="100" />
+                                </th>
+                                @*<th>@item.PostContent</th>
+                                    <th>@item.Lang</th>
+                                    <th>@item.MoreInfo</th>*@
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete(@item.ID)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="News_Detail" style="display:none;">
+            <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                <div style="font-size:18px;font-weight:300;"><label onclick="Tab('DETAIL');" style="cursor:pointer;margin-right:10px;">Product Properties</label><label onclick="Tab('VI');" style="cursor:pointer;margin-right:10px;">VI</label><label onclick="Tab('EN');" style="cursor:pointer;margin-right:10px;">EN</label><label onclick="Tab('JP');" style="cursor:pointer;margin-right:10px;">JP</label></div>
+
+                <div class="box-body">
+                    <div id="Panel_Detail" style="display:block;">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div id="imgReview" class="thumbnail">
+                                    <img class="img-responsive" id="targetImg" />
+                                    <div class="caption">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImage" class="col-sm-3 control-label">Image</label>
+
+                            <div class="col-sm-9">
+                                <div class="btn btn-primary" style="width: 100%;">
+                                    <input type="file" id="imageBrowse" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputID" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAuthor" class="col-sm-3 control-label">Author</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputAuthor" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLang" class="col-sm-3 control-label">Lang</label>
+
+                            <div class="col-sm-9">
+                                <select id="selectLang" class="form-control">
+                                    <option value="1">Vi</option>
+                                    <option value="0">En</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMoreInfo" class="col-sm-3 control-label">More Info</label>
+
+                            <div class="col-sm-9">
+                                <select id="selectMoreInfo" class="form-control">
+                                    <option value="1">Hot</option>
+                                    <option value="0">New</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Panel_VI" style="display:none;">
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-sm-3 control-label">Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputTitle" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputKeywords" placeholder="Nhập vào ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPostContent" class="col-sm-3 control-label">Post Content</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputPostContent"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Panel_EN" style="display:none;">
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-sm-3 control-label">Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputTitle_EN" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputKeywords_EN" placeholder="Nhập vào ..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPostContent" class="col-sm-3 control-label">Post Content</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputPostContent_EN"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Panel_JP" style="display:none;">
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-sm-3 control-label">Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputTitle_JP" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputKeywords" class="col-sm-3 control-label">Các từ khóa</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputKeywords_EN" placeholder="Nhập vào ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPostContent" class="col-sm-3 control-label">Post Content</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" id="inputPostContent_JP"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info pull-right" id="SaveUserRecord">Save</button>
+                    <button type="button" class="btn btn-info pull-right" style="margin-right:20px;" onclick="Close();">Trở về</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Delete User Record</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Record?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ProductDetail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">News Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <img class="profile-user-img img-responsive" id="img-news" alt="News picture" style="height:100px">
+
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Title</b> <a class="pull-right" id="Title"></a>
+                                        <div style="clear:both"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>PostTime</b> <a class="pull-right" id="PostTime"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Author</b> <a class="pull-right" id="Author"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>CategoryID</b> <a class="pull-right" id="CategoryID"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Lang</b> <a class="pull-right" id="Lang"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>MoreInfo</b> <a class="pull-right" id="MoreInfo"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>PostContent</b> <a class="pull-right" id="PostContent"></a>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function Tab(tab) {
+        document.getElementById("Panel_Detail").style.display = "none";
+        document.getElementById("Panel_VI").style.display = "none";
+        document.getElementById("Panel_EN").style.display = "none";
+        document.getElementById("Panel_JP").style.display = "none";
+
+        switch (tab) {
+            case "DETAIL":
+                document.getElementById("Panel_Detail").style.display = "block";
+                break;
+            case "EN":
+                document.getElementById("Panel_EN").style.display = "block";
+                break;
+            case "VI":
+                document.getElementById("Panel_VI").style.display = "block";
+                break;
+            case "JP":
+                document.getElementById("Panel_JP").style.display = "block";
+                break;
+        }
+    }
+
+    function Close() {
+        document.getElementById("News_List").style.display = "block";
+        document.getElementById("News_Detail").style.display = "none";
+        ScrollTop();
+    }
+
+    $(function () {
+        CKEDITOR.replace('inputPostContent');
+        CKEDITOR.replace('inputPostContent_EN');
+        CKEDITOR.replace('inputPostContent_JP');
+    });
+    $(document).ready(function () {
+        $("#imageBrowse").change(function () {
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+    });
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $('#targetImg').attr('src', _file.target.result);
+                $('#imgReview').show();
+            }
+        }
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowse").val('');
+        $('#description').text('');
+        $('#imgReview').hide();
+    }
+
+    function AddNews() {
+
+        document.getElementById("News_List").style.display = "none";
+        document.getElementById("News_Detail").style.display = "block";
+        $("#imageBrowse").val('');
+        $('#imgReview').hide();
+        $("#inputID").val('');
+        $("#inputTitle").val('');
+        $("#inputTitle_EN").val('');
+        $("#inputTitle_JP").val('');
+        $("#inputKeywords").val('');
+        $("#inputKeywords_EN").val('');
+        $("#inputKeywords_JP").val('');
+
+        $("#inputAuthor").val('');
+        $("#inputCategoryID").val('');
+        $("#inputLang").val('');
+        $("#inputMoreInfo").val('');
+        $("#inputPostContent_EN").val('');
+        $("#inputPostContent_JP").val('');
+        CKEDITOR.instances['inputPostContent'].setData('');
+        CKEDITOR.instances['inputPostContent_EN'].setData('');
+        CKEDITOR.instances['inputPostContent_JP'].setData('');
+
+    }
+
+    function SelectedCatItem() {
+        SelectedCatID = $('#selectCategory').val();
+        window.location.replace("/vi/NewsList/News/" + SelectedCatID);
+    }
+    function Edit(IdNews) {
+        var url = '/vi/Admin/News_detail?IdNews=' + IdNews;
+        $('#imgReview').show();
+        document.getElementById("News_List").style.display = "none";
+        document.getElementById("News_Detail").style.display = "block";
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#targetImg').attr('src', '/UploadedImage/' + obj.Image);
+                $('#inputID').val(obj.ID);
+                $('#inputTitle').val(obj.Title);
+                $('#inputTitle_EN').val(obj.Title_EN);
+                $('#inputTitle_JP').val(obj.Title_JP);
+                $('#inputKeywords').val(obj.Keywords);
+                $('#inputKeywords_EN').val(obj.Keywords_EN);
+                $('#inputKeywords_JP').val(obj.Keywords_JP);
+                $('#inputAuthor').val(obj.Author);
+                $('#selectLang').val(obj.Lang);
+                $('#selectMoreInfo').val(obj.MoreInfo);
+                //$('#inputPostContent').text() = obj.PostContent;
+                CKEDITOR.instances['inputPostContent'].setData(obj.PostContent);
+                CKEDITOR.instances['inputPostContent_EN'].setData(obj.PostContent_EN);
+                CKEDITOR.instances['inputPostContent_JP'].setData(obj.PostContent_JP);
+            }
+        })
+    }
+
+    function Delete(IdNews) {
+        $('#inputID').val(IdNews);
+        var url = '/vi/Admin/News_detail?IdNews=' + IdNews;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                if (data == null) {
+                    alert("Not Complete");
+                    //  location.reload();
+                } else {
+                    $('#DeleteConfirmation').modal('show');
+                }
+            }
+        });
+    }
+
+    function ConfirmDelete() {
+        var NewsID = $('#inputID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteNewsRecord?NewsID=" + NewsID,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    $("#SaveUserRecord").click(function () {
+
+        if ($('#inputTitle').val() == "") {
+            alert("Vui lòng nhập tiêu đề");
+            return;
+        }
+        if ($('#inputAuthor').val() == "") {
+            alert("Vui lòng nhập tác giả bài viết");
+            return;
+        }
+        if (CKEDITOR.instances['inputPostContent'].getData() == "") {
+            alert("Vui lòng nhập nội dung bài viết");
+            return;
+        }
+        var data = new FormData();
+        var file = $("#imageBrowse").get(0).files;
+        data.append("ID", $('#inputID').val());
+        data.append("Title", $('#inputTitle').val());
+        data.append("Title_EN", $('#inputTitle_EN').val());
+        data.append("Title_JP", $('#inputTitle_JP').val());
+        data.append("Keywords", $('#inputKeywords').val());
+        data.append("Keywords_EN", $('#inputKeywords_EN').val());
+        data.append("Keywords_JP", $('#inputKeywords_JP').val());
+        //data.append("PostTime", $('#inputPostTime').val());
+        data.append("Author", $('#inputAuthor').val());
+        data.append("CategoryID", $('#selectCategory').val());
+        data.append("Lang", $('#selectLang').val());
+        data.append("MoreInfo", $('#selectMoreInfo').val());
+        //data.append("PostContent"),datacontent[0] ;
+        data.append("PostContent", CKEDITOR.instances['inputPostContent'].getData());
+        data.append("PostContent_EN", CKEDITOR.instances['inputPostContent_EN'].getData());
+        data.append("PostContent_JP", CKEDITOR.instances['inputPostContent_JP'].getData());
+        data.append("ImageFile", file[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateNews',
+            data: data,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+
+    });
+
+    $(function () {
+        $("#tblUsers").DataTable({
+            "ordering": true,
+            columnDefs: [{
+                orderable: false,
+                targets: "no-sort"
+            },
+            { "width": "70px", "targets": "posttime" },
+            { "width": "70px", "targets": "posttime" },
+            { "width": "70px", "targets": "author" },
+            { "width": "70px", "targets": "cate-id" },
+            { "width": "70px", "targets": "sorttable_nosort" },
+            ]
+        });
+    });
+</script>

@@ -1,0 +1,66 @@
+﻿.TopBar {
+    background-color:whitesmoke;
+    position: relative;
+    padding: 10px;
+    border-radius: 56px;
+    display: flex;
+    max-width: 480px;
+    margin:auto;
+    
+}
+
+.TopBar_Item_Active {
+    background-color: #B77C17;
+    color:ghostwhite;
+    height:48px;
+    line-height:48px;
+    font-size:18px;
+    border-radius:30px;
+    width:40%;
+    text-align:center;
+    margin-left:5%;
+    margin-right:5%;
+    cursor:pointer;
+ }
+
+.TopBar_Item {
+    background-color: ghostwhite;
+    color: lightgray;
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    width: 40%;
+    text-align: center;
+    border-radius: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+    .TopBar_Item:hover {
+        box-shadow: 0 2px 4px 0 rgba(183, 124, 23, 0.5), 0 3px 10px 0 rgba(183, 124, 23, 0.4);
+    }
+
+    .TopBar_Item_Active:hover {
+        box-shadow: 0 2px 4px 0 rgba(183, 124, 23, 0.5), 0 3px 10px 0 rgba(183, 124, 23, 0.4);
+    }
+.FoundText{
+    padding:5px;
+    margin:auto;
+    width:100%;
+    max-width:480px;
+    text-align:center;
+    font-size:16px;
+    font-weight:400;
+    line-height:36px;
+    min-height:36px;
+    overflow:auto;
+    pa
+}
+
+.PanelProduct {
+    margin-top:10px;
+}
+.PanelBlogProduct {
+    margin-top: 10px;
+}

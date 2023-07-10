@@ -1,0 +1,58 @@
+﻿@model List<BaseClasses.OrderProduct>
+
+<div class="content-block" style="display:inline-block;">
+    <div style="position:relative; width:100%;text-align:center;margin-bottom:10px;">@tinhGiot.Resources.OrderDetail.Order - @ViewBag.Order.OrderID</div>
+    <div class="col-lg-6 col-md-6 col-xs-6" style="position:relative;">
+        <div style="position:relative; margin-bottom:10px; height:72px;text-align:center;background-color:whitesmoke;padding:5px;border-radius:10px;min-width:160px;">
+            <div>@ViewBag.Order.Name - @ViewBag.Order.PhoneNumber</div>
+            <div>@ViewBag.Order.Email</div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-6"  style="position:relative;">
+        <div style="position:relative; margin-bottom:10px;height:72px;background-color:whitesmoke;padding:5px;border-radius:10px;min-width:160px;">
+            <div>@ViewBag.Order.Address @ViewBag.Order.Ward @ViewBag.Order.District @ViewBag.Order.City</div>
+            <div>@ViewBag.Order.Country @ViewBag.Order.Postcode</div>
+        </div>
+    </div>
+    <div style="margin-top:30px;width:100%;position:relative;">
+        <div class="col-lg-6 col-md-6 col-xs-6" style="text-align:center;">@tinhGiot.Resources.OrderDetail.Product</div>
+        <div class="col-lg-2 col-md-2 col-xs-2" style="text-align:center;">@tinhGiot.Resources.OrderDetail.Qty</div>
+        <div class="col-lg-4 col-md-4 col-xs-4" style="text-align:center;">@tinhGiot.Resources.OrderDetail.Price</div>
+        <div class="col-lg-12 col-md-12 col-xs-12" style="position:relative;border-top: 1px solid black;height:20px;"></div>
+        @foreach (var item in Model)
+        {
+            switch ((string)ViewBag.Language)
+            {
+                case "VI":
+                    <div class="col-lg-6 col-md-6 col-xs-6">@item.ProductName</div>
+                    break;
+                case "EN":
+                    <div class="col-lg-6 col-md-6 col-xs-6">@item.ProductName_EN</div>
+                    break;
+                case "JP":
+                    <div class="col-lg-6 col-md-6 col-xs-6">@item.ProductName_JP</div>
+                    break;
+            }
+
+            <div class="col-lg-2 col-md-2 col-xs-2" style="text-align:center;">@item.Quantity</div>
+            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align:center;color:#B77C17;">@Convert.ToString(String.Format("{0:0,0 đ}", int.Parse(item.Price))).Replace(",", ".")</div>
+        }
+
+        <div class="col-lg-12 col-md-12 col-xs-12" style="position:relative;border-bottom: 1px solid black;height:20px;"></div>
+        <div class="col-lg-6 col-md-6 col-xs-6">
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2"><span style="float:right;font-weight: 500;">@tinhGiot.Resources.OrderDetail.SubTotal</span></div>
+        <div class="col-lg-4 col-md-4 col-xs-4" style="text-align:center;font-weight: 500;color:#B77C17;">@Convert.ToString(String.Format("{0:0,0 đ}", (Model.Sum(x => Convert.ToInt32(x.Price) * x.Quantity)))).Replace(",", ".")</div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top:10px;position:relative;">
+        <div style="float:right;width:330px;padding:10px;background-color:whitesmoke;border:2px solid #B77C17;border-radius:10px;">
+            <div class="col-lg-6 col-md-6 col-xs-6"><span style="float:right;">@tinhGiot.Resources.OrderDetail.Discount</span></div>    
+            <div class="col-lg-6 col-md-6 col-xs-6" style="color:#B77C17;">@ViewBag.Order.DiscountValue% - @Convert.ToString(String.Format("{0:0,0 đ}", Model.Sum(x => Convert.ToInt32(x.Price) * x.Quantity) * @Convert.ToInt32(ViewBag.Order.DiscountValue) / 100)).Replace(",", ".")</div>
+            <div class="col-lg-6 col-md-6 col-xs-6"><span style="float:right;">@tinhGiot.Resources.OrderDetail.PostalFee</span></div>
+            <div class="col-lg-6 col-md-6 col-xs-6" style="color:#B77C17;">@Convert.ToString(String.Format("{0:0,0 đ}", int.Parse(ViewBag.Order.DeliveryCost))).Replace(",", ".")</div>
+            <div class="col-lg-6 col-md-6 col-xs-6"><span style="float:right;">@tinhGiot.Resources.OrderDetail.Total</span></div>
+            <div class="col-lg-6 col-md-6 col-xs-6" style="color:#B77C17;">@Convert.ToString(String.Format("{0:0,0 đ}", int.Parse(ViewBag.Order.TotalPrice))).Replace(",", ".")</div>
+        </div>
+    </div>
+</div>

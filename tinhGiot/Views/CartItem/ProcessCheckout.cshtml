@@ -1,0 +1,386 @@
+﻿@model List<BaseClasses.CartItems>
+@section jsFooter{
+    <script src="~/js/cartController.js"></script>
+}
+@{
+    ViewBag.Title = "ProcessCheckout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Custom_Select.css" rel="stylesheet" />
+<script src="~/js/Custom_Select.js"></script>
+
+<div class="content-block" id="CompleteOrderPanel" style="display:block;padding-left:20px;padding-right:20px;font-family: 'Roboto', sans-serif;">
+    <div class="block-title">
+        <h2>@tinhGiot.Resources.ProcessCheckout.CompleteOrder</h2>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top:20px;">
+            @if (Session["userid"] != null)
+            {
+                <div style="display:none;">
+                    <input type="text" class="inptxtstyle" name="name" id="Account_fullname" placeholder="@tinhGiot.Resources.ProcessCheckout.Account_Fullname *" required="" value="@Session["username"]" />
+                    <input type="text" class="inptxtstyle" name="email" id="Account_email" placeholder="Email *" required="" value="@Session["email"]" />
+                    <input type="text" class="inptxtstyle" name="phone" id="Account_phonenumber" placeholder="@tinhGiot.Resources.ProcessCheckout.Account_Phonenumber *" required="" value="@Session["phonenumber"]" />
+                </div>
+                <div style="border:2px solid rgba(183, 124, 23,0.1);border-radius:10px;padding:20px 20px;">
+                    <p>@tinhGiot.Resources.ProcessCheckout.Hello <span style="font-weight:500;font-size:18px;color: #B77C17;">@Session["name"]</span></p>
+                </div>
+                <div style="border:2px solid antiquewhite;border-radius:10px;font-size:16px; margin-top:20px;padding:20px 20px;width:100%;display:inline-block;">
+                    <div style="width:40%;float:left;">@tinhGiot.Resources.ProcessCheckout.Qty<span style="margin-left:10px; color: #B77C17;font-weight:500;">@ViewBag.Items</span></div>
+                    <div style="width:60%;float:left;">@tinhGiot.Resources.ProcessCheckout.Total<span style="color: #B77C17;float:right;margin-right:10px;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.Total))).Replace(",", ".")</span></div>
+                    <div style="width:40%;float:left;" id="discountValue" data-id="@ViewBag.DiscountPercent">@tinhGiot.Resources.ProcessCheckout.Discount<span style="margin-left:10px;color: #B77C17;font-weight:500;">@ViewBag.DiscountPercent%</span></div>
+                    <div style="width:60%;float:left;">@tinhGiot.Resources.ProcessCheckout.TotalPayment<span style="color: #B77C17;float:right;margin-right:10px;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.PayableAmount))).Replace(",", ".")</span></div>
+                    <div style="width:100%;float:left;">
+                        @if (ViewBag.CurrentCountry == "Vietnam")
+                        {
+                            if (int.Parse(ViewBag.DeliveryCost) > 0)
+                            {
+                                <div id="Inbound" style="margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryCost))).Replace(",", ".")</span></div>
+
+                            }
+                            else
+                            {
+                                <div id="Inbound" style="margin-top:20px;width:100%;color: #B77C17;text-align:center;font-weight:500;font-size:18px;">@tinhGiot.Resources.ProcessCheckout.FreeShip</div>
+                            }
+                            <div id="Outbound" style="display:none;margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryOtherCountryCost))).Replace(",", ".")</span></div>
+
+                        }
+                        else
+                        {
+                            if (int.Parse(ViewBag.DeliveryCost) > 0)
+                            {
+                                <div id="Inbound" style="display:none;margin-top:10px;f">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryCost))).Replace(",", ".")</span></div>
+
+                            }
+                            else
+                            {
+                                <div id="Inbound" style="display:none;width:100%;color: #B77C17;font-weight:500;font-size:18px;margin-top:20px;">@tinhGiot.Resources.ProcessCheckout.FreeShip</div>
+                            }
+                            <div id="Outbound" style="margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryOtherCountryCost))).Replace(",", ".")</span></div>
+                        }
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="border:2px solid rgba(183, 124, 23,0.1);background-color:whitesmoke;border-radius:10px;padding:20px 20px;width:100%;display:inline-block;">
+                    <p style="text-align:center;font-size:18px;font-weight:500;color:#293D12;">@tinhGiot.Resources.ProcessCheckout.ShoppingBag </p>
+                    <div style="width:40%;float:left;">@tinhGiot.Resources.ProcessCheckout.Qty<span style="margin-left:10px; color: #B77C17;font-weight:500;">@ViewBag.Items</span></div>
+                    <div style="width:60%;float:left;">@tinhGiot.Resources.ProcessCheckout.Total<span style="color: #B77C17;float:right;margin-right:10px;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.Total))).Replace(",", ".")</span></div>
+                    <div style="width:40%;float:left;">@tinhGiot.Resources.ProcessCheckout.Discount<span style="margin-left:10px;color: #B77C17;font-weight:500;">@ViewBag.DiscountPercent%</span></div>
+                    <div style="width:60%;float:left;">@tinhGiot.Resources.ProcessCheckout.TotalPayment<span style="color: #B77C17;float:right;margin-right:10px;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.PayableAmount))).Replace(",", ".")</span></div>
+                    <div style="width:100%;float:left;">
+                        @if (ViewBag.CurrentCountry == "Vietnam")
+                        {
+                            if (int.Parse(ViewBag.DeliveryCost) > 0)
+                            {
+                                <div id="Inbound" style="margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryCost))).Replace(",", ".")</span></div>
+
+                            }
+                            else
+                            {
+                                <div id="Inbound" style="margin-top:20px;width:100%;color: #B77C17;text-align:center;font-weight:500;font-size:18px;">@tinhGiot.Resources.ProcessCheckout.FreeShip</div>
+                            }
+                            <div id="Outbound" style="display:none;margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryOtherCountryCost))).Replace(",", ".")</span></div>
+
+                        }
+                        else
+                        {
+                            if (int.Parse(ViewBag.DeliveryCost) > 0)
+                            {
+                                <div id="Inbound" style="display:none;margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryCost))).Replace(",", ".")</span></div>
+
+                            }
+                            else
+                            {
+                                <div id="Inbound" style="display:none;width:100%;color: #B77C17;font-weight:500;font-size:18px;margin-top:20px;">@tinhGiot.Resources.ProcessCheckout.FreeShip</div>
+                            }
+                            <div id="Outbound" style="margin-top:10px;">@tinhGiot.Resources.ProcessCheckout.DeliveryCost<span style="margin-left:20px;color: #B77C17;font-weight:500;">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.DeliveryOtherCountryCost))).Replace(",", ".")</span></div>
+                        }
+
+                    </div>
+                </div>
+                <div style="border:2px solid rgba(183, 124, 23,0.1);background-color:whitesmoke;border-radius:10px;margin-top:20px;">
+
+                    <div style="width:100%;background-color:rgba(183, 124, 23,0.1);border-top-left-radius:10px;border-top-right-radius:10px;height:46px;font-size:18px;line-height:46px;padding-left:20px;font-weight:500;color:#293D12;">@tinhGiot.Resources.ProcessCheckout.NewAccount  <a href="javascript:;" onclick="OpenLogin()" class="button2" style="margin-right:10px; float:right;margin-top:5px;margin-bottom:5px;">@tinhGiot.Resources.ProcessCheckout.Login</a></div>
+                    <div style="margin:10px 10px 10px 10px;">
+                        <input type="text" class="inptxtstyle" name="name" id="Account_fullname" placeholder="@tinhGiot.Resources.ProcessCheckout.Account_Fullname *" required="" value="" />
+                        <input type="text" class="inptxtstyle" name="email" id="Account_email" placeholder="Email *" required="" value="" />
+                        <input type="text" class="inptxtstyle" name="phone" id="Account_phonenumber" placeholder="@tinhGiot.Resources.ProcessCheckout.Account_Phonenumber *" required="" value="" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top:20px;">
+            <div style="border:2px solid rgba(183, 124, 23,0.1);border-radius:10px;background-color:whitesmoke;">
+                <div style="width:100%;background-color:rgba(183, 124, 23,0.1);border-top-left-radius:5px;border-top-right-radius:5px;font-weight:500;height:46px;font-size:18px;line-height:46px;padding-left:20px;color:#293D12;">
+                    @tinhGiot.Resources.ProcessCheckout.Delivery_Detail
+                    @if (Session["userid"] != null)
+                    {
+                        <div style="float:right;margin-right:5px;" id="changeAddress"><a class="button2" href="#" onclick="SelectDeliveryAddress();">@tinhGiot.Resources.ProcessCheckout.ChangeDeliveryAddress </a></div>
+                    }
+                </div>
+                <div style="margin:10px 10px 10px 10px;">
+                    <input type="text" class="inptxtstyle" id="proceed_order_fullname" name="fullname" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Fullname *" required="" value="@Session["fullname_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_phonenumber" name="phonenumber" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Phonenumber *" required="" value="@Session["phonenumber_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_address" name="address1" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Address *" required="" value="@Session["address_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_ward" name="ward" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Ward *" required="" value="@Session["ward_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_district" name="district" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_District *" required="" value="@Session["district_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_city" name="city" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_City *" required="" value="@Session["city_delivery"]" />
+                    <input type="text" class="inptxtstyle" id="proceed_order_postcode" name="postcode" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Postcode *" required="" value="@Session["city_postcode"]" />
+                    @if (ViewBag.Countries != null)
+                    {
+                        <select id="SelectCountry" class="form-control" style="max-width:480px;min-width:120px;width:100%;height:45px;margin-top:5px;" onchange="ChangeCountry()">
+                            @foreach (var item in ViewBag.Countries)
+                            {
+                                if (item == ViewBag.CurrentCountry)
+                                {
+                                    <option value="@item" selected>@item</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>
+
+                    }
+
+                </div>
+
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top:20px;">
+            <div style="border:2px solid rgba(183, 124, 23,0.1);border-radius:10px;background-color:whitesmoke;">
+                <div style="width:100%;background-color:rgba(183, 124, 23,0.1);border-top-left-radius:5px;border-top-right-radius:5px;height:46px;line-height:46px;padding-left:20px;"> <span style="font-size:18px;line-height:36px;font-weight:500;color:#293D12;">@tinhGiot.Resources.ProcessCheckout.Messages</span> </div>
+                <div style="margin:20px 10px 10px 10px">
+                    <textarea class="note inptxtarea " id="GiftMessage" name="GiftMessage" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_GiftMessage"></textarea>
+                    <textarea class="note inptxtarea " name="note" id="delivery_note" placeholder="@tinhGiot.Resources.ProcessCheckout.Delivery_Note"></textarea>
+                </div>
+            </div>
+
+            <div style="margin-top:20px;border:2px solid rgba(183, 124, 23,0.1);border-radius:10px;background-color:whitesmoke;">
+                <div style="width:100%;background-color:rgba(183, 124, 23,0.1);border-top-left-radius:5px;border-top-right-radius:5px;height:36px;font-size:18px;line-height:36px;padding-left:20px;font-weight:500;color:#293D12;">@tinhGiot.Resources.ProcessCheckout.Payment_Method</div>
+                <div class="check-box" style="min-height:60px;margin-left:auto;margin-right:auto;margin-top:20px;width:90%;">
+                    <div class="col-lg-6 col-sm-6 col-xs-6">
+                        <input style="float:left;margin-top:15px" id="CODCheck" class="cash th-customRadio" type="radio" stype="color:#4caf50" checked="checked" name="pay" />
+                        <div style="float:left;margin-left:5px">
+                            <img src="~/images/ic_delivery_biker.png" width="68" />
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-6">
+                        <input style="visibility:hidden;float:left;margin-top:15px" type="radio" id="PAYPALCheck" class="paypal th-customRadio" name="pay">
+                        <div style="float:left;margin-left:5px;visibility:hidden;">
+                            <img src="~/images/paypal.png" width="68" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            @if (Model.Count < 1)
+            {
+                <div style="text-align:center;margin-top:20px;float:right;">
+                    <a href="#" class="btnCheckout isDisabled">
+                        @tinhGiot.Resources.ProcessCheckout.Complete
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div style="text-align:center;margin-top:20px;float:right;">
+                    <a class="btnCheckout" href="#" onclick="CompleteOrder();">
+                        @tinhGiot.Resources.ProcessCheckout.Complete
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (Session["userid"] != null)
+{
+    <div id="LoginID" data-id="@Session["userid"]"></div>
+    <div class="content-block" id="SelectNewDeliverAddress" style="position:relative; display:none;max-width:680px;min-width:320px;width:100%;margin:auto;">
+        <div class="block-title">
+            <h2>@tinhGiot.Resources.ProcessCheckout.Delivery_AddressList</h2>
+        </div>
+        <div style="margin-top:20px;margin-bottom:20px;"><a class="button2" href="#" onclick="BackPanelOrder();">@tinhGiot.Resources.ProcessCheckout.Back </a></div>
+
+        <div id="DeliveryAddress" class="col-lg-12">
+            @{
+                Html.RenderAction("SelectDeliveryAddressList", "Home");
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div id="LoginID" data-id="0"></div>
+}
+
+<script type="text/javascript">
+
+    /* New customer to fill personal information */
+    document.getElementById("Account_fullname").addEventListener("change",changeFullname);
+    document.getElementById("Account_phonenumber").addEventListener("change", changePhonenumber);
+    function changeFullname() {
+        $('#proceed_order_fullname').val($('#Account_fullname').val());
+    }
+    function changePhonenumber() {
+        $('#proceed_order_phonenumber').val($('#Account_phonenumber').val());
+    }
+
+    function ChangeCountry() {
+        if ($("#SelectCountry").val() == "Vietnam") {
+            document.getElementById("Inbound").style.display = 'block';
+            document.getElementById("Outbound").style.display = 'none';
+        } else {
+            document.getElementById("Inbound").style.display = 'none';
+            document.getElementById("Outbound").style.display = 'block';
+        }
+        OpenNotification('@tinhGiot.Resources.ProcessCheckout.ChangeDeliveryCost')
+    }
+
+    function SelectDeliveryAddress() {
+        if ('@Session["userid"]' != null) {
+            document.getElementById("CompleteOrderPanel").style.display = 'none';
+            document.getElementById("SelectNewDeliverAddress").style.display = 'block';
+        } else
+            $('#ChangeAddress').style.display = 'none';
+
+    }
+
+    function BackPanelOrder() {
+        document.getElementById("CompleteOrderPanel").style.display = 'block';
+        document.getElementById("SelectNewDeliverAddress").style.display = 'none';
+    }
+
+    function CompleteOrder() {
+        var loginID = $('#LoginID').attr('data-id');
+        var account_fullname = $('#Account_fullname').val();
+        var account_email = $('#Account_email').val();
+        var account_phonenumber = $('#Account_phonenumber').val();
+        var delivery_fullname = $('#proceed_order_fullname').val();
+        var delivery_phonenumber = $('#proceed_order_phonenumber').val();
+        var delivery_address = $('#proceed_order_address').val();
+        var delivery_ward = $('#proceed_order_ward').val();
+        var delivery_district = $('#proceed_order_district').val();
+        var delivery_city = $('#proceed_order_city').val();
+         var delivery_postcode = $('#proceed_order_postcode').val();
+        var delivery_country = $('#SelectCountry').val();
+       var delivery_note = $('#delivery_note').val();
+        var GiftMessage = $('#GiftMessage').val();
+        var PaymentType = "COD";
+        var isGifted = (GiftMessage != "");
+
+        if (document.getElementById("PAYPALCheck").checked)
+            PaymentType = "PAYPAL";
+
+        // check empty compulsory data fields
+        if (account_fullname == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Account_Fullname_message");
+            $('#Account_fullname').focus();
+            return;
+        }
+        if (account_email == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Account_Email_message");
+            $('#Account_email').focus();
+            return;
+        }
+        if (account_phonenumber == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Account_Phonenumber_message");
+            $('#Account_phonenumber').focus();
+            return;
+        }
+        if (delivery_fullname == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_Fullname_message");
+            $('#proceed_order_fullname').focus();
+            return;
+        }
+        if (delivery_phonenumber == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_Phonenumber_message");
+            $('#proceed_order_phonenumber').focus();
+            return;
+        }
+        if (delivery_address == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_Address_message");
+            $('#proceed_order_address').focus();
+            return;
+        }
+        if (delivery_ward == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_Ward_message");
+            $('#proceed_order_ward').focus();
+            return;
+        }
+        if (delivery_district == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_District_message");
+            $('#proceed_order_district').focus();
+            return;
+        }
+        if (delivery_city == "") {
+            OpenWarningNotification("@tinhGiot.Resources.ProcessCheckout.Delivery_City_message");
+            $('#proceed_order_city').focus();
+            return;
+        }
+
+        var user = {
+            ID: loginID,
+            UserName: account_email,
+            Name: account_fullname,
+            Email: account_email,
+            PhoneNumber: account_phonenumber
+        };
+        var delivery_addr = {
+            Fullname: delivery_fullname,
+            PhoneNumber: delivery_phonenumber,
+            Address: delivery_address,
+            Ward: delivery_ward,
+            District: delivery_district,
+            City: delivery_city,
+            Postcode: delivery_postcode,
+            Country: delivery_country
+        };
+
+        $.ajax({
+            url: '/CartItem/CompleteCheckOut',
+            data: JSON.stringify ({
+             oUser:user,
+             oDeliveryAddress: delivery_addr,
+                DeliveryNote:delivery_note,
+                isDeliveryGift: isGifted,
+                GiftMessage: GiftMessage,
+                PaymentType: PaymentType
+            }),
+            type: 'post',
+            contentType:'application/json',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                var rsl = result.split('|');
+                switch (rsl[0]) {
+                    case "ERROR":
+                        OpenWarningNotification(rsl[1]);
+                        break;
+                    case "SUCCESS":
+                        OpenNotification(rsl[1]);
+                        if (PaymentType == "PAYPAL") {
+                            window.location = "PaymentWithPaypal";
+                        } else {
+                         if (loginID == "0")
+                            window.location = "../home/index";
+                            else
+                            window.location = "../home/userinfo";
+                        }
+                        break;
+                }
+
+
+            }
+        });
+
+    }
+</script>
+

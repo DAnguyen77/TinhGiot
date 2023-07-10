@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.list.Title_Lang;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta name="keywords" content="@ViewBag.list.Keywords_Lang" />
+
+<link href="~/css/ArticleDetail.css" rel="stylesheet" />
+
+<div class="content-block">
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ArticleContent">
+        <h3 class="ArticleTitle">@ViewBag.list.Title_Lang</h3>
+        <div>
+            <img style="margin:auto;width:100%;border-radius:5px;max-width:720px;max-height:428px" src="https://tinhgiot.com/UploadedImage/@ViewBag.list.Image" />
+        </div>
+        <br />
+        <div class="ArticleDetail">
+            @Html.Raw(ViewBag.list.PostContent_Lang)
+            <br />
+            <p style="float:right;color:#868686">
+                <i style="background:none">@tinhGiot.Resources.News_detail.Source:@ViewBag.list.Author</i>
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="padding:20px 20px 20px 20px;margin-top:30px;">
+        @if (ViewBag.RelatedProducts != null)
+        {
+            foreach (var n in ViewBag.RelatedProducts)
+            {
+                <div class="prd-item">
+                    <div class="prd-thumb">
+                        <a href="/ProductDetail/@ViewBag.Language/@n.ProductName_Lang.Replace(' ', '-')/@n.ID-@n.CategoryID">
+                            @*<img src="/UploadedImage/@n.Image" />*@
+                            @foreach (var img in (n.Image).Split(','))
+                            {
+                                <img src="@Url.Content("/UploadedImage/" + img)" />
+                                break;
+                            }
+                        </a>
+                    </div>
+
+                    <div class="prd-info">
+                        <a href="/ProductDetail/@ViewBag.Language/@n.ProductName_Lang.Replace(' ', '-')/@n.ID-@n.CategoryID" class="prd-title">
+                            <p class="text-title-max">@n.ProductName_Lang</p>
+                        </a>
+                        <p class="prd-price"><span class="prd-price-span">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(n.Price))).Replace(",", ".")</span> </p>
+                        @*<a data-id="@n.ID" style="margin-bottom:10px" class="btn btn-buy"><i class="icon-cart-plus"></i></a>*@
+                        @foreach (var img in (n.Image).Split(','))
+                        {
+                            <label class="Btn_Buy" id="myBtn_@n.ID" data-id="@n.ID" productname="@n.ProductName_Lang" data-img="@Url.Content(img)">@tinhGiot.Resources.Index.AddToBag</label>
+                            break;
+                        }
+                    </div>
+                </div>
+
+            }
+        }
+
+    </div>
+</div>
+
+

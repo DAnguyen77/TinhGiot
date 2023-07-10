@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Profiles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content-block" style="text-align:center">
+    <div class="block-title" style="margin-left:0px">
+        <h2>Tài khoản</h2>
+    </div>
+    <div class="center contentprofile">
+        <a href="/Admin/Logout">
+            <label class="logout"><b>Đăng xuất</b></label>
+        </a>
+        <br />
+        <div class="fcenter">
+            <img class="profile-user-img img-circle" src="~/UploadedImage/@Session["image"]" width="100" height="100" alt="Avatar" />
+        </div>
+        <div class="clear"></div>
+        <div class="fleft">
+            <span><b>Họ tên: </b></span>&nbsp;<span>@Session["name"]</span><br />
+        </div>
+        <div class="fleft">
+            <span><b>Email: </b></span>&nbsp;<span>@Session["email"]</span><br />
+        </div>
+        <div class="fleft">
+            <span><b>Điện thoại:</b></span>&nbsp;<span>@Session["phonenumber"]</span><br />
+        </div>
+        <div class="fleft">
+            <span><b>Địa chỉ:</b></span>&nbsp;<span>@Session["address"]</span><br />
+        </div>
+        <div class="clear"></div>
+        <button type="button" class="btnprofile" onclick="Edit(@Session["userid"])">Chỉnh sửa</button>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Account</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div id="imgReview" class="thumbnail">
+                                    <img class="img-responsive" id="targetImg" />
+                                    <div class="caption">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImage" class="col-sm-3 control-label">Avartar</label>
+
+                            <div class="col-sm-9">
+                                <div class="btn btn-primary" style="width: 100%;">
+                                    <input type="file" id="imageBrowse" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputID" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-3 control-label">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputAddress" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone" class="col-sm-3 control-label">Phone Number</label>
+
+                            <div class="col-sm-9">
+                                <input type="tel" class="form-control" id="inputPhoneNumber" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info pull-right" id="SaveUserRecord">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("div").removeClass("modal-backdrop");
+        $("#imageBrowse").change(function () {
+
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+    });
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $('#targetImg').attr('src', _file.target.result);
+                $('#imgReview').show();
+            }
+        }
+    }
+
+    function Edit(IdAdmin) {
+        var url = '/vi/Admin/Admin_Account_Detail?IdAdmin=' + IdAdmin;
+        $('#myModalLabel').html('Chỉnh sửa tài khoản');
+        $('#imgReview').show();
+        $('#myModal').modal();
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#targetImg').attr('src', '/UploadedImage/' + obj.Image);
+                $('#inputID').val(obj.ID);
+                $('#inputEmail').val(obj.Email);
+                $('#inputPhoneNumber').val(obj.PhoneNumber);
+                $('#inputName').val(obj.Name);
+                $('#inputAddress').val(obj.Address);
+            }
+        })
+    }
+
+    $("#SaveUserRecord").click(function () {
+        var data = new FormData();
+        var file = $("#imageBrowse").get(0).files;
+
+        data.append("ID", $('#inputID').val());
+        data.append("UserName", $('#inputUserName').val());
+        data.append("Email", $('#inputEmail').val());
+        data.append("PhoneNumber", $('#inputPhoneNumber').val());
+        data.append("Address", $('#inputAddress').val());
+        data.append("Name", $('#inputName').val());
+        data.append("ImageFile", file[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateAdmin',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+</script>
+

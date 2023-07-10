@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Registry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="margin-top:20px; margin-left: auto; margin-right: auto;max-width:500px;background-color:rgba(183, 124, 23,0.1); border-radius:20px; padding: 20px 20px 20px 20px;">
+    <div class="block-title">
+        <h2>@tinhGiot.Resources.Registry.Registration</h2>
+    </div>
+    <div class="contact-form" style="max-width:460px;text-align:center;min-height:270px">
+        <h3>@tinhGiot.Resources.Registry.CurrentMember<b> </b><a href="../Home/Login" style="color:#B77C17"><u>@tinhGiot.Resources.Registry.Login</u></a></h3>
+        <input type="email" class="inptxtstyle" id="emailaddr" name="Register_Email" required placeholder="Email *" value="">
+        <input type="password" class="inptxtstyle" id="Register_Password" pattern=".{6,}" required name="password " placeholder="@tinhGiot.Resources.Registry.Password *" value="">
+        <input type="password" class="inptxtstyle" id="Register_Confirm_Password" pattern=".{6,}" required name="" placeholder="@tinhGiot.Resources.Registry.ConfirmPassword *" value="">
+        <input type="text" class="inptxtstyle" name="phonenumber" id="phonenumber" pattern="\d{10}" required placeholder="@tinhGiot.Resources.Registry.PhoneNumber *" maxlength="10">
+        <input type="text" class="inptxtstyle" name="name" id="fullname" required placeholder="@tinhGiot.Resources.Registry.Fullname *">  
+        <p>
+            <span>(*) @tinhGiot.Resources.Registry.Required</span>
+            <input type="submit" class="button2" style="float:right;margin-right:30px;margin-top:10px;" value="@tinhGiot.Resources.Registry.Register" onclick="CreateNewUser()" />
+            <div class="clear"></div>
+        </p>
+    </div>
+</div>
+<script>
+
+    function validatePassword() {
+            var password = document.getElementById("Register_Password"), confirm_password = document.getElementById("Register_Confirm_Password");
+
+
+    }
+    function CreateNewUser() {
+        var email = document.getElementById("emailaddr").value;
+        var password = document.getElementById("Register_Password").value;
+        var confirmpassword = document.getElementById("Register_Confirm_Password").value;
+        var phonenumber = document.getElementById("phonenumber").value;
+        var fullname = document.getElementById("fullname").value;
+        if (email == "") {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.InvalidEmail");
+            document.getElementById("emailaddr").focus();
+            return;
+        }
+        if (password == "") {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.InvalidPassword");
+            document.getElementById("Register_Password").focus();
+            return;
+        }
+        if (confirmpassword == "") {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.InvalidConfirmPassword");
+            document.getElementById("Register_Confirm_Password").focus();
+            return;
+        }
+        if (password != confirmpassword) {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.MismatchPassword");
+            document.getElementById("Register_Confirm_Password").focus();
+            return;
+        }
+        if (phonenumber == "") {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.RequiredPhonenumber");
+            document.getElementById("phonenumber").focus();
+            return;
+        }
+        if (fullname == "") {
+            OpenWarningNotification("@tinhGiot.Resources.Registry.RequiredFullname");
+            document.getElementById("fullname").focus();
+            return;
+        }
+
+        $.ajax({
+                url: '/@ViewBag.Language/Home/CreatNewMember',
+                data: {
+                    Email: email,
+                    PhoneNumber: phonenumber,
+                    UserName: email,
+                    Name: fullname,
+                    Password: password
+                },
+                type: 'post',
+                dataType: 'text',
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+            success: function (value) {             
+                if (value == 0) {
+                    OpenNotification("@tinhGiot.Resources.Registry.ExistingEmailAccount");
+                }
+                else {
+                    window.history.back();
+                }
+
+            }
+            });
+    }
+</script>
+
+    

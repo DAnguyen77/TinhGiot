@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "CategoryProduct";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Data Table Acounts</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <button type="button" class="btn btn-primary btn-sm" onclick="AddCate()" style="margin-left:1em;"><i class="fa fa-plus"></i> Add Category Product</button>
+            </div>
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên danh mục sản phẩm</th>
+                            <th class="sorttable_nosort">Hành đông</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.listcate)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.CategoryName</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-xs" @*data-toggle="tooltip" title="Edit"*@ style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete(@item.ID)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Category Product</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form" enctype="multipart/form-data">
+                    <div class="box-body">
+                        <div class="form-group" style="display:none">
+                            <label for="inputID" class="col-sm-3 control-label">ID</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputID" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCategoryName" class="col-sm-3 control-label">Category Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputCategoryName" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCategoryName" class="col-sm-3 control-label">Category Name - English</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputCategoryName_EN" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCategoryName" class="col-sm-3 control-label">Category Name - Japanese</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputCategoryName_JP" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info pull-right" id="SaveCatProductRecord">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Delete Category Product Record</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Record?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var ClearPreview = function () {
+        $("#imageBrowse").val('');
+        $('#description').text('');
+        $('#imgReview').hide();
+    }
+
+    function AddCate() {
+        $('#myModal').modal();
+        $('#inputID').val('0');
+        $('#inputCategoryName').val('');
+        $('#inputCategoryName_EN').val('');
+        $('#inputCategoryName_JP').val('');
+    }
+
+    $(function () {
+        $("#tblUsers").DataTable();
+    });
+
+    function Edit(IdCate) {
+        var url = '/vi/Admin/CateProduct_detail?IdCate=' + IdCate;
+        $('#myModalLabel').html('Edit Category Product');
+        $('#myModal').modal();
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#inputID').val(obj.ID);
+                $('#inputCategoryName').val(obj.CategoryName);
+                $('#inputCategoryName_EN').val(obj.CategoryName_EN);
+                $('#inputCategoryName_JP').val(obj.CategoryName_JP);
+            }
+        })
+    }
+
+    function Delete(IdCate) {
+        $('#inputID').val(IdCate);
+        var url = '/vi/Admin/CateProduct_detail?IdCate=' + IdCate;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj == null) {
+                    alert("Can not Delete.");
+                    //  location.reload();
+                } else {
+                    $('#DeleteConfirmation').modal('show');
+                }
+            }
+        });
+    }
+
+    function ConfirmDelete() {
+        var CateID = $('#inputID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteCategoryProductRecord?CateID=" + CateID,
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    $("#SaveCatProductRecord").click(function () {
+
+        if ($("#inputCategoryName").val() == '') {
+            alert("You have not entered enough information!");
+            return false;
+        }
+        var ID = $('#inputID').val();
+        var CategoryName = $('#inputCategoryName').val();
+        var CategoryName_EN = $('#inputCategoryName_EN').val();
+        var CategoryName_JP = $('#inputCategoryName_JP').val();
+        var cate = {
+            ID: ID,
+            CategoryName: CategoryName,
+            CategoryName_EN: CategoryName_EN,
+            CategoryName_JP: CategoryName_JP
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/vi/Admin/UpdateCategoryProduct',
+            contentType: 'application/json',
+            data: JSON.stringify({ cate: cate }),
+            success: function (result) {
+                if (result === true) {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+</script>

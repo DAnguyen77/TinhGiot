@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Data Table Contact</h3>
+            </div>
+            <!-- /.box-header -->
+            @*<div class="box-body">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="AddCate()" style="margin-left:1em;"><i class="fa fa-plus"></i> Add Contact</button>
+                </div>*@
+            <div class="box-footer">
+                <table id="tblUsers" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Thời gian liên hệ</th>
+                            <th class="sorttable_nosort">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.listcontact)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>
+                                    <a onclick="showDetail(@item.ID)" class="idUser" style="cursor:pointer; color:#333333" data-toggle="modal" data-target="#ProductDetail">@item.Name</a>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@String.Format("{0:yyyy/MM/dd HH:mm}", item.ContactTime)</td>
+                                <td>
+                                    @*<button type="button" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit" style="margin-right: 5px;" onclick='Edit(@item.ID)'>
+                                            <i class="fa fa-pencil"></i>
+                                        </button>*@
+                                    <button type="button" class="btn btn-danger btn-xs" @*data-toggle="tooltip" title="Delete"*@ onclick="Delete(@item.ID)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<div class="modal fade" id="ProductDetail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Detail Contact</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <input class="" id="inputID" style="display:none" />
+                                <h3 class="profile-username text-center" id="Name"></h3>
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Email</b> <a class="pull-right" id="Email"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>PhoneNumber</b> <a class="pull-right" id="PhoneNumber"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>ContactTime</b> <a class="pull-right" id="ContactTime"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Note</b><br /><a class="" id="Note"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Delete User Record</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Record?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmDelete()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //var ClearPreview = function () {
+    //    $("#imageBrowse").val('');
+    //    $('#description').text('');
+    //    $('#imgReview').hide();
+    //}
+
+    //function AddCate() {
+    //    $('#myModal').modal();
+    //}
+
+    $(function () {
+        $("#tblUsers").DataTable();
+    });
+
+    //function Edit(IdCate) {
+    //    var url = '/Admin/CateNews_detail?IdCate=' + IdCate;
+    //    $('#myModalLabel').html('Edit Category News');
+    //    $('#myModal').modal();
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: url,
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            var obj = JSON.parse(data);
+    //            $('#inputID').val(obj.ID);
+    //            $('#inputCategoryNews').val(obj.CategoryNews);
+    //        }
+    //    })
+    //}
+
+    function Delete(contactid) {
+        $('#inputID').val(contactid);
+        var url = '/vi/Admin/Contact_detail?contactid=' + contactid;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj == null) {
+                    alert("Can not Delete.");
+                    //  location.reload();
+                } else {
+                    $('#DeleteConfirmation').modal('show');
+                }
+            }
+        });
+    }
+
+    function ConfirmDelete() {
+        var contactid = $('#inputID').val();
+        $.ajax({
+            type: "POST",
+            url: "/vi/Admin/DeleteContactRecord?contactid=" + contactid,
+            success: function (list) {
+                $('#DeleteConfirmation').modal('hide');
+                location.reload();
+            }
+        })
+    }
+
+    function showDetail(id) {
+        var url = '/vi/Admin/Contact_detail?contactid=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#inputID').text(obj.ID);
+                $('#Name').text(obj.Name);
+                $('#Email').text(obj.Email);
+                $('#PhoneNumber').text(obj.PhoneNumber);
+                $('#ContactTime').text(obj.ContactTime);
+                $('#Note').text(obj.Note);
+            }
+        })
+    }
+    //$("#SaveUserRecord").click(function () {
+
+    //    if ($("#inputCategoryNews").val() === '') {
+    //        alert("You have not entered enough information!");
+    //        return false;
+    //    }
+
+    //    var data = new FormData();
+    //    data.append("ID", $('#inputID').val());
+    //    data.append("CategoryNews", $('#inputCategoryNews').val());
+
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Admin/UpdateCategoryNews',
+    //        data: data,
+    //        contentType: false,
+    //        processData: false,
+    //        success: function (result) {
+    //            if (result === true) {
+    //                window.location.reload();
+    //            }
+    //        }
+    //    });
+    //});
+
+</script>

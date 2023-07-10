@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "Profiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (Session["userid"] == null)
+    {
+        Response.Redirect("/Home/index");
+    }
+}
+<link href="~/css/UserInfo.css" rel="stylesheet" />
+
+<div class="content-block" style="margin:0 auto; max-width:680px; min-width:230px;width:100%;">
+    <div style="background-color:rgba(183, 124, 23,0.2);border-radius:5px;padding:5px 5px;height:36px;font-size:18px;line-height:24px;padding-left:30px;">
+        @tinhGiot.Resources.ProcessCheckout.Hello <span style="font-weight:500;color: #B77C17;">@Session["name"]</span>
+    </div>
+    <div class="TabPanel">
+        <div class="TabInfo_Active" id="tab_account" onclick="TabClick('UserAccount');">Tài khoản</div>
+        <div class="TabInfo" id="tab_addresses" onclick="TabClick('DeliveryAddress');">D/s địa chỉ</div>
+        <div class="TabInfo" id="tab_orderhistories" onclick="TabClick('OrderList');">Đơn hàng</div>
+    </div>
+    <div id="UserAccount" style="position:relative;width:100%;background-color:rgba(183, 124,23,0.05);margin-top:-5px;">
+        <div style="padding:10px 10px 10px 10px;margin:0 auto; max-width:380px;">
+            <div><a onclick="TabClick('DeliveryAddress');">Nhập địa chỉ giao nhận mặc định</a></div>
+            <input type="text" class="inptxtstyle" name="name" id="Fullname" placeholder="Họ và Tên *" required="" value="@Session["name"]" />
+            <input type="text" class="inptxtstyle" name="email" id="Email" placeholder="email *" required="" value="@Session["email"]" />
+            <input type="text" class="inptxtstyle" name="phone" id="Phonenumber" placeholder="Số điện thoại *" required="" value="@Session["phonenumber"]" />
+            <div>
+                <input type="checkbox" class="th-customCheckbox" name="UpdatePassword" id="UpdatePassword" onclick="PasswordPanel();" />
+                <span style="line-height:36px;">Đổi mật khẩu </span>
+                <div id="PasswordPanel" style="display:none;">
+                    <input type="password" class="inptxtstyle" name="OldPassword" id="OldPassword" placeholder="Mật khẩu cũ *" required="" />
+                    <input type="password" class="inptxtstyle" name="NewPassword" id="NewPassword" placeholder="Mật khẩu mới *" required="" />
+                    <input type="password" class="inptxtstyle" name="ConfirmNewPassword" id="ConfirmNewPassword" placeholder="Xác nhận mật khẩu mới *" required="" />
+                </div>
+            </div>
+
+        </div>
+        <div style="width:120px;margin-top: 30px;float:right;">
+            <a class="button2" onclick="SaveUserInfo()">Cập nhật</a>
+        </div>
+    </div>
+    <div id="DeliveryAddress" style="position:relative;display:none;background-color:rgba(183, 124,23,0.05);margin-top:-5px;">
+        @{ Html.RenderAction("DeliveryAddressList", "Home");}
+    </div>
+    <div id="OrderList" style="position:relative;display:none;background-color:rgba(183, 124,23,0.05);margin-top:-5px;">
+        @{ Html.RenderAction("OrderInfo", "Home");}
+    </div>
+</div>
+
+
+<div class="loading">Loading&#8230;</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#imageBrowse").change(function () {
+
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+    });
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $('#targetImg').attr('src', _file.target.result);
+                $('#imgReview').show();
+            }
+        }
+    }
+
+    function SaveUserInfo() {
+        if ('@Session["userid"]' == null) {
+            window.location = "/home/login";
+        } else {
+            var fullname = $("#Fullname").val();
+            var email = $("#Email").val();
+            var phone = $("#Phonenumber").val();
+            var oldpassword = $("#OldPassword").val();
+            var newpassword = $("#NewPassword").val();
+            var confirmnewpassword = $("#ConfirmNewPassword").val();
+            if (fullname == "") {
+                OpenWarningNotification("Họ và Tên chưa nhập.");
+                $("#Fullname").focus();
+                return;
+            }
+            if (email == "") {
+                OpenWarningNotification("Email chưa nhập.");
+                $("#Email").focus();
+                return;
+            }
+            if (phone == "") {
+                OpenWarningNotification("Số điện thoại chưa nhập.");
+                $("#Phonenumber").focus();
+                return;
+            }
+            if (document.getElementById("UpdatePassword").checked) {
+                if (oldpassword == "") {
+                    OpenWarningNotification("Yêu cầu nhập mật khẩu cũ.");
+                    $("#OldPassword").focus();
+                    return;
+                }
+                if (newpassword == "") {
+                    OpenWarningNotification("Mật khẩu mới chưa nhập.");
+                    $("#NewPassword").focus();
+                    return;
+                }
+                if (newpassword != confirmnewpassword) {
+                    OpenWarningNotification("Xác nhận mật khẩu không hợp lệ.");
+                    $("#ConfirmNewPassword").focus();
+                    return;
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/Home/UpdateUserInfo',
+                data: {
+                    fullname: fullname,
+                    email: email,
+                    phonenumber: phone,
+                    oldpassword: oldpassword,
+                    newpassword: newpassword
+                },
+                dataType: 'text',
+                 beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (result) {
+                    var rslt = result.split("|");
+                    switch (rslt[0]) {
+                        case "ERROR":
+                            if (rslt[2] == 1) {
+                                $("#Email").focus();
+                                $("#Phonenumber").focus();
+                            }
+                            if (rslt[2] == 2) {
+                                $("#OldPassword").focus();
+                            }
+                            break;
+                        case "SUCCESS":
+                            window.location.href = '/Home/UserInfo';
+                            break;
+                    }
+                    OpenNotification(rslt[1]);
+                }
+            });
+
+        }
+    }
+
+    function TabClick(tab) {
+        document.getElementById("UserAccount").style.display = 'none';
+              document.getElementById("DeliveryAddress").style.display = 'none';
+        document.getElementById("OrderList").style.display = 'none';
+        switch (tab) {
+            case "UserAccount":
+                document.getElementById("UserAccount").style.display = 'block';
+                break;
+            case "DeliveryAddress":
+                document.getElementById("DeliveryAddress").style.display = 'block';
+                break;
+            case "OrderList":
+                document.getElementById("OrderList").style.display = 'block';
+                break;
+        }
+        TabActive(tab);
+    }
+
+    function TabActive(tab) {
+        document.getElementById("tab_account").className = "TabInfo";
+        document.getElementById("tab_addresses").className = "TabInfo";
+        document.getElementById("tab_orderhistories").className = "TabInfo";
+                switch (tab) {
+            case "UserAccount":
+            document.getElementById("tab_account").className = "TabInfo_Active";
+                break;
+            case "DeliveryAddress":
+                document.getElementById("tab_addresses").className = "TabInfo_Active";
+                break;
+            case "OrderList":
+                document.getElementById("tab_orderhistories").className = "TabInfo_Active";
+                break;
+        }
+  }
+
+    function PasswordPanel() {
+        if (document.getElementById('UpdatePassword').checked) {
+            document.getElementById('PasswordPanel').style.display = 'block';
+        } else {
+            document.getElementById('PasswordPanel').style.display = 'none';
+        }
+    }
+</script>

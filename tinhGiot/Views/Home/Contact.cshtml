@@ -1,0 +1,47 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container" style="background-color:#FFF">
+        <div class="block-title">
+            <h2>@tinhGiot.Resources.Contact.ContactUs</h2>
+        </div>
+        <div style="max-width:480px;min-width:320px;margin:0 auto;">
+            <form action="/Home/Contact" method="post">
+                <div class="contact-form" style="margin-top:30px;">
+                    <input type="text" class="inptxtstyle" name="check" id="check" value="@ViewBag.check" style="display:none" />
+                    <input type="text" class="inptxtstyle" name="name" id="inputname" required placeholder="@tinhGiot.Resources.Contact.Fullname *">
+                    <input type="email" class="inptxtstyle" name="email" id="inputemail" required placeholder="Email *">
+                    <input type="text" class="inptxtstyle" name="phonenumber" pattern="\d{10,11}" id="inputphonenumber" required placeholder="@tinhGiot.Resources.Contact.Phonenumber *">
+                    <textarea id="inputnote" class="inptxtarea" name="note" required placeholder="@tinhGiot.Resources.Contact.Message *"></textarea>
+                    <div class="verify-code">
+                        <label>@tinhGiot.Resources.Contact.ValidateCode *</label><span style="color:#ff0000">@ViewBag.ErrMessage</span> @Html.Captcha(4)
+                    </div>
+                    <p>
+                        <span>(*) @tinhGiot.Resources.Contact.Required</span>
+                        <input type="submit" id="SaveRecord" class="button2" value="@tinhGiot.Resources.Contact.SendRequest" style="float:right;margin-right:20px;margin-top:30px;" />
+                        <div class="clear"></div>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#check').val() == 1) {
+            OpenNotification("@tinhGiot.Resources.Contact.ConfirmMessage");
+        }
+        $('#inputname').val('');
+        $('#inputemail').val('');
+        $('#inputphonenumber').val('');
+        $('#inputnote').val('');
+        $('#CaptchaInputText').val('');
+        $('#CaptchaImage').attr("style", "width:100px");
+        $('#CaptchaInputText').attr("required", "true");
+        $('#check').val('');
+    });
+</script>

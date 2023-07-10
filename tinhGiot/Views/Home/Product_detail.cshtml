@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.Product.ProductName_Lang;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta name="description" content="@ViewBag.Description_Lang" />
+<meta name="keywords" content="@ViewBag.Product.Keywords_Lang" />
+
+
+<div class="content-block">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="slider-for col-lg-12 show">
+            @foreach (var img in (ViewBag.Product.Image).Split(','))
+            {
+                <div style="float:left;">
+                    <img class="imgshow" src="@Url.Content("/UploadedImage/" + img)" alt="image" draggable="false" />
+                </div>
+            }
+        </div>
+        <div class="slider-nav col-lg-12" style="width:100%;margin-top:10px;">
+            @foreach (var img in (ViewBag.Product.Image).Split(','))
+            {
+                <div class="item1" style="float:left">
+                    <img src="@Url.Content("/UploadedImage/" + img)" width="80" alt="image" draggable="false" />
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6" style="width:100%;min-width:300px; max-width:630px;min-height:200px;max-height:540px;height:100%; padding-top:30px;padding-bottom:30px;">
+
+        <div style="margin-top:30px;font-size:27px;line-height:45px;"> @ViewBag.Product.ProductName_Lang</div>
+        <div style="border-bottom:1px solid #e1e1e1;margin-top:10px"></div>
+        <div style="margin-top:30px;margin-bottom:30px;">
+            @Html.Raw(@ViewBag.Product.ShortDescription_Lang)
+        </div>
+        <div style="border-bottom:1px solid #e1e1e1;margin-top:10px;font-size:16px"></div>
+        <div style="margin-top:20px;background-color:whitesmoke; border-radius:20px;width:320px;height:150px;padding: 20px 20px;">
+            <h5><label style="color:#ff6101;margin-left:5px;font-size:18px">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(ViewBag.Product.Price))).Replace(",", ".")</label></h5>
+            <h5><label style="margin-left:5px;">@ViewBag.Product.Capacity @ViewBag.Product.MeasureUnit</label></h5>
+            <div style="float:left;vertical-align:middle;">
+                @tinhGiot.Resources.Product_detail.Quantity
+                <input type="number" min="1" max="99" class="quantity_product" name="" value="1" placeholder="" style="height:36px;margin-right:20px;margin-left:5px;">
+                @foreach (var img in (ViewBag.Product.Image).Split(','))
+                {
+                    <label href="javascript:;" class="Btn_Buy btn-buy-detail" id="myBtn_@ViewBag.Product.ID" data-id="@ViewBag.Product.ID" productname="@ViewBag.Product.ProductName_Lang" data-img="@Url.Content(img)">@tinhGiot.Resources.Index.AddToBag</label>
+                    break;
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content-block">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div style="border-bottom:1px solid #e1e1e1;margin-top:10px"></div>
+        <div>
+            <h4 style="color:#318326">@tinhGiot.Resources.Product_detail.ProductDetail</h4>
+            <div> @Html.Raw(ViewBag.Product.Description_Lang)</div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div style="border-bottom:1px solid #e1e1e1;margin-top:10px"></div>
+        <p class="fixword">@Html.Raw(ViewBag.Product.Uses_Lang)</p>
+    </div>
+
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+
+        $('.slider-nav').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            asNavFor: '.slider-for',
+            dots: false,
+            centerMode: true,
+            focusOnSelect: true,
+            variableWidth: true
+        });
+    });
+</script>
+
+
+
+

@@ -1,0 +1,40 @@
+﻿<div  style="max-width:360px;text-align:center;margin-left:auto;margin-right:auto;max-height:270px;padding-top:30px; padding-bottom:30px;padding-left:20px;padding-right:20px;">
+    <input type="text" class="inptxtstyle" name="username" id="username" required placeholder="email">
+    <input type="password" class="inptxtstyle"  id="password" required pattern=".{6,}" name="password" placeholder="@tinhGiot.Resources.Login.password">
+    <div>
+        <a href="/@ViewBag.Language/Home/ForgotPassword" style="margin-top:10px;float:left;">
+            <span style="color:#B77C17">@tinhGiot.Resources.Login.ForgotPassword</span>
+        </a>
+        <input type="submit" class="button2" id="btnLogin" style="float:right;margin-top:10px;margin-bottom:10px;" value="@tinhGiot.Resources.Login._Login" />
+    </div>
+        <div class="clear"></div>
+    <a href="/@ViewBag.Language/Home/Registry" style="color:#B77C17;margin-top:20px;margin-bottom:23px;font-size:18px;font-weight:400; font-family: 'Roboto', sans-serif;"><u>@tinhGiot.Resources.Login.NewAccount</u></a>
+</div>
+<script type="text/javascript">
+    $('#btnLogin').on('click', function () {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        $.ajax({
+            url: "/@ViewBag.Language/Home/Login",
+            type: "post",
+            data: {
+                username: username,
+                password: password
+            },
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (result) {
+                if (result == 1) {
+                    if (window.location.href.includes("ProcessCheckout")) {
+                        window.location.reload();
+                    }   else
+                        window.location.href = "/@ViewBag.Language/Home/UserInfo";
+                } else {
+                    OpenWarningNotification(result);
+                    $("#password").focus();
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,110 @@
+﻿
+@model List<BaseClasses.UserOrder>
+@{
+    if (Session["userid"] == null)
+    {
+        Response.Redirect("/Home/Login");
+    }
+}
+@if (Model != null)
+{
+    <div style="min-height:700px">
+        <table id="tbOH" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th><b>@tinhGiot.Resources.OrderInfo.OrderedDate</b></th>
+                    <th><b>@tinhGiot.Resources.OrderInfo.Status</b></th>
+                    <th><b>@tinhGiot.Resources.OrderInfo.Payment</b></th>
+                    <th><b>@tinhGiot.Resources.OrderInfo.Price</b></th>
+                    <th><b></b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>@String.Format("{0:dd/MM/yyyy}", item.TimeOrder)</td>
+                        @switch (item.DeliveryStatus)
+                        {
+                            case "0":
+                                <td>@tinhGiot.Resources.OrderInfo.Pending</td>
+                                break;
+                            case "1":
+                                <td>@tinhGiot.Resources.OrderInfo.Confirmed</td>
+                                break;
+                            case "2":
+                                <td>@tinhGiot.Resources.OrderInfo.Packaging</td>
+                                break;
+                            case "3":
+                                <td>@tinhGiot.Resources.OrderInfo.OnTheWay</td>
+                                break;
+                            case "4":
+                                <td>@tinhGiot.Resources.OrderInfo.Delivered</td>
+                                break;
+
+                        }
+
+                        @if (!item.StatusPayment)
+                        {
+                            <td>@tinhGiot.Resources.OrderInfo.Unpaid</td>
+                        }
+                        else
+                        {
+                            <td>@tinhGiot.Resources.OrderInfo.Paid</td>
+                        }
+                        <td style="color:#ff6101">@Convert.ToString(String.Format("{0:#,### đ}", Convert.ToInt32(item.TotalPrice))).Replace(",", ".")</td>
+                        <td>
+                            <a href="javascript:;" onclick="showDetail('@BaseClasses.Cryptography.EncryptString(item.OrderID)')" class="Active_icon" style="cursor:pointer; color:#333333" >
+                                <img src="~/images/view.png" width="23" style="margin:auto;" />
+                            </a>
+                        </td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+}
+
+<div class="modal fade" id="ProductDetail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%;margin-left:0px;margin-right:0px;max-width:100% !important">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center" style="color:#000;line-height:28px;font-weight:200;">@tinhGiot.Resources.OrderInfo.OrderDetail</h4>
+            </div>
+            <div id="OrderDetail" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@tinhGiot.Resources.OrderInfo.Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="loading">Loading&#8230;</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tbOH").DataTable();
+    });
+    function showDetail(id) {
+        var url = '/OrderDetail/?OrderID=' + id;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'html',
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (data) {
+                $('#OrderDetail').html(data);
+                $('#ProductDetail').modal("show");
+            }
+        });
+    }
+</script>
